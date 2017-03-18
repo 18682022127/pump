@@ -790,7 +790,7 @@
 	
 	
   <modules>
-  	<module>pump-wechat-api</module>
+  	
   	<module>pump-util</module>
   	<module>pump-web</module>
   	<module>pump-support</module>
