@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exception-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://www.itouch8.com/schema/pump/exception"
+	xsi:schemaLocation="http://www.itouch8.com/schema/pump/exception pump-exception.xsd">
+	
+	<exception code="BF020000" description="数据访问层异常" messageKey="pump.core.dao" 
+		causes="java.sql.SQLException org.apache.ibatis.exceptions.PersistenceException org.springframework.dao.DataAccessException">
+		<exception code="BF020001" description="未注册的输出参数" messageKey="pump.core.dao.not_found_ouput_params"/>
+		<exception code="BF020002" description="数据库产品名称为空" messageKey="pump.core.dao.database_product_name_is_empty"/>
+		<exception code="BF020003" description="未配置数据库方言映射" messageKey="pump.core.dao.not_config_dialect_mapping"/>
+		<exception code="BF020004" description="没有找到数据库产品对应的方言" messageKey="pump.core.dao.not_found_dialect"/>
+		<exception code="BF020005" description="分页查询时计算总记录条数出现异常" messageKey="pump.core.dao.calculate_totals"/>
+		<exception code="BF020006" description="处理存储过程输出参数时出现异常" messageKey="pump.core.dao.handler_output_params"/>
+		<exception code="BF020007" description="未找到对应的数据源" messageKey="pump.core.dao.not_found_datasource"/>
+		<exception code="BF020008" description="使用OGNL解析需要设置到数据库中的参数时出现异常" messageKey="pump.core.dao.ognl_resolver_db_params"/>
+		<exception code="BF020009" description="初始化Mybatis集成数据源时出现异常" messageKey="pump.core.dao.init_mybatis_datasource"/>
+		<exception code="BF020010" description="获取数据库元信息异常" messageKey="pump.core.dao.database_meta"/>
+		<exception code="BF020011" description="获取表元信息异常" messageKey="pump.core.dao.table_meta"/>
+		<exception code="BF020012" description="单次读取数据量超出范围" messageKey="pump.core.dao.fetch_size_out_of_range"/>
+		<exception code="BF020013" description="批量执行的参数不正确" messageKey="pump.core.dao.batch_param_is_error"/>
+		<exception code="BF020014" description="批量注解@SqlRefs使用不正确" messageKey="pump.core.dao.batch_param_sqlrefs_error"/>
+		<exception code="BF020015" description="批量执行参数个数不匹配" messageKey="pump.core.dao.batch_param_size_not_equal"/>
+		<exception code="BF020016" description="没有找到sqlId" messageKey="pump.core.dao.not_found_mybatis_sqlId"/>
+		<exception code="BF020017" description="一次批量执行必须在同一个数据源" messageKey="pump.core.dao.batch_execute_must_in_some_datasource"/>
+		<exception code="BF020018" description="含批量注解，但返回值不是整型数组" messageKey="pump.core.dao.not_match_the_return_type_and_batch_param"/>
+		
+	</exception>
+</exception-config>

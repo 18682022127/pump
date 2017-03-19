@@ -1,0 +1,8 @@
+/.settings/
+*/.settings/
+/target/
+*/target/
+/bin
+*/bin
+/.svn/
+*/.svn/
