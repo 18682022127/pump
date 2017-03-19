@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.itouch8.com/schema/pump/logger"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:beans="http://www.springframework.org/schema/beans"
+		targetNamespace="http://www.itouch8.com/schema/pump/logger"
+		elementFormDefault="qualified"
+		attributeFormDefault="unqualified">
+
+	<xsd:import namespace="http://www.springframework.org/schema/beans" 
+		schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
+
+	<xsd:element name="logger">
+		<xsd:annotation>
+			<xsd:documentation>日志配置</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="stackFactory" minOccurs="0">
+					<xsd:complexType>
+						<xsd:choice minOccurs="0">
+							<xsd:element name="simple">
+								<xsd:complexType></xsd:complexType>
+							</xsd:element>
+							<xsd:element ref="beans:bean"/>
+							<xsd:element ref="beans:ref"/>
+						</xsd:choice>
+						<xsd:attribute name="ref" use="optional">
+							<xsd:simpleType>
+								<xsd:union memberTypes="xsd:string">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:enumeration value="simple"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:union>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="logTermination" minOccurs="0">
+					<xsd:complexType>
+						<xsd:choice maxOccurs="unbounded">
+							<xsd:element name="proxy">
+								<xsd:complexType></xsd:complexType>
+							</xsd:element>
+							<xsd:element ref="beans:bean"/>
+							<xsd:element ref="beans:ref"/>
+						</xsd:choice>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<!-- 产生堆栈信息的工厂类的引用 -->
+			<xsd:attribute name="stackFactory-ref" use="optional">
+				<xsd:simpleType>
+					<xsd:union memberTypes="xsd:string">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="simple"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<!-- 输出日志的终端列表的引用 -->
+			<xsd:attribute name="logTermination-ref" use="optional" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

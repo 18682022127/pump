@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exception-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://www.itouch8.com/schema/pump/exception"
+	xsi:schemaLocation="http://www.itouch8.com/schema/pump/exception pump-exception.xsd">
+
+	<exception code="BF030000" description="服务层异常" messageKey="pump.core.service">
+		<exception code="BF030001" description="Spring容器尚未初始化" messageKey="pump.core.service.spring_not_init"/>
+		<exception code="BF030002" description="从Spring容器中找不到bean" messageKey="pump.core.service.not_found_bean_from_spring"/>
+		<exception code="BF030003" description="异常配置中异常代码配置不能为空" messageKey="pump.core.service.exception_code_is_empty"/>
+		<exception code="BF030004" description="异常代码配置重复" messageKey="pump.core.service.exception_code_is_duplicate"/>
+		<exception code="BF030005" description="异常代码配置不正确" messageKey="pump.core.service.exception_code_is_error"/>
+		<exception code="BF030006" description="国际化文件的basename配置重复" messageKey="pump.core.service.locale_file_is_duplicate"/>
+		
+	</exception>
+</exception-config>

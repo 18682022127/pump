@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.itouch8.com/schema/pump/exception"
+	targetNamespace="http://www.itouch8.com/schema/pump/exception"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" version="1.0">
+	
+   	<xsd:element name="exception">
+   		<xsd:annotation><xsd:documentation><![CDATA[
+			定义异常元素
+		]]></xsd:documentation></xsd:annotation>
+   		<xsd:complexType>
+   			<xsd:sequence>
+   				<xsd:element ref="exception" minOccurs="0" maxOccurs="unbounded"/>
+   			</xsd:sequence>
+        	<xsd:attribute name="code" use="required">
+        		<xsd:annotation><xsd:documentation><![CDATA[
+					异常代码，需要全局唯一，八位字符，前两位大写英文字母，表示异常分类（其中PF为平台保留分类，应用不能使用），后6位为字母数字组合
+				]]></xsd:documentation></xsd:annotation>
+            	<xsd:simpleType>
+            		<xsd:restriction base="xsd:NMTOKEN">
+            			<xsd:pattern value="[A-Z]{2}[0-9A-Za-z]{6}"/>
+            		</xsd:restriction>
+            	</xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="messageKey" type="xsd:string" use="optional">
+            	<xsd:annotation><xsd:documentation><![CDATA[
+					国际化信息文件中的key值
+				]]></xsd:documentation></xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="level" use="optional">
+            	<xsd:annotation><xsd:documentation><![CDATA[
+					定义异常级别数据类型为枚举类型（INFO、ERROR、FATAL）
+				]]></xsd:documentation></xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:NMTOKEN">
+			   			<xsd:enumeration value="INFO">
+			   				<xsd:annotation><xsd:documentation><![CDATA[
+								业务异常，只需要将异常信息提示给业务人员即可，一般由数据校验组件或者开发人员抛出
+							]]></xsd:documentation></xsd:annotation>
+			   			</xsd:enumeration>
+			   			<xsd:enumeration value="ERROR">
+			   				<xsd:annotation><xsd:documentation><![CDATA[
+								运行时异常，影响本模块，或者局部非重点功能，一般需要技术人员跟踪
+							]]></xsd:documentation></xsd:annotation>
+			   			</xsd:enumeration>
+			   			<xsd:enumeration value="FATAL">
+			   				<xsd:annotation><xsd:documentation><![CDATA[
+								严重异常，影响整个系统正常运行或者重要模块功能
+							]]></xsd:documentation></xsd:annotation>
+			   			</xsd:enumeration>
+			   		</xsd:restriction>	
+				</xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="view" use="optional" type="xsd:string">
+            	<xsd:annotation><xsd:documentation><![CDATA[
+					定义异常的返回逻辑视图，异常处理器可以对该逻辑视图进行解析
+				]]></xsd:documentation></xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="handlers" use="optional" type="xsd:NMTOKENS">
+            	<xsd:annotation><xsd:documentation><![CDATA[
+					定义异常的处理器列表，这里使用Spring容器中的beanId表示处理器对象，如果有多个处理器，使用空格分开
+				]]></xsd:documentation></xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="causes" type="xsd:NMTOKENS" use="optional">
+            	<xsd:annotation><xsd:documentation><![CDATA[
+					定义异常的可能原因列表，为Throwable类的子类名称，如有多个，使用空格分开
+				]]></xsd:documentation></xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="description" type="xsd:string" use="optional">
+            	<xsd:annotation><xsd:documentation><![CDATA[
+					说明，程序读取配置的时候会忽略该配置
+				]]></xsd:documentation></xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+   	</xsd:element>
+</xsd:schema>

@@ -660,7 +660,7 @@
 						<!-- 由于测试插件会单独开启一个JVM，这里指定命令行参数，使用UTF-8编码 -->
 						<argLine>-Dfile.encoding=UTF-8</argLine>
 						<excludes>
-							<exclude>**/Beneform4jTest.java</exclude>
+							<exclude>**/PumpTest.java</exclude>
 						</excludes>
 					</configuration>
 				</plugin>
@@ -796,5 +796,6 @@
   	<module>pump-support</module>
   	<module>pump-core</module>
   	<module>pump-core-util</module>
+  	<module>pump-security</module>
   </modules>
 </project>

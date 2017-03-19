@@ -1,0 +1,2 @@
+http\://www.itouch8.com/schema/pump/exception=com.itouch8.pump.core.service.spring.schema.exception.PumpExceptionNamespaceHandler
+http\://www.itouch8.com/schema/pump/logger=com.itouch8.pump.core.service.spring.schema.logger.PumpLoggerNamespaceHandler
