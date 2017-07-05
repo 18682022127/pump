@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -21,22 +22,18 @@ import com.itouch8.pump.util.json.serial.stdexp.JsonBeanSerializerFactory;
 import com.itouch8.pump.util.json.serial.stdexp.JsonClassIntrospector;
 import com.itouch8.pump.util.json.serial.wrapper.IJsonWrapper;
 
-
 public abstract class JsonUtilsImpl {
 
     private static final JsonUtilsImpl instance = new JsonUtilsImpl() {};
 
     private JsonUtilsImpl() {}
 
-    
     public static JsonUtilsImpl getInstance() {
         return instance;
     }
 
-    
     private static ObjectMapper mapper = null;
 
-    
     public ObjectMapper getSingleonObjectMapper() {
         if (null == mapper) {
             synchronized (JsonUtilsImpl.class) {
@@ -49,7 +46,6 @@ public abstract class JsonUtilsImpl {
         return mapper;
     }
 
-    
     public ObjectMapper getObjectMapper() {
         ObjectMapper mapper = new ObjectMapper().configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true) // 允许使用单引号
                 .configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true) // 允许字段名不用引号
@@ -66,10 +62,10 @@ public abstract class JsonUtilsImpl {
         // 使用自定义的序列化工厂类（目前只替换了Map的序列化）
         BasicSerializerFactory sf = (BasicSerializerFactory) mapper.getSerializerFactory();
         mapper.setSerializerFactory(new JsonBeanSerializerFactory(sf.getFactoryConfig()));
+        mapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
         return mapper;
     }
 
-    
     public Map<String, Object> deserial2Map(String jsonString) {
         try {
             return getSingleonObjectMapper().readValue(jsonString, new TypeReference<Map<String, Object>>() {});
@@ -78,7 +74,6 @@ public abstract class JsonUtilsImpl {
         }
     }
 
-    
     public List<Map<String, Object>> deserial2ListMap(String jsonString) {
         try {
             return getSingleonObjectMapper().readValue(jsonString, new TypeReference<List<Map<String, Object>>>() {});
@@ -87,12 +82,10 @@ public abstract class JsonUtilsImpl {
         }
     }
 
-    
     public String serialize(Object original, ISerialConfig... configs) {
         return serialize(original, null, configs);
     }
 
-    
     public String serialize(Object original, IJsonWrapper wrapper, ISerialConfig... configs) {
         try {
             SerialConfigContext.addSerialConfigs(configs);
@@ -108,12 +101,10 @@ public abstract class JsonUtilsImpl {
         }
     }
 
-    
     public void serialize(OutputStream out, Object original, ISerialConfig... configs) {
         serialize(out, original, null, configs);
     }
 
-    
     public void serialize(OutputStream out, Object original, IJsonWrapper wrapper, ISerialConfig... configs) {
         try {
             SerialConfigContext.addSerialConfigs(configs);
@@ -129,7 +120,6 @@ public abstract class JsonUtilsImpl {
         }
     }
 
-    
     public <T> List<T> deserialize2ListBean(String content, Class<T> cls) {
 
         try {
@@ -140,7 +130,6 @@ public abstract class JsonUtilsImpl {
         return null;
     }
 
-    
     public <T> T deserialize2Bean(String content, Class<T> cls) {
 
         try {
@@ -151,7 +140,6 @@ public abstract class JsonUtilsImpl {
         return null;
     }
 
-    
     public <T> List<T> deserialize2ListBean(InputStream stream, Class<T> cls) {
 
         try {
@@ -162,7 +150,6 @@ public abstract class JsonUtilsImpl {
         return null;
     }
 
-    
     public <T> T deserialize2Bean(InputStream stream, Class<T> cls) {
 
         try {
