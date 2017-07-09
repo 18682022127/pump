@@ -17,14 +17,12 @@ import org.apache.commons.net.ftp.FTPFile;
 import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.core.util.logger.CommonLogger;
 import com.itouch8.pump.util.Tool;
-import com.itouch8.pump.util.toolimpl.RemoteFileEntry;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.ChannelSftp.LsEntry;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
-
 
 public class FtpUtilsImpl {
 
@@ -33,12 +31,10 @@ public class FtpUtilsImpl {
 
     private FtpUtilsImpl() {}
 
-    
     public static FtpUtilsImpl getInstance() {
         return instance;
     }
 
-    
     public boolean getFile(String server, int port, String username, String password, String ftpFolder, String ftpFileName, String localFolder, String localFileName) {
         boolean rtnFlag = false;
         FTPClient ftp = null;
@@ -81,7 +77,6 @@ public class FtpUtilsImpl {
         return rtnFlag;
     }
 
-    
     public InputStream getFile(String server, int port, String username, String password, String ftpFolder, String ftpFileName) {
         FTPClient ftp = null;
         InputStream stream = null;
@@ -104,7 +99,6 @@ public class FtpUtilsImpl {
         return stream;
     }
 
-    
     public boolean sendFile(String server, int port, String username, String password, String ftpFolder, String fullPathOfLocalFile, String ftpFileName) {
         boolean rtnFlag = false;
         FTPClient ftp = null;
@@ -145,8 +139,7 @@ public class FtpUtilsImpl {
         return rtnFlag;
     }
 
-    
-    public boolean sendFile(String server, int port, String username, String password, String ftpFolder, FileInputStream stream, String ftpFileName) {
+    public boolean sendFile(String server, int port, String username, String password, String ftpFolder, InputStream stream, String ftpFileName) {
         boolean rtnFlag = false;
         FTPClient ftp = null;
         BufferedInputStream fis = null;
@@ -186,7 +179,6 @@ public class FtpUtilsImpl {
         return rtnFlag;
     }
 
-    
     public boolean getSftpFile(String server, int port, String username, String password, String sftpFolder, String sftpFileName, String localFolder, String localFileName) {
         boolean rtnFlag = false;
         ChannelSftp channel = null;
@@ -225,7 +217,6 @@ public class FtpUtilsImpl {
         return rtnFlag;
     }
 
-    
     public InputStream getSftpFile(String server, int port, String username, String password, String sftpFolder, String sftpFileName) {
         ChannelSftp channel = null;
         InputStream stream = null;
@@ -253,7 +244,6 @@ public class FtpUtilsImpl {
         return stream;
     }
 
-    
     public boolean sendSftpFile(String server, int port, String username, String password, String sftpFolder, String fullPathOfLocalFile, String sftpFileName) {
         boolean rtnFlag = false;
         ChannelSftp channel = null;
@@ -288,8 +278,7 @@ public class FtpUtilsImpl {
         return rtnFlag;
     }
 
-    
-    public boolean sendSftpFile(String server, int port, String username, String password, String sftpFolder, FileInputStream stream, String sftpFileName) {
+    public boolean sendSftpFile(String server, int port, String username, String password, String sftpFolder, InputStream stream, String sftpFileName) {
         boolean rtnFlag = false;
         ChannelSftp channel = null;
         BufferedInputStream fis = null;
@@ -297,7 +286,6 @@ public class FtpUtilsImpl {
         try {
             channel = getChannelSftp(server, port, username, password);
             fis = new BufferedInputStream(stream, defaultBufferedSize);
-
             // 设置上传目录
             if (null != sftpFolder && 0 < sftpFolder.trim().length()) {
                 // 如果不存在目录，则创建目录
@@ -323,7 +311,6 @@ public class FtpUtilsImpl {
         return rtnFlag;
     }
 
-    
     public List<RemoteFileEntry> listFtpFiles(String server, int port, String username, String password, String path) {
         FTPClient ftp = null;
         FTPFile[] listFiles = null;
@@ -349,7 +336,6 @@ public class FtpUtilsImpl {
         return list;
     }
 
-    
     @SuppressWarnings("unchecked")
     public List<RemoteFileEntry> listSftpFiles(String server, int port, String username, String password, String path) {
         ChannelSftp channel = null;
@@ -384,7 +370,6 @@ public class FtpUtilsImpl {
         return list;
     }
 
-    
     public boolean removeFtpFile(String server, int port, String username, String password, String ftpFilePath) {
         FTPClient ftp = null;
         boolean rtnFlag = false;
@@ -399,7 +384,6 @@ public class FtpUtilsImpl {
         return rtnFlag;
     }
 
-    
     public boolean removeSftpFile(String server, int port, String username, String password, String ftpFilePath) {
         boolean rtnFlag = false;
         ChannelSftp channel = null;
@@ -489,23 +473,24 @@ public class FtpUtilsImpl {
 
     private void mkdirs(ChannelSftp channel, String path, String separator) throws Exception {
         if (null != path) {
-
             try {
                 channel.cd(path);
                 return;
-            } catch (Exception e) {
+            } catch (Exception ignore) {
             }
-
             String[] rs = Tool.STRING.split(path, separator);
             if (rs != null && rs.length > 0) {
                 for (String r : rs) {
                     // 如果不存在目录，则创建目录
-                    try {
-                        channel.cd(r);
-                    } catch (Exception e) {
-                        channel.mkdir(r);
-                        channel.cd(r);
+                    if (!Tool.CHECK.isEmpty(r)) {
+                        try {
+                            channel.cd(r);
+                        } catch (Exception e) {
+                            channel.mkdir(r);
+                            channel.cd(r);
+                        }
                     }
+
                 }
             }
         }

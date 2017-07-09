@@ -10,7 +10,6 @@ import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.web.exception.WebExceptionCodes;
 import com.itouch8.pump.web.upload.IUploadFile;
 
-
 public class SpringMVCUploadFile implements IUploadFile {
 
     private MultipartFile delegete;
