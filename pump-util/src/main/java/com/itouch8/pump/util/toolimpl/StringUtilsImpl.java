@@ -136,6 +136,17 @@ public abstract class StringUtilsImpl {
         return Base64.encodeBase64String(data.getBytes());
     }
 
+    public String encodeBase64(InputStream inputStream) throws Exception {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int n = 0;
+        while (-1 != (n = inputStream.read(buffer))) {
+            output.write(buffer, 0, n);
+        }
+        byte[] rsByte = output.toByteArray();
+        return Base64.encodeBase64String(rsByte);
+    }
+
     public String decodeBase64(String data) {
         byte[] s = Base64.decodeBase64(data);
         return new String(s);
