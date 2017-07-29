@@ -5,82 +5,56 @@ import com.itouch8.pump.security.core.access.permission.impl.PermissionManager;
 import com.itouch8.pump.security.core.login.user.IUser;
 import com.itouch8.pump.util.param.single.ISingleParamService;
 
-
 public class User implements IUser {
 
-    
     private String userId;
 
-    
     private String userName;
 
-    
     private String nickName;
 
-    
     private String userPwd;
 
-    
     private String userStatus;
 
-    
     private String orgId;
 
-    
     private String certType;
 
-    
     private String certNo;
 
-    
     private String mobilePhone;
 
-    
     private String telephone;
 
-    
     private String email;
 
-    
     private String limitIp;
 
-    
     private int onlineSessionNum;
 
-    
     private String lockFlag;
 
-    
     private String lockDate;
 
-    
     private String lockTime;
 
-    
     private int loginNum;
 
-    
     private String lastLoginIp;
 
-    
     private String lastLoginDate;
 
-    
     private String lastLoginTime;
 
-    
     private String modiPwdDate;
 
-    
     private String modiPwdTime;
 
-    
-    private int currentRoleId = -1;
+    private String currentRoleId = "-1";
 
-    
     private IPermissionManager permissionManager = new PermissionManager();
 
-    
     private ISingleParamService paramService;
 
     @Override
@@ -282,12 +256,12 @@ public class User implements IUser {
     }
 
     @Override
-    public int getCurrentRoleId() {
+    public String getCurrentRoleId() {
         return currentRoleId;
     }
 
     @Override
-    public void setCurrentRoleId(int currentRoleId) {
+    public void setCurrentRoleId(String currentRoleId) {
         this.currentRoleId = currentRoleId;
     }
 
