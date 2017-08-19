@@ -1,11 +1,18 @@
 package com.itouch8.pump.security.core.login.user.impl;
 
+import java.io.Serializable;
+
 import com.itouch8.pump.security.core.access.permission.IPermissionManager;
 import com.itouch8.pump.security.core.access.permission.impl.PermissionManager;
 import com.itouch8.pump.security.core.login.user.IUser;
 import com.itouch8.pump.util.param.single.ISingleParamService;
 
-public class User implements IUser {
+public class User implements IUser, Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8857643683247256762L;
 
     private String userId;
 

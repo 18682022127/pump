@@ -1,5 +1,6 @@
 package com.itouch8.pump.security.core.access.permission.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,19 +14,19 @@ import com.itouch8.pump.security.core.access.permission.IPermissionManager;
 import com.itouch8.pump.util.tree.ITree;
 import com.itouch8.pump.util.tree.impl.Tree;
 
+public class PermissionManager implements IPermissionManager, Serializable {
 
-public class PermissionManager implements IPermissionManager {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6082443648039314264L;
 
-    
     private final Set<Integer> roleIds = new HashSet<Integer>();
 
-    
     private final Set<Integer> permissionIds = new HashSet<Integer>();
 
-    
     private final List<IMenuPermission> menuPermissions = new ArrayList<IMenuPermission>();
 
-    
     private ITree<IMenuPermission> menuTree;
 
     @Override
