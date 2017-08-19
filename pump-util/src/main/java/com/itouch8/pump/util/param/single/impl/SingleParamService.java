@@ -1,5 +1,6 @@
 package com.itouch8.pump.util.param.single.impl;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.itouch8.pump.core.util.CoreUtils;
@@ -11,8 +12,12 @@ import com.itouch8.pump.util.param.common.IParamStore;
 import com.itouch8.pump.util.param.single.ISingleParam;
 import com.itouch8.pump.util.param.single.ISingleParamService;
 
+public class SingleParamService extends AbstractParamServiceApi<ISingleParam> implements ISingleParamService, Serializable {
 
-public class SingleParamService extends AbstractParamServiceApi<ISingleParam> implements ISingleParamService {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2175598670576814529L;
 
     private static final String ENCRYPT_FLAG = "ENCRYPT";
 
@@ -54,7 +59,6 @@ public class SingleParamService extends AbstractParamServiceApi<ISingleParam> im
         return null == value ? defaultValue : value;
     }
 
-    
     public void refresh() {
         IParamStore<ISingleParam> store = super.getStore();
         if (null != store) {
