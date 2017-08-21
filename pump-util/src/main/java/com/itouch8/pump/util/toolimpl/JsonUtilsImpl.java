@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -123,11 +124,15 @@ public abstract class JsonUtilsImpl {
     public <T> List<T> deserialize2ListBean(String content, Class<T> cls) {
 
         try {
-            return getSingleonObjectMapper().readValue(content, new TypeReference<List<T>>() {});
+            return getSingleonObjectMapper().readValue(content, getType(getSingleonObjectMapper(), List.class, cls));
         } catch (IOException e) {
             Throw.throwRuntimeException(e);
         }
         return null;
+    }
+
+    private JavaType getType(ObjectMapper mapper, Class<?> cls, Class<?>... cs) {
+        return mapper.getTypeFactory().constructParametricType(cls, cs);
     }
 
     public <T> T deserialize2Bean(String content, Class<T> cls) {
