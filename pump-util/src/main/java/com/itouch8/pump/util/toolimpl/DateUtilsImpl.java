@@ -1,10 +1,11 @@
 package com.itouch8.pump.util.toolimpl;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.itouch8.pump.core.util.CoreUtils;
-
 
 public abstract class DateUtilsImpl {
 
@@ -16,72 +17,58 @@ public abstract class DateUtilsImpl {
         System.out.println(getInstance().dateCalculate("20160620", 0, 0, 128));
     }
 
-    
     public static DateUtilsImpl getInstance() {
         return instance;
     }
 
-    
     public String getDate() {
         return CoreUtils.getDate();
     }
 
-    
     public String getTime() {
         return CoreUtils.getTime();
     }
 
-    
     public String getDateAndTime() {
         return CoreUtils.getDateAndTime();
     }
 
-    
     public String getDateAndTime(Date date) {
         return CoreUtils.getDateAndTime(date);
     }
 
-    
     public String getFormatDate(Date date, String format) {
         return CoreUtils.getFormatDate(date, format);
     }
 
-    
     public String dateCalculate(String date, int mYear, int mMonth, int mDay) {
         return CoreUtils.dateCalculate(date, mYear, mMonth, mDay);
     }
 
-    
     public String dateCalculate(String date, String format, int mYear, int mMonth, int mDay) {
         return CoreUtils.dateCalculate(date, format, mYear, mMonth, mDay);
     }
 
-    
     public Date dateCalculate(Date date, int mYear, int mMonth, int mDay) {
         return CoreUtils.dateCalculate(date, mYear, mMonth, mDay);
     }
 
-    
     public int dayOfYear(int year, int month, int day) {
         return CoreUtils.dayOfYear(year, month, day);
     }
 
-    
     public boolean isLeapYear(int year) {
         return CoreUtils.isLeapYear(year);
     }
 
-    
     public int getMaxDayOfMonth(int year, int month) {
         return CoreUtils.getMaxDayOfMonth(year, month);
     }
 
-    
     public long getTime(String datetime, String datetimeFormat) {
         return CoreUtils.getTime(datetime, datetimeFormat);
     }
 
-    
     public boolean isValidDate(String date, String format) {
         boolean result = false;
 
@@ -146,7 +133,6 @@ public abstract class DateUtilsImpl {
         return result;
     }
 
-    
     public boolean isValidDate(int year, int month, int day) {
         if ((month < 1) || (month > 12)) {
             return false;
@@ -158,7 +144,6 @@ public abstract class DateUtilsImpl {
         return true;
     }
 
-    
     public boolean isValidTime(int hour, int minute, int second, int millisecond) {
         if ((hour < 0) || (hour >= 24)) {
             return false;
@@ -175,8 +160,24 @@ public abstract class DateUtilsImpl {
         return true;
     }
 
-    
     public boolean isValidDateTime(int year, int month, int day, int hour, int minute, int second, int millisecond) {
         return (isValidDate(year, month, day) && isValidTime(hour, minute, second, millisecond));
+    }
+
+    public int daysBetween(String smdate, String bdate, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Calendar cal = Calendar.getInstance();
+        long between_days = 0;
+        try {
+            cal.setTime(sdf.parse(smdate));
+            long time1 = cal.getTimeInMillis();
+            cal.setTime(sdf.parse(bdate));
+            long time2 = cal.getTimeInMillis();
+            between_days = (time2 - time1) / (1000 * 3600 * 24);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return Integer.parseInt(String.valueOf(between_days));
     }
 }
