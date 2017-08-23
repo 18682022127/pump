@@ -1,5 +1,8 @@
 package com.itouch8.pump.web.springmvc.argumentresolver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.core.MethodParameter;
@@ -10,8 +13,10 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.itouch8.pump.util.Tool;
 import com.itouch8.pump.web.WebUtils;
 import com.itouch8.pump.web.servlet.ServletHelp;
+import com.itouch8.pump.web.upload.FileData;
 import com.itouch8.pump.web.upload.FileForm;
 import com.itouch8.pump.web.upload.IUploadFile;
 
@@ -31,14 +36,38 @@ public class FileFormArgumentResolver implements HandlerMethodArgumentResolver {
         } else {
             request = WebUtils.getRequest();
         }
+        String[] fileNames = request.getParameterValues("fileName");
+        String[] fileTypes = request.getParameterValues("fileType");
+        String[] fileBase64 = request.getParameterValues("fileBase64");
+        List<FileData> ls = new ArrayList<FileData>();
+        if (fileNames != null && fileTypes != null) {
+            for (int i = 0; i < fileNames.length; i++) {
+                if (!Tool.CHECK.isBlank(fileNames[i]) && !Tool.CHECK.isBlank(fileTypes[i])) {
+                    FileData data = new FileData();
+                    data.setFileName(fileNames[i]);
+                    data.setFileType(fileTypes[i]);
+                    data.setFileBase64(fileBase64[i]);
+                    ls.add(data);
+                }
+
+            }
+        }
         if (request instanceof MultipartRequest) {
             ServletHelp.setRequestAndResponse(request, null);
             IUploadFile[] uploadFiles = ServletHelp.getUploadFile();
-            if (null != uploadFiles && uploadFiles.length != 0)
-                if (FileForm.class.isAssignableFrom(parameter.getParameterType())) {
-                    form.setFiles(uploadFiles);
+            if (null != uploadFiles && uploadFiles.length != 0) {
+                for (IUploadFile f : uploadFiles) {
+                    FileData data = new FileData();
+                    data.setFileName(f.getOriginalFilename());
+                    data.setInputStream(f.getInputStream());
+                    data.setFileType(f.getContentType());
+                    data.setSize(f.getSize());
+                    ls.add(data);
                 }
+            }
+
         }
+        form.setFileDatas(ls);
         return form;
     }
 }
