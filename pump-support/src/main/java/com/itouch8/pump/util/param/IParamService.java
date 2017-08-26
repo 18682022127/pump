@@ -44,5 +44,5 @@ public interface IParamService {
 
     public List<IParam> getParameters(List<String> names);
 
-    public List<Map<String, String>> sGetTableParameters(String sourceId, String code, String text, String where, String order);
+    public List<Map<String, String>> sGetTableParameters(ParamQuery query);
 }
