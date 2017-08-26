@@ -4,17 +4,9 @@ import java.util.List;
 
 public class FileForm {
 
-    private IUploadFile[] files;
-
     private List<FileData> fileDatas;
 
-    public IUploadFile[] getFiles() {
-        return files;
-    }
-
-    public void setFiles(IUploadFile[] files) {
-        this.files = files;
-    }
+    private String addonData = null;
 
     public List<FileData> getFileDatas() {
         return fileDatas;
@@ -22,6 +14,14 @@ public class FileForm {
 
     public void setFileDatas(List<FileData> fileDatas) {
         this.fileDatas = fileDatas;
+    }
+
+    public String getAddonData() {
+        return addonData;
+    }
+
+    public void setAddonData(String addonData) {
+        this.addonData = addonData;
     }
 
 }
