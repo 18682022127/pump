@@ -10,6 +10,8 @@ public class FileData {
 
     private String fileBase64;
 
+    private String fileThumbBase64;
+
     private long size;
 
     public byte[] bytes;
@@ -62,6 +64,14 @@ public class FileData {
 
     public void setInputStream(InputStream inputStream) {
         this.inputStream = inputStream;
+    }
+
+    public String getFileThumbBase64() {
+        return fileThumbBase64;
+    }
+
+    public void setFileThumbBase64(String fileThumbBase64) {
+        this.fileThumbBase64 = fileThumbBase64;
     }
 
 }

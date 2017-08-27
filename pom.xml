@@ -358,6 +358,16 @@
 				<artifactId>jackson-databind</artifactId>
 				<version>${jackson.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
 			<!-- jackson的JSON包依赖结束 -->
 			<!-- Freemarker模板引擎依赖包开始 -->
 			<dependency>
