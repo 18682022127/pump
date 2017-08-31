@@ -12,17 +12,15 @@ import com.itouch8.pump.core.service.request.IRequestInfo;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.track.Tracker;
 import com.itouch8.pump.web.annotation.JsonBodySupport;
+import com.itouch8.pump.web.report.annotation.ReportSupport;
 import com.itouch8.pump.web.request.log.IRequestLog;
 import com.itouch8.pump.web.request.log.impl.RequestLogChain;
 import com.itouch8.pump.web.servlet.ServletHelp;
 
-
 public class RequestFilter extends AbstractSkipPathMatcherFilter {
 
-    
     private static final IRequestLog log = new RequestLogChain();
 
-    
     @Override
     protected void executeFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         Tracker.start();
@@ -38,13 +36,13 @@ public class RequestFilter extends AbstractSkipPathMatcherFilter {
         } finally {
             CoreUtils.clearThreadCache();
             JsonBodySupport.removeJsonBodyInfoFormContext();
+            ReportSupport.removeReportDataFromContext();
             DataStreamMapperMethodExecutor.clearDataStreamReader();
             ServletHelp.remove();
             Tracker.stop();
         }
     }
 
-    
     @Override
     protected void initFilterBean() throws ServletException {
         super.initFilterBean();
