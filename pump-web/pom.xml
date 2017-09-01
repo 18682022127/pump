@@ -39,6 +39,30 @@
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		<!-- Spring框架依赖结束 -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports</artifactId>
+		</dependency>		
+		<dependency>
+		    <groupId>org.codehaus.groovy</groupId>
+		    <artifactId>groovy-all</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.olap4j</groupId>
+		    <artifactId>olap4j</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.codehaus.groovy</groupId>
+		    <artifactId>groovy-all</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.lowagie</groupId>
+		    <artifactId>itext</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>itext-asian</artifactId>
+		</dependency>
 		<!-- 容器依赖开始 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

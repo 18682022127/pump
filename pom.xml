@@ -41,6 +41,13 @@
 		<jackson.version>2.7.0</jackson.version>
 		<guava.version>19.0</guava.version>
 		<ehcache.version>2.6.11</ehcache.version>
+		
+		
+		<jasperreports.version>6.4.1</jasperreports.version>
+		<itext.version>2.1.7</itext.version>
+		<itextasian.version>5.2.0</itextasian.version>
+		<olap4j.version>1.2.0</olap4j.version>
+		<groovy.version>2.4.12</groovy.version>
 
 		<poi.version>3.15</poi.version>
 		<jett-core.version>0.10.0</jett-core.version>
@@ -511,6 +518,32 @@
 				<groupId>com.jcraft</groupId>
 				<artifactId>jsch</artifactId>
 				<version>0.1.53</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>net.sf.jasperreports</groupId>
+			    <artifactId>jasperreports</artifactId>
+			    <version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>com.lowagie</groupId>
+			    <artifactId>itext</artifactId>
+			    <version>${itext.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>com.itextpdf</groupId>
+			    <artifactId>itext-asian</artifactId>
+			    <version>${itextasian.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.olap4j</groupId>
+			    <artifactId>olap4j</artifactId>
+			    <version>${olap4j.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.codehaus.groovy</groupId>
+			    <artifactId>groovy-all</artifactId>
+			    <version>${groovy.version}</version>
 			</dependency>
 			<!-- 容器依赖开始 -->
 			<dependency>
