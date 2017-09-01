@@ -25,6 +25,8 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
 
     public static final String DEFAULT_DATA_KEY = "report_data_key";
 
+    public static final String DEFAULT_PARAM_KEY = "report_param_key";
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         return true;
@@ -37,6 +39,7 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
             Report annotation = method.getMethod().getAnnotation(Report.class);
             Object data = ReportSupport.getReportDataContext();
             if (null != annotation) {
+
                 String reportPath = annotation.value();
                 if (null != modelAndView) {
                     modelAndView.getModelMap().clear();

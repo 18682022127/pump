@@ -7,7 +7,7 @@ public class ReportSupport {
     private static final ThreadLocal<Object> reportDataInfo = new ThreadLocal<Object>();
 
     public static void setReportDataContext(Object data) {
-        ReportSupport.reportDataInfo.set(data);
+        reportDataInfo.set(data);
     }
 
     public static Object getReportDataContext() {
