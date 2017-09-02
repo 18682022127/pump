@@ -1,5 +1,6 @@
 package com.itouch8.pump.web.report.intercept;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -35,6 +36,10 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
 
     public static final String DEFAULT_PARAM_KEY = "report_param_key";
 
+    private static final String CLASSPATH_URL_PREFIX = "classpath:jaspers/";
+
+    private static final String URL_PREFIX = "jaspers/";
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         return true;
@@ -50,11 +55,17 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
 
                 String reportPath = annotation.value();
                 if (null != modelAndView) {
+                    String url = CLASSPATH_URL_PREFIX + getUrl(reportPath);
                     modelAndView.getModelMap().clear();
                     modelAndView.setViewName(VIEW_NAME);
-                    modelAndView.addObject("url", reportPath);
+                    modelAndView.addObject("url", url);
                     if (!modelAndView.getModelMap().containsKey("format")) {
                         modelAndView.addObject("format", DEFAULT_FORMAT);
+                    }
+                    if (!modelAndView.getModelMap().containsKey("SUBREPORT_DIR")) {
+                        String dir = ReportHandlerInterceptor.class.getResource("/").getPath().substring(1) + URL_PREFIX + getUrl(reportPath);
+                        String subReportDir = new File(dir).getParent() + File.separator;
+                        modelAndView.addObject("SUBREPORT_DIR", subReportDir);
                     }
                     modelAndView.addObject(DEFAULT_DATA_KEY, getData(data));
                 }
@@ -75,6 +86,14 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
             return new JRBeanCollectionDataSource(resultSet);
         }
 
+    }
+
+    private String getUrl(String url) {
+        if (url.endsWith(".jasper")) {
+            return url;
+        } else {
+            return url + ".jasper";
+        }
     }
 
     @Override
