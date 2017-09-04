@@ -628,12 +628,12 @@
 		<repository>
 			<id>nexus-releases</id>
 			<name>Releases</name>
-			<url>http://itouch8:8081/repository/maven-releases/</url>
+			<url>http://192.168.0.108:8081/repository/maven-releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
 			<name>Snapshots</name>
-			<url>http://itouch8:8081/repository/maven-snapshots/</url>
+			<url>http://192.168.0.108:8081/repository/maven-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<build>
