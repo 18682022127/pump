@@ -52,9 +52,8 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
             Report annotation = method.getMethod().getAnnotation(Report.class);
             Object data = ReportSupport.getReportDataContext();
             if (null != annotation) {
-
                 String reportPath = annotation.value();
-                if (null != modelAndView) {
+                if (null != modelAndView && !Tool.CHECK.isBlank(reportPath)) {
                     String url = CLASSPATH_URL_PREFIX + getUrl(reportPath);
                     modelAndView.getModelMap().clear();
                     modelAndView.setViewName(VIEW_NAME);
@@ -67,7 +66,9 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
                         String subReportDir = new File(dir).getParent() + File.separator;
                         modelAndView.addObject("SUBREPORT_DIR", subReportDir);
                     }
+                    String server = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/doc/view?fileId=";
                     modelAndView.addObject(DEFAULT_DATA_KEY, getData(data));
+                    modelAndView.addObject("IMAGE_SERVER", server);
                 }
             }
         }
@@ -76,13 +77,14 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
     }
 
     private JRDataSource getData(Object data) {
+        if (Tool.CHECK.isEmpty(data)) {
+            return null;
+        }
         if (data instanceof Collection) {
             return new JRBeanCollectionDataSource((Collection<?>) data);
         } else {
             List<Object> resultSet = new ArrayList<Object>();
-            if (!Tool.CHECK.isEmpty(data)) {
-                resultSet.add(data);
-            }
+            resultSet.add(data);
             return new JRBeanCollectionDataSource(resultSet);
         }
 

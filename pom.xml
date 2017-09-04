@@ -45,6 +45,7 @@
 		
 		<jasperreports.version>6.4.1</jasperreports.version>
 		<jasperreports-font.version>6.0.0</jasperreports-font.version>
+		<batik.version>1.9.1</batik.version>
 		<itext.version>2.1.7</itext.version>
 		<itextasian.version>5.2.0</itextasian.version>
 		<olap4j.version>1.2.0</olap4j.version>
@@ -525,6 +526,11 @@
 			    <groupId>net.sf.jasperreports</groupId>
 			    <artifactId>jasperreports</artifactId>
 			    <version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.apache.xmlgraphics</groupId>
+			    <artifactId>batik-bridge</artifactId>
+			    <version>${batik.version}</version>
 			</dependency>
 			<dependency>
 			    <groupId>net.sf.jasperreports</groupId>
