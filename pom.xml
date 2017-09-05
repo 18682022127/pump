@@ -44,7 +44,7 @@
 		
 		
 		<jasperreports.version>6.4.1</jasperreports.version>
-		<!-- <jasperreports-font.version>6.0.0</jasperreports-font.version> -->
+		<jasperreports-font.version>6.0.0</jasperreports-font.version>
 		<batik.version>1.9.1</batik.version>
 		<itext.version>2.1.7</itext.version>
 		<itextasian.version>5.2.0</itextasian.version>
@@ -532,11 +532,11 @@
 			    <artifactId>batik-bridge</artifactId>
 			    <version>${batik.version}</version>
 			</dependency>
-			<!-- <dependency>
+			<dependency>
 			    <groupId>net.sf.jasperreports</groupId>
 			    <artifactId>jasperreports-fonts</artifactId>
 			    <version>${jasperreports-font.version}</version>
-			</dependency> -->
+			</dependency>
 			<dependency>
 			    <groupId>com.lowagie</groupId>
 			    <artifactId>itext</artifactId>
