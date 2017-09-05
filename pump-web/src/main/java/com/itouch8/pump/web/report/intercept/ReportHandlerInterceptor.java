@@ -28,18 +28,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
  */
 public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
 
-    private static final String VIEW_NAME = "report";
-
-    private static final String DEFAULT_FORMAT = "pdf";
-
-    public static final String DEFAULT_DATA_KEY = "report_data_key";
-
-    public static final String DEFAULT_PARAM_KEY = "report_param_key";
-
-    private static final String CLASSPATH_URL_PREFIX = "classpath:jaspers/";
-
-    private static final String URL_PREFIX = "jaspers/";
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         return true;
@@ -54,20 +42,16 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
             if (null != annotation) {
                 String reportPath = annotation.value();
                 if (null != modelAndView && !Tool.CHECK.isBlank(reportPath)) {
-                    String url = CLASSPATH_URL_PREFIX + getUrl(reportPath);
+                    String url = getClassPathUrlPrefix() + getUrl(reportPath);
+                    String dir = ReportHandlerInterceptor.class.getResource("/").getPath().substring(1) + getUrlPrefix() + getUrl(reportPath);
+                    String subReportDir = new File(dir).getParent() + File.separator;
+                    String server = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/doc/view?fileId=";
                     modelAndView.getModelMap().clear();
                     modelAndView.setViewName(VIEW_NAME);
                     modelAndView.addObject("url", url);
-                    if (!modelAndView.getModelMap().containsKey("format")) {
-                        modelAndView.addObject("format", DEFAULT_FORMAT);
-                    }
-                    if (!modelAndView.getModelMap().containsKey("SUBREPORT_DIR")) {
-                        String dir = ReportHandlerInterceptor.class.getResource("/").getPath().substring(1) + URL_PREFIX + getUrl(reportPath);
-                        String subReportDir = new File(dir).getParent() + File.separator;
-                        modelAndView.addObject("SUBREPORT_DIR", subReportDir);
-                    }
-                    String server = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/doc/view?fileId=";
-                    modelAndView.addObject(DEFAULT_DATA_KEY, getData(data));
+                    modelAndView.addObject("format", getFormat());
+                    modelAndView.addObject(getDatakey(), getData(data));
+                    modelAndView.addObject("SUBREPORT_DIR", subReportDir);
                     modelAndView.addObject("IMAGE_SERVER", server);
                 }
             }
@@ -100,4 +84,55 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {}
+
+    private static final String VIEW_NAME = "ReportView";
+
+    private static final String DEFAULT_FORMAT = "pdf";
+
+    public static final String DEFAULT_DATA_KEY = "report_data_key";
+
+    private static final String CLASSPATH_URL_PREFIX = "classpath:jaspers/";
+
+    private static final String URL_PREFIX = "jaspers/";
+
+    private String format = DEFAULT_FORMAT;
+
+    private String datakey = DEFAULT_DATA_KEY;
+
+    private String classPathUrlPrefix = CLASSPATH_URL_PREFIX;
+
+    private String urlPrefix = URL_PREFIX;
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public String getDatakey() {
+        return datakey;
+    }
+
+    public void setDatakey(String datakey) {
+        this.datakey = datakey;
+    }
+
+    public String getClassPathUrlPrefix() {
+        return classPathUrlPrefix;
+    }
+
+    public void setClassPathUrlPrefix(String classPathUrlPrefix) {
+        this.classPathUrlPrefix = classPathUrlPrefix;
+    }
+
+    public String getUrlPrefix() {
+        return urlPrefix;
+    }
+
+    public void setUrlPrefix(String urlPrefix) {
+        this.urlPrefix = urlPrefix;
+    }
+
 }
