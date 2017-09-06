@@ -20,4 +20,6 @@ public @interface Report {
 
     String value() default "";
 
+    String format() default "pdf";
+
 }

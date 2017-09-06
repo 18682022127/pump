@@ -49,7 +49,7 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
                     modelAndView.getModelMap().clear();
                     modelAndView.setViewName(VIEW_NAME);
                     modelAndView.addObject("url", url);
-                    modelAndView.addObject("format", getFormat());
+                    modelAndView.addObject("format", annotation.format());
                     modelAndView.addObject(getDatakey(), getData(data));
                     modelAndView.addObject("SUBREPORT_DIR", subReportDir);
                     modelAndView.addObject("IMAGE_SERVER", server);
@@ -87,29 +87,17 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
 
     private static final String VIEW_NAME = "ReportView";
 
-    private static final String DEFAULT_FORMAT = "pdf";
-
     public static final String DEFAULT_DATA_KEY = "report_data_key";
 
     private static final String CLASSPATH_URL_PREFIX = "classpath:jaspers/";
 
     private static final String URL_PREFIX = "jaspers/";
 
-    private String format = DEFAULT_FORMAT;
-
     private String datakey = DEFAULT_DATA_KEY;
 
     private String classPathUrlPrefix = CLASSPATH_URL_PREFIX;
 
     private String urlPrefix = URL_PREFIX;
-
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
 
     public String getDatakey() {
         return datakey;
