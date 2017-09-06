@@ -2,6 +2,7 @@ package com.itouch8.pump.web.report;
 
 import java.util.Map;
 
+import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView;
 
 import com.itouch8.pump.web.report.annotation.ReportSupport;
@@ -30,8 +31,7 @@ public class ReportView extends JasperReportsMultiFormatView {
 
     protected JasperPrint fillReport(Map<String, Object> model) throws Exception {
         if (model.containsKey("url")) {
-            setUrl((String) model.get("url"));
-            this.jasperReport = loadReport();
+            this.jasperReport = loadReport((Resource) model.get("url"));
             JasperPrint fillReport = super.fillReport(model);
             ReportSupport.removeReportDataFromContext();
             return fillReport;
@@ -42,11 +42,6 @@ public class ReportView extends JasperReportsMultiFormatView {
 
     protected JasperReport getReport() {
         return this.jasperReport;
-    }
-
-    @Override
-    public void setExporterParameters(Map<?, ?> parameters) {
-        super.setExporterParameters(parameters);
     }
 
 }

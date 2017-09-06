@@ -8,7 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.util.ResourceUtils;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -43,18 +43,16 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
             if (null != annotation) {
                 String reportPath = annotation.value();
                 if (null != modelAndView && !Tool.CHECK.isBlank(reportPath)) {
-                    File file = ResourceUtils.getFile("classpath:/jaspers/" + getUrl(reportPath));
-                    if (file.exists()) {
-                        String subReportDir = file.getParent() + File.separator;
-                        String server = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/doc/view?fileId=";
-                        modelAndView.getModelMap().clear();
-                        modelAndView.setViewName(VIEW_NAME);
-                        modelAndView.addObject("url", file.getAbsolutePath());
-                        modelAndView.addObject("format", annotation.format());
-                        modelAndView.addObject(getDatakey(), getData(data));
-                        modelAndView.addObject("SUBREPORT_DIR", subReportDir);
-                        modelAndView.addObject("IMAGE_SERVER", server);
-                    }
+                    ClassPathResource rs = new ClassPathResource("jaspers/" + getUrl(reportPath));
+                    String subReportDir = rs.getFile().getParent() + File.separator;
+                    String server = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/doc/view?fileId=";
+                    modelAndView.getModelMap().clear();
+                    modelAndView.setViewName(VIEW_NAME);
+                    modelAndView.addObject("url", rs);
+                    modelAndView.addObject("format", annotation.format());
+                    modelAndView.addObject(getDatakey(), getData(data));
+                    modelAndView.addObject("SUBREPORT_DIR", subReportDir);
+                    modelAndView.addObject("IMAGE_SERVER", server);
 
                 }
             }
@@ -94,9 +92,13 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
 
     private static final String CLASSPATH_URL_PREFIX = "classpath*:jaspers/";
 
+    private static final String URL_PREFIX = "jaspers/";
+
     private String datakey = DEFAULT_DATA_KEY;
 
     private String classPathUrlPrefix = CLASSPATH_URL_PREFIX;
+
+    private String urlPrefix = URL_PREFIX;
 
     public String getDatakey() {
         return datakey;
@@ -112,6 +114,14 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
 
     public void setClassPathUrlPrefix(String classPathUrlPrefix) {
         this.classPathUrlPrefix = classPathUrlPrefix;
+    }
+
+    public String getUrlPrefix() {
+        return urlPrefix;
+    }
+
+    public void setUrlPrefix(String urlPrefix) {
+        this.urlPrefix = urlPrefix;
     }
 
 }
