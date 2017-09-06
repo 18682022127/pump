@@ -49,7 +49,7 @@ public class ReportHandlerInterceptor extends HandlerInterceptorAdapter {
                         String server = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/doc/view?fileId=";
                         modelAndView.getModelMap().clear();
                         modelAndView.setViewName(VIEW_NAME);
-                        modelAndView.addObject("url", file.getPath());
+                        modelAndView.addObject("url", file.getAbsolutePath());
                         modelAndView.addObject("format", annotation.format());
                         modelAndView.addObject(getDatakey(), getData(data));
                         modelAndView.addObject("SUBREPORT_DIR", subReportDir);
