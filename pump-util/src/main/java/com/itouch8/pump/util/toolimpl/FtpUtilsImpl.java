@@ -247,10 +247,23 @@ public class FtpUtilsImpl {
     public boolean sendSftpFile(String server, int port, String username, String password, String sftpFolder, String fullPathOfLocalFile, String sftpFileName) {
         boolean rtnFlag = false;
         ChannelSftp channel = null;
+        try {
+            channel = getChannelSftp(server, port, username, password);
+            sendSftpFile(channel, sftpFolder, fullPathOfLocalFile, sftpFileName);
+            rtnFlag = true;
+        } catch (Exception e) {
+            Throw.throwRuntimeException("与SFTP服务器通讯出错：" + e);
+        } finally {
+            closeChannelSftp(channel);
+        }
+        return rtnFlag;
+    }
+
+    public boolean sendSftpFile(ChannelSftp channel, String sftpFolder, String fullPathOfLocalFile, String sftpFileName) {
+        boolean rtnFlag = false;
         BufferedInputStream fis = null;
 
         try {
-            channel = getChannelSftp(server, port, username, password);
             fis = new BufferedInputStream(new FileInputStream(fullPathOfLocalFile), defaultBufferedSize);
 
             // 设置上传目录
@@ -273,7 +286,6 @@ public class FtpUtilsImpl {
             Throw.throwRuntimeException("与SFTP服务器通讯出错：" + e);
         } finally {
             Tool.IO.closeQuietly(fis);
-            closeChannelSftp(channel);
         }
         return rtnFlag;
     }
@@ -281,10 +293,24 @@ public class FtpUtilsImpl {
     public boolean sendSftpFile(String server, int port, String username, String password, String sftpFolder, InputStream stream, String sftpFileName) {
         boolean rtnFlag = false;
         ChannelSftp channel = null;
+        try {
+            channel = getChannelSftp(server, port, username, password);
+            sendSftpFile(channel, sftpFolder, stream, sftpFileName);
+            rtnFlag = true;
+        } catch (Exception e) {
+            Throw.throwRuntimeException("与SFTP服务器通讯出错：" + e);
+        } finally {
+            closeChannelSftp(channel);
+        }
+        return rtnFlag;
+    }
+
+    public boolean sendSftpFile(ChannelSftp channel, String sftpFolder, InputStream stream, String sftpFileName) {
+        boolean rtnFlag = false;
         BufferedInputStream fis = null;
 
         try {
-            channel = getChannelSftp(server, port, username, password);
+            channel.cd(channel.getHome());
             fis = new BufferedInputStream(stream, defaultBufferedSize);
             // 设置上传目录
             if (null != sftpFolder && 0 < sftpFolder.trim().length()) {
@@ -306,7 +332,7 @@ public class FtpUtilsImpl {
             Throw.throwRuntimeException("与SFTP服务器通讯出错：" + e);
         } finally {
             Tool.IO.closeQuietly(fis);
-            closeChannelSftp(channel);
+
         }
         return rtnFlag;
     }
@@ -384,12 +410,9 @@ public class FtpUtilsImpl {
         return rtnFlag;
     }
 
-    public boolean removeSftpFile(String server, int port, String username, String password, String ftpFilePath) {
+    public boolean removeSftpFile(ChannelSftp channel, String ftpFilePath) {
         boolean rtnFlag = false;
-        ChannelSftp channel = null;
-
         try {
-            channel = getChannelSftp(server, port, username, password);
             // 删除文件
             try {
                 channel.rm(ftpFilePath);
@@ -397,6 +420,19 @@ public class FtpUtilsImpl {
             } catch (Exception e) {
                 CommonLogger.error(" delete file ------- " + ftpFilePath + " failure");
             }
+            rtnFlag = true;
+        } catch (Exception e) {
+            Throw.throwRuntimeException("与SFTP服务器通讯出错：" + e);
+        }
+        return rtnFlag;
+    }
+
+    public boolean removeSftpFile(String server, int port, String username, String password, String ftpFilePath) {
+        boolean rtnFlag = false;
+        ChannelSftp channel = null;
+        try {
+            channel = getChannelSftp(server, port, username, password);
+            removeSftpFile(channel, ftpFilePath);
             rtnFlag = true;
         } catch (Exception e) {
             Throw.throwRuntimeException("与SFTP服务器通讯出错：" + e);
@@ -435,7 +471,7 @@ public class FtpUtilsImpl {
         }
     }
 
-    private ChannelSftp getChannelSftp(String server, int port, String username, String password) {
+    public ChannelSftp getChannelSftp(String server, int port, String username, String password) {
         ChannelSftp channel = null;
         try {
 
@@ -457,7 +493,7 @@ public class FtpUtilsImpl {
         return channel;
     }
 
-    private void closeChannelSftp(ChannelSftp channel) {
+    public void closeChannelSftp(ChannelSftp channel) {
         if (null != channel && channel.isConnected()) {
             try {
                 Session session = channel.getSession();
