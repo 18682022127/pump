@@ -1,13 +1,7 @@
 package com.itouch8.pump.security.core.common.exception;
 
-import com.itouch8.pump.core.dao.exception.DaoExceptionCodes;
-import com.itouch8.pump.core.service.exception.ServiceExceptionCodes;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
-
-
 public class SecurityExceptionCodes {
 
-    
     public static final String NOT_FOUND_PERMISSION = "BF040001";// 未找到请求的功能权限
     public static final String SESSION_TIMEOUT = "BF040002";// 会话已超时，或者未登录
     public static final String NO_AUTHORITY = "BF040003";// 未授权
