@@ -1,23 +1,19 @@
 package com.itouch8.pump.web.exception;
 
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
-
-
 public class WebExceptionCodes {
 
-    
-    public static final String BF060000 = "BF060000";
-    public static final String BF060001 = "BF060001";
-    public static final String BF060002 = "BF060002";
-    public static final String BF060003 = "BF060003";
-    public static final String BF060004 = "BF060004";
-    public static final String BF060005 = "BF060005";
-    public static final String BF060006 = "BF060006";
-    public static final String BF060007 = "BF060007";
-    public static final String BF060008 = "BF060008";
-    public static final String BF060009 = "BF060009";
-    public static final String BF060010 = "BF060010";
-    public static final String BF060011 = "BF060011";
-    public static final String BF060012 = "BF060012";
+    public static final String YT060000 = "YT060000";
+    public static final String YT060001 = "YT060001";
+    public static final String YT060002 = "YT060002";
+    public static final String YT060003 = "YT060003";
+    public static final String YT060004 = "YT060004";
+    public static final String YT060005 = "YT060005";
+    public static final String YT060006 = "YT060006";
+    public static final String YT060007 = "YT060007";
+    public static final String YT060008 = "YT060008";
+    public static final String YT060009 = "YT060009";
+    public static final String YT060010 = "YT060010";
+    public static final String YT060011 = "YT060011";
+    public static final String YT060012 = "YT060012";
 
 }

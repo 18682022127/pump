@@ -42,7 +42,7 @@ public class SpringMVCUploadFile implements IUploadFile {
         try {
             return delegete.getBytes();
         } catch (IOException e) {
-            throw Throw.createRuntimeException(WebExceptionCodes.BF060001, e, getOriginalFilename());
+            throw Throw.createRuntimeException(WebExceptionCodes.YT060001, e, getOriginalFilename());
         }
     }
 
@@ -50,7 +50,7 @@ public class SpringMVCUploadFile implements IUploadFile {
         try {
             return delegete.getInputStream();
         } catch (IOException e) {
-            throw Throw.createRuntimeException(WebExceptionCodes.BF060001, e, getOriginalFilename());
+            throw Throw.createRuntimeException(WebExceptionCodes.YT060001, e, getOriginalFilename());
         }
     }
 
@@ -58,7 +58,7 @@ public class SpringMVCUploadFile implements IUploadFile {
         try {
             delegete.transferTo(file);
         } catch (IOException e) {
-            throw Throw.createRuntimeException(WebExceptionCodes.BF060001, e, getOriginalFilename());
+            throw Throw.createRuntimeException(WebExceptionCodes.YT060001, e, getOriginalFilename());
         }
     }
 

@@ -72,7 +72,7 @@ public class ResultSetHandlerInterceptor extends AbstractInterceptor {
                     } catch (Exception ignore) {
                     }
                 } catch (Exception e) {
-                    Throw.throwRuntimeException(DaoExceptionCodes.BF020006, e);
+                    Throw.throwRuntimeException(DaoExceptionCodes.YT020006, e);
                 }
             }
         }

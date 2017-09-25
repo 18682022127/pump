@@ -1,23 +1,19 @@
 package com.itouch8.pump.core.service.exception;
 
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
-
-
 public class ServiceExceptionCodes {
 
-    
-    public static final String BF030000 = "BF030000";
-    public static final String BF030001 = "BF030001";
-    public static final String BF030002 = "BF030002";
-    public static final String BF030003 = "BF030003";
-    public static final String BF030004 = "BF030004";
-    public static final String BF030005 = "BF030005";
-    public static final String BF030006 = "BF030006";
-    public static final String BF030007 = "BF030007";
-    public static final String BF030008 = "BF030008";
-    public static final String BF030009 = "BF030009";
-    public static final String BF030010 = "BF030010";
-    public static final String BF030011 = "BF030011";
-    public static final String BF030012 = "BF030012";
+    public static final String YT030000 = "YT030000";
+    public static final String YT030001 = "YT030001";
+    public static final String YT030002 = "YT030002";
+    public static final String YT030003 = "YT030003";
+    public static final String YT030004 = "YT030004";
+    public static final String YT030005 = "YT030005";
+    public static final String YT030006 = "YT030006";
+    public static final String YT030007 = "YT030007";
+    public static final String YT030008 = "YT030008";
+    public static final String YT030009 = "YT030009";
+    public static final String YT030010 = "YT030010";
+    public static final String YT030011 = "YT030011";
+    public static final String YT030012 = "YT030012";
 
 }

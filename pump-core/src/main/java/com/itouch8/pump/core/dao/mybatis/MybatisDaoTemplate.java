@@ -217,13 +217,13 @@ public class MybatisDaoTemplate implements IDaoTemplate {
         } else if (sqlIds.isEmpty()) {
             return ArrayUtils.EMPTY_INT_ARRAY;
         } else if (null != parameters && sqlIds.size() != parameters.size()) {
-            throw Throw.createRuntimeException(DaoExceptionCodes.BF020015, sqlIds.size(), null == parameters ? 0 : parameters.size());
+            throw Throw.createRuntimeException(DaoExceptionCodes.YT020015, sqlIds.size(), null == parameters ? 0 : parameters.size());
         } else {
             String sqlId = sqlIds.get(0);
             DataSource ds = MybatisUtils.getDataSource(sqlId);
             for (int i = 1, s = sqlIds.size(); i < s; i++) {// 确认是同一个数据源
                 if (ds != MybatisUtils.getDataSource(sqlIds.get(i))) {// 这里直接比较是否为同一个数据源对象
-                    Throw.throwRuntimeException(DaoExceptionCodes.BF020017, SqlManager.getExecuteSqlId(sqlId), SqlManager.getExecuteSqlId(sqlIds.get(i)));
+                    Throw.throwRuntimeException(DaoExceptionCodes.YT020017, SqlManager.getExecuteSqlId(sqlId), SqlManager.getExecuteSqlId(sqlIds.get(i)));
                 }
             }
             return this.doExecuteBatch(ds, sqlIds, parameters);

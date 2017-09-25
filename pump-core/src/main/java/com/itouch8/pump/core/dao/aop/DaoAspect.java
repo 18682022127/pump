@@ -22,7 +22,7 @@ public class DaoAspect {
             return rs;
         } catch (Throwable e) {
             CommonLogger.error("the DAO method has occured exception, execute failure and exit after " + (System.currentTimeMillis() - start) + " ms, method: " + point.getSignature(), e, logger);
-            throw Throw.createRuntimeException(DaoExceptionCodes.BF020000, e);
+            throw Throw.createRuntimeException(DaoExceptionCodes.YT020000, e);
         }
     }
 }

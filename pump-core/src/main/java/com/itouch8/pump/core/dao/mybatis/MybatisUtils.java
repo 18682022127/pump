@@ -85,7 +85,7 @@ public class MybatisUtils {
         statement = SqlManager.getExecuteSqlId(statement);
         DaoTemplateMapper jdtm = mapper.get(statement);
         if (null == jdtm) {
-            Throw.throwRuntimeException(DaoExceptionCodes.BF020016, statement);
+            Throw.throwRuntimeException(DaoExceptionCodes.YT020016, statement);
         }
         return jdtm;
     }

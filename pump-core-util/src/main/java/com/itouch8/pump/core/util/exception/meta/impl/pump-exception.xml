@@ -3,41 +3,41 @@
 	xmlns="http://www.itouch8.com/schema/pump/exception"
 	xsi:schemaLocation="http://www.itouch8.com/schema/pump/exception pump-exception.xsd">
 	<!-- 平台异常 -->
-	<exception code="BF000000" description="平台异常" messageKey="pump.exception" causes="java.lang.Throwable"/>
-	<!-- 平台核心工具层异常，以BF01开始 -->
-	<exception code="BF010000" description="平台核心工具层异常" messageKey="pump.core.util">
-		<exception code="BF010001" description="出现循环依赖" messageKey="pump.core.util.cycle_dependent"/>
-		<exception code="BF010002" description="不支持的字符集" messageKey="pump.core.util.charset_not_supported"/>
-		<exception code="BF010003" description="OGNL表达式解析异常" messageKey="pump.core.util.ognl_error"/>
-		<exception code="BF010004" description="JDK版本过低" messageKey="pump.core.util.jdk_version_not_supported"/>
-		<exception code="BF010005" description="类实例化异常" messageKey="pump.core.util.class_create_error"/>
-		<exception code="BF010006" description="访问缓存的权限越界" messageKey="pump.core.util.cache.reject_visit"/>
-		<exception code="BF010007" description="未设置默认的缓存名称" messageKey="pump.core.util.cache.unset_default_cache"/>
-		<exception code="BF010008" description="未找到默认的缓存名称" messageKey="pump.core.util.cache.not_found_default_cache"/>
-		<exception code="BF010009" description="缓存处理出现异常" messageKey="pump.core.util.cache.cache_handler_error"/>
-		<exception code="BF010010" description="不支持的Locale对象" messageKey="pump.core.util.locale_not_supported"/>
-		<exception code="BF010011" description="SpEL表达式解析异常" messageKey="pump.core.util.spel_error"/>
+	<exception code="YT000000" description="平台异常" messageKey="pump.exception" causes="java.lang.Throwable"/>
+	<!-- 平台核心工具层异常，以YT01开始 -->
+	<exception code="YT010000" description="平台核心工具层异常" messageKey="pump.core.util">
+		<exception code="YT010001" description="出现循环依赖" messageKey="pump.core.util.cycle_dependent"/>
+		<exception code="YT010002" description="不支持的字符集" messageKey="pump.core.util.charset_not_supported"/>
+		<exception code="YT010003" description="OGNL表达式解析异常" messageKey="pump.core.util.ognl_error"/>
+		<exception code="YT010004" description="JDK版本过低" messageKey="pump.core.util.jdk_version_not_supported"/>
+		<exception code="YT010005" description="类实例化异常" messageKey="pump.core.util.class_create_error"/>
+		<exception code="YT010006" description="访问缓存的权限越界" messageKey="pump.core.util.cache.reject_visit"/>
+		<exception code="YT010007" description="未设置默认的缓存名称" messageKey="pump.core.util.cache.unset_default_cache"/>
+		<exception code="YT010008" description="未找到默认的缓存名称" messageKey="pump.core.util.cache.not_found_default_cache"/>
+		<exception code="YT010009" description="缓存处理出现异常" messageKey="pump.core.util.cache.cache_handler_error"/>
+		<exception code="YT010010" description="不支持的Locale对象" messageKey="pump.core.util.locale_not_supported"/>
+		<exception code="YT010011" description="SpEL表达式解析异常" messageKey="pump.core.util.spel_error"/>
 		
-		<exception code="BF010100" description="IO异常" messageKey="pump.core.util.io">
-			<exception code="BF010101" description="文件路径不存在" messageKey="pump.core.util.io.file_not_found"/>
-			<exception code="BF010102" description="包路径不存在" messageKey="pump.core.util.io.package_not_found"/>
-			<exception code="BF010103" description="扫描包路径时出现异常" messageKey="pump.core.util.io.scan_error"/>
+		<exception code="YT010100" description="IO异常" messageKey="pump.core.util.io">
+			<exception code="YT010101" description="文件路径不存在" messageKey="pump.core.util.io.file_not_found"/>
+			<exception code="YT010102" description="包路径不存在" messageKey="pump.core.util.io.package_not_found"/>
+			<exception code="YT010103" description="扫描包路径时出现异常" messageKey="pump.core.util.io.scan_error"/>
 		</exception>
-		<exception code="BF010200" description="初始化异常" messageKey="pump.core.util.init">
-			<exception code="BF010201" description="初始化方法执行异常" messageKey="pump.core.util.init.initmethod_execute_exception"/>
-			<exception code="BF010202" description="销毁方法执行异常" messageKey="pump.core.util.init.destorymethod_execute_exception"/>
+		<exception code="YT010200" description="初始化异常" messageKey="pump.core.util.init">
+			<exception code="YT010201" description="初始化方法执行异常" messageKey="pump.core.util.init.initmethod_execute_exception"/>
+			<exception code="YT010202" description="销毁方法执行异常" messageKey="pump.core.util.init.destorymethod_execute_exception"/>
 		</exception>
 		
-		<exception code="BF010300" description="树异常">
-			<exception code="BF010301" description="树构建异常" messageKey="pump.core.util.tree.build_exception"/>
-			<exception code="BF010302" description="不能获取节点类型" messageKey="pump.core.util.tree.node_class_is_unknown"/>
-			<exception code="BF010303" description="根节点创建异常" messageKey="pump.core.util.tree.root_node_build_exception"/>
-			<exception code="BF010304" description="节点关系存在循环" messageKey="pump.core.util.tree.exist_isolate_nodes"/>
-			<exception code="BF010305" description="存在空节点，或节点代码为空" messageKey="pump.core.util.tree.exist_empty_node"/>
-			<exception code="BF010306" description="节点集为空" messageKey="pump.core.util.tree.nodes_is_empty"/>
-			<exception code="BF010307" description="存在重复的节点代码" messageKey="pump.core.util.tree.exist_repeated_node"/>
-			<exception code="BF010308" description="根据代码获取节点失败" messageKey="pump.core.util.tree.get_node_failure_by_code"/>
-			<exception code="BF010309" description="节点索引超出范围" messageKey="pump.core.util.tree.node_index_out_of_bounds"/>
+		<exception code="YT010300" description="树异常">
+			<exception code="YT010301" description="树构建异常" messageKey="pump.core.util.tree.build_exception"/>
+			<exception code="YT010302" description="不能获取节点类型" messageKey="pump.core.util.tree.node_class_is_unknown"/>
+			<exception code="YT010303" description="根节点创建异常" messageKey="pump.core.util.tree.root_node_build_exception"/>
+			<exception code="YT010304" description="节点关系存在循环" messageKey="pump.core.util.tree.exist_isolate_nodes"/>
+			<exception code="YT010305" description="存在空节点，或节点代码为空" messageKey="pump.core.util.tree.exist_empty_node"/>
+			<exception code="YT010306" description="节点集为空" messageKey="pump.core.util.tree.nodes_is_empty"/>
+			<exception code="YT010307" description="存在重复的节点代码" messageKey="pump.core.util.tree.exist_repeated_node"/>
+			<exception code="YT010308" description="根据代码获取节点失败" messageKey="pump.core.util.tree.get_node_failure_by_code"/>
+			<exception code="YT010309" description="节点索引超出范围" messageKey="pump.core.util.tree.node_index_out_of_bounds"/>
 		</exception>
 	</exception>
 </exception-config>

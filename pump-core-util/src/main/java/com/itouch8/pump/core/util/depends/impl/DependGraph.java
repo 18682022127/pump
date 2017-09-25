@@ -95,7 +95,7 @@ public class DependGraph<E extends IDependNode> implements IDependGraph<E> {
                 srcNodeId = srcNode.getId();
             }
             sb.insert(0, id + "-->");
-            Throw.throwRuntimeException(ExceptionCodes.BF010001, sb);
+            Throw.throwRuntimeException(ExceptionCodes.YT010001, sb);
         } else {
             node.nodeStatus = 2;
             int index = node.dependIndex;

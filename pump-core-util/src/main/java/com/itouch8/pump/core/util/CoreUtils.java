@@ -531,7 +531,7 @@ final public class CoreUtils {
             }
             return org.springframework.util.ClassUtils.forName(name, classLoader);
         } catch (Exception ex) {
-            throw Throw.createRuntimeException(ExceptionCodes.BF010005, ex, name);
+            throw Throw.createRuntimeException(ExceptionCodes.YT010005, ex, name);
         }
     }
 

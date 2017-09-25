@@ -152,7 +152,7 @@ public class InitManage {
                 this.destoryMethod = getMethod(cls, init.destory());
                 this.ignoreException = init.ignoreRuntimeException();
             } catch (Exception e) {
-                Throw.throwRuntimeException(ExceptionCodes.BF010101, e, cls.getName());
+                Throw.throwRuntimeException(ExceptionCodes.YT010101, e, cls.getName());
             }
         }
 
@@ -171,7 +171,7 @@ public class InitManage {
             } catch (Exception e) {
                 CommonLogger.error(order + " (error). the initialize method has occured exception: " + initMethod, e);
                 if (!this.ignoreException) {
-                    Throw.throwRuntimeException(ExceptionCodes.BF010201, e, id, initMethod);
+                    Throw.throwRuntimeException(ExceptionCodes.YT010201, e, id, initMethod);
                 }
             }
         }
@@ -187,7 +187,7 @@ public class InitManage {
             } catch (Exception e) {
                 CommonLogger.error(order + " (error). the destroy method has occured exception : " + destoryMethod, e);
                 if (!this.ignoreException) {
-                    Throw.throwRuntimeException(ExceptionCodes.BF010202, e, id, destoryMethod);
+                    Throw.throwRuntimeException(ExceptionCodes.YT010202, e, id, destoryMethod);
                 }
             }
         }

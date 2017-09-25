@@ -41,7 +41,7 @@ public class Caches {
     
     public static void assertNotPumpCache(String cacheName) {
         if (isPumpCache(cacheName)) {
-            Throw.throwRuntimeException(ExceptionCodes.BF010006, "", cacheName);
+            Throw.throwRuntimeException(ExceptionCodes.YT010006, "", cacheName);
         }
     }
 
@@ -53,7 +53,7 @@ public class Caches {
     
     public static void checkCacheName(String cacheName, String visitClassName) {
         if (isPumpCache(cacheName) && !isPumpClass(visitClassName)) {
-            Throw.throwRuntimeException(ExceptionCodes.BF010006, visitClassName, cacheName);
+            Throw.throwRuntimeException(ExceptionCodes.YT010006, visitClassName, cacheName);
         }
     }
 
@@ -209,11 +209,11 @@ public class Caches {
     private static Cache getDefaultCache() {
         String cacheName = BaseConfig.getDefaultCacheName();
         if (CoreUtils.isBlank(cacheName)) {
-            Throw.throwRuntimeException(ExceptionCodes.BF010007);
+            Throw.throwRuntimeException(ExceptionCodes.YT010007);
         }
         Cache cache = getCache0(cacheName, 3);
         if (null == cache) {
-            Throw.throwRuntimeException(ExceptionCodes.BF010008, cacheName);
+            Throw.throwRuntimeException(ExceptionCodes.YT010008, cacheName);
         }
         return cache;
     }

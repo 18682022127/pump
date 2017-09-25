@@ -36,14 +36,14 @@ public class SpringExceptionMetaLoader extends XmlExceptionMetaLoader {
             Set<SchemaExceptionMeta> metas = meta.getMetas();
             if (CoreUtils.isBlank(code)) {
                 if (null == metas || metas.isEmpty()) {// 没有code，同时没有子配置
-                    Throw.throwRuntimeException(ServiceExceptionCodes.BF030003);
+                    Throw.throwRuntimeException(ServiceExceptionCodes.YT030003);
                 } else {
                     code = generateExceptionCode();
                 }
             } else if (codeMetaMapping.containsKey(code)) {
-                Throw.throwRuntimeException(ServiceExceptionCodes.BF030004, code);
+                Throw.throwRuntimeException(ServiceExceptionCodes.YT030004, code);
             } else if (!exceptionCodePatter.matcher(code).find()) {
-                Throw.throwRuntimeException(ServiceExceptionCodes.BF030005, code);
+                Throw.throwRuntimeException(ServiceExceptionCodes.YT030005, code);
             }
             meta.setHandlers(resolverExceptionHandlers(meta.getSchemaHandlers()));
             codeMetaMapping.put(code, meta);

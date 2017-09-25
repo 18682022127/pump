@@ -56,7 +56,7 @@ public class SpringHelp implements ApplicationContextAware {
     
     public static ApplicationContext getApplicationContext() {
         if (null == context) {
-            Throw.throwRuntimeException(ServiceExceptionCodes.BF030001);
+            Throw.throwRuntimeException(ServiceExceptionCodes.YT030001);
         }
         return context;
     }
@@ -66,7 +66,7 @@ public class SpringHelp implements ApplicationContextAware {
         try {
             return getApplicationContext().getBean(name);
         } catch (BeansException e) {
-            throw Throw.createRuntimeException(ServiceExceptionCodes.BF030002, name);
+            throw Throw.createRuntimeException(ServiceExceptionCodes.YT030002, name);
         }
     }
 
@@ -80,7 +80,7 @@ public class SpringHelp implements ApplicationContextAware {
         try {
             return getApplicationContext().getBean(cls);
         } catch (BeansException e) {
-            throw Throw.createRuntimeException(ServiceExceptionCodes.BF030002, cls);
+            throw Throw.createRuntimeException(ServiceExceptionCodes.YT030002, cls);
         }
     }
 
@@ -89,7 +89,7 @@ public class SpringHelp implements ApplicationContextAware {
         try {
             return getApplicationContext().getBean(name, cls);
         } catch (BeansException e) {
-            throw Throw.createRuntimeException(ServiceExceptionCodes.BF030002, "name=" + name + ";class=" + cls);
+            throw Throw.createRuntimeException(ServiceExceptionCodes.YT030002, "name=" + name + ";class=" + cls);
         }
     }
 
@@ -98,7 +98,7 @@ public class SpringHelp implements ApplicationContextAware {
         try {
             return getApplicationContext().getBeansOfType(cls);
         } catch (BeansException e) {
-            throw Throw.createRuntimeException(ServiceExceptionCodes.BF030002, cls);
+            throw Throw.createRuntimeException(ServiceExceptionCodes.YT030002, cls);
         }
     }
 
