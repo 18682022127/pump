@@ -17,6 +17,9 @@ public class UsernamePasswordCompToken implements IAuthenticationToken {
     @NotBlank(message = "{Size.usernamePasswordToken.compId}")
     private String compId;
 
+    @NotBlank(message = "{NotBlank.usernamePasswordToken.captcha}")
+    private String captcha;
+
     public String getCompId() {
         return compId;
     }
@@ -50,4 +53,13 @@ public class UsernamePasswordCompToken implements IAuthenticationToken {
     public Object getCredentials() {
         return getUserPwd();
     }
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
+    }
+
 }
