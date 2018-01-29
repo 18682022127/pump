@@ -25,7 +25,7 @@
    			</xsd:sequence>
         	<xsd:attribute name="code" use="required">
         		<xsd:annotation><xsd:documentation><![CDATA[
-					异常代码，需要全局唯一，八位字符，前两位大写英文字母，表示异常分类（其中BF为平台保留分类，应用不能使用），后6位为字母数字组合
+					异常代码，需要全局唯一，八位字符，前两位大写英文字母，表示异常分类（其中YT为平台保留分类，应用不能使用），后6位为字母数字组合
 				]]></xsd:documentation></xsd:annotation>
             	<xsd:simpleType>
             		<xsd:restriction base="xsd:NMTOKEN">

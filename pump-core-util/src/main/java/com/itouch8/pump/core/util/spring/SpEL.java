@@ -178,7 +178,7 @@ public class SpEL implements ApplicationContextAware {
             Map<String, Object> varis = (Map<String, Object>) variablesField.get(evaluationContext);
             return varis;
         } catch (Exception e) {
-            throw Throw.createRuntimeException(ExceptionCodes.BF010011, e);
+            throw Throw.createRuntimeException(ExceptionCodes.YT010011, e);
         }
     }
 

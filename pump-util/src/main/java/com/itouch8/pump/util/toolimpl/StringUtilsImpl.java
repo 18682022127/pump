@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -420,6 +421,38 @@ public abstract class StringUtilsImpl {
     public String getUUID() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
+
+    public String getRandomStr() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 16; i++) {
+            sb.append(RANDOM_STR.charAt(RANDOM.nextInt(RANDOM_STR.length())));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 元转分
+     * 
+     * @param yuan
+     * @return
+     */
+    public Integer Yuan2Fen(BigDecimal yuan) {
+        return yuan.movePointRight(2).intValue();
+    }
+
+    /**
+     * 分转元
+     * 
+     * @param fen
+     * @return
+     */
+    public BigDecimal Fen2Yuan(Integer fen) {
+        return new BigDecimal(fen).movePointLeft(2);
+    }
+
+    private static final String RANDOM_STR = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    private static final java.util.Random RANDOM = new java.util.Random();
 
     private static final Pattern pattern = Pattern.compile("\\$\\{\\s*(\\w+)\\s*(?:,\\s*(\\d+))?\\s*\\}");
 

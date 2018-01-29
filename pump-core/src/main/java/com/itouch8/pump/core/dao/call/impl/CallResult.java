@@ -28,7 +28,7 @@ public class CallResult implements ICallResult {
     @Override
     public <T> T getOutputParam(String name) {
         if (!resultMaps.containsKey(name)) {
-            Throw.createRuntimeException(DaoExceptionCodes.BF020001, name);
+            Throw.createRuntimeException(DaoExceptionCodes.YT020001, name);
         }
         return CoreUtils.cast(resultMaps.get(name));
     }

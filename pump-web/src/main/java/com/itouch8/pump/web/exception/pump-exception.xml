@@ -3,8 +3,8 @@
 	xmlns="http://www.itouch8.com/schema/pump/exception"
 	xsi:schemaLocation="http://www.itouch8.com/schema/pump/exception pump-exception.xsd">
 	
-	<exception code="BF060000" description="Web控制层异常" messageKey="pump.web">
-		<exception code="BF060001" description="上传文件IO异常" messageKey="pump.web.upload_io_exception"/>
+	<exception code="YT060000" description="Web控制层异常" messageKey="pump.web">
+		<exception code="YT060001" description="上传文件IO异常" messageKey="pump.web.upload_io_exception"/>
 	
 	</exception>
 </exception-config>

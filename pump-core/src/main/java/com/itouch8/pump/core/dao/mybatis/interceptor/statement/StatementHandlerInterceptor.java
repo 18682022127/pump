@@ -113,7 +113,7 @@ public class StatementHandlerInterceptor extends AbstractInterceptor {
             }
             page.setPageProperty(total);
         } catch (SQLException e) {
-            Throw.throwRuntimeException(DaoExceptionCodes.BF020005, e);
+            Throw.throwRuntimeException(DaoExceptionCodes.YT020005, e);
         } finally {
             try {
                 if (null != rs) {

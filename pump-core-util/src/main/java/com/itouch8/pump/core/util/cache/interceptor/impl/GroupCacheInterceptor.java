@@ -34,7 +34,7 @@ public class GroupCacheInterceptor extends CacheInterceptorSupport {
                 if (name.matcher(cacheName).find()) {
                     Pattern allow = cacheNamePatternMapping.get(name);
                     if (!allow.matcher(targetClassName).find()) {
-                        Throw.throwRuntimeException(ExceptionCodes.BF010006, targetClassName, cacheName);
+                        Throw.throwRuntimeException(ExceptionCodes.YT010006, targetClassName, cacheName);
                     }
                 }
             }

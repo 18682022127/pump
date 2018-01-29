@@ -13,10 +13,8 @@ import com.itouch8.pump.util.tree.ITree;
 import com.itouch8.pump.util.tree.ITreeNode;
 import com.itouch8.pump.util.tree.ITreeNodeFilter;
 
-
 public class Tree<E extends ITreeNode> implements ITree<E> {
 
-    
     private static final long serialVersionUID = 4367174862859216659L;
 
     private E root; // 根节点
@@ -25,22 +23,18 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
 
     private Map<String, Integer> codeIdMapping = new HashMap<String, Integer>(); // 节点代码与ID的映射
 
-    
     public Tree() {
         this(null);
     }
 
-    
     public Tree(List<E> nodeList) {
         this(nodeList, "", "根节点");
     }
 
-    
     public Tree(List<E> nodeList, String rootCode, String rootText) {
         build(nodeList, rootCode, rootText);
     }
 
-    
     protected void build(List<E> nodeList, String rootCode, String rootText) {
         this.root = null;
         this.nodeList.clear();
@@ -48,9 +42,9 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         try {
             if (null == nodeList || nodeList.isEmpty()) {
                 // this.root = getRootNode(null, rootCode, rootText);
-                // Throw.throwRuntimeException(ExceptionCodes.BF010305);
+                // Throw.throwRuntimeException(ExceptionCodes.YT010305);
             } else {
-                
+
                 Set<String> codes = new HashSet<String>();
                 List<E> nodes = new ArrayList<E>(nodeList.size());
                 for (E node : nodeList) {
@@ -79,7 +73,6 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         }
     }
 
-    
     @Override
     public E getNode(String code) {
         Integer id = this.codeIdMapping.get(code);
@@ -90,7 +83,6 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         }
     }
 
-    
     @Override
     public E getNode(int id) {
         if (id == 0) {
@@ -101,25 +93,21 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         return this.nodeList.get(id - 1);
     }
 
-    
     @Override
     public E getRoot() {
         return this.root;
     }
 
-    
     @Override
     public boolean containsCode(String code) {
         return null != codeIdMapping && codeIdMapping.containsKey(code);
     }
 
-    
     @Override
     public List<E> getNodeList() {
         return Collections.unmodifiableList(nodeList);
     }
 
-    
     @Override
     public List<E> getNodeList(ITreeNodeFilter filter) {
         if (null == nodeList) {
@@ -135,13 +123,11 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         }
     }
 
-    
     @Override
     public ITree<E> getSubTree(String code) {
         return getSubTree(code, (ITreeNodeFilter) null, true);
     }
 
-    
     @Override
     public ITree<E> getSubTree(final int depth) {
         return getSubTree(new ITreeNodeFilter() {
@@ -151,7 +137,6 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         }, true);
     }
 
-    
     @Override
     public ITree<E> getSubTree(String code, int depth) {
         E node = getNode(code);
@@ -163,7 +148,6 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         }, true);
     }
 
-    
     @SuppressWarnings("unchecked")
     @Override
     public ITree<E> getSubTree(ITreeNodeFilter filter, boolean firstFilter) {
@@ -178,7 +162,6 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         return new Tree<E>(newNodeList);
     }
 
-    
     @SuppressWarnings("unchecked")
     @Override
     public ITree<E> getSubTree(String code, ITreeNodeFilter filter, boolean firstFilter) {
@@ -194,7 +177,6 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         return new Tree<E>(newNodeList);
     }
 
-    
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Tree :\n");
@@ -205,8 +187,6 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         return sb.toString();
     }
 
-    
-    
     private int setSiblingsChildren(E parentNode, List<E> nodes, int id, Set<String> codes) {
         boolean isRoot = (id == 0);
         for (E node : nodes) {
@@ -214,7 +194,6 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
                 continue;
             }
 
-            
             if (node.isChild(parentNode) || isRoot && !codes.contains(node.getParentCode())) {
                 id = id + 1;
                 this.nodeList.add(node);
@@ -231,7 +210,6 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         return id;
     }
 
-    
     @SuppressWarnings("unchecked")
     private E getRootNode(E node, String rootCode, String rootText) {
         E root = null;
@@ -253,7 +231,6 @@ public class Tree<E extends ITreeNode> implements ITree<E> {
         }
     }
 
-    
     private void toInnerString(StringBuilder sb, ITreeNode node) {
         sb.append(node.toString());
         if (null != node.getChildren()) {

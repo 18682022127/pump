@@ -22,7 +22,7 @@ public enum PumpVersion {
 
     public static void checkJdkVersion() {
         if (EnvConsts.JDK_VERSION < Version.jdkVersion) {
-            Throw.throwRuntimeException(ExceptionCodes.BF010004, EnvConsts.JDK_VERSION, Version.jdkVersion);
+            Throw.throwRuntimeException(ExceptionCodes.YT010004, EnvConsts.JDK_VERSION, Version.jdkVersion);
         }
     }
 

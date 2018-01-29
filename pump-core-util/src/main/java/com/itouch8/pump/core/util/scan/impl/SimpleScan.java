@@ -119,7 +119,7 @@ public class SimpleScan implements IScan {
                 }
             }
         } catch (IOException ex) {
-            Throw.throwRuntimeException(ExceptionCodes.BF010103, ex, basePackage);
+            Throw.throwRuntimeException(ExceptionCodes.YT010103, ex, basePackage);
         }
         return candidates;
     }
@@ -162,7 +162,7 @@ public class SimpleScan implements IScan {
                 }
             }
         } catch (IOException ex) {
-            Throw.throwRuntimeException(ExceptionCodes.BF010103, ex, basePackage);
+            Throw.throwRuntimeException(ExceptionCodes.YT010103, ex, basePackage);
         }
         return candidates;
     }

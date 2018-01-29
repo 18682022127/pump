@@ -10,7 +10,6 @@ import com.itouch8.pump.core.util.exception.PumpRuntimeException;
 import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.util.json.serial.wrapper.IAjaxBindExceptionHandler;
 
-
 public class ExceptionJsonWrapper extends MapJsonWrapper {
 
     private final IAjaxBindExceptionHandler defaultIAjaxBindExceptionHandler = new DefaultAjaxBindExceptionHandler();
@@ -35,10 +34,10 @@ public class ExceptionJsonWrapper extends MapJsonWrapper {
             PumpRuntimeException be = Throw.createRuntimeException((Throwable) original);
             Map<String, Object> ex = getExceptionInfoMap(wrapper);
             ex.put("code", be.getCode());
-            ex.put("trackId", be.getTrackId());
-            ex.put("level", be.getLevel());
+            //ex.put("trackId", be.getTrackId());
+            //ex.put("level", be.getLevel());
             ex.put("message", be.getShortMessage());
-            ex.put("detail", be.getMessage());
+            //ex.put("detail", be.getMessage());
         }
     }
 

@@ -379,7 +379,7 @@ public class MapperMethod {
                     type = null;
                 } else {
                     // throw new BindingException("Invalid bound statement (not found): " + statementName);
-                    throw Throw.createRuntimeException(DaoExceptionCodes.BF020016, statementName);
+                    throw Throw.createRuntimeException(DaoExceptionCodes.YT020016, statementName);
                 }
             } else {
                 name = ms.getId();
@@ -423,7 +423,7 @@ public class MapperMethod {
 
             SqlRefs refs = method.getAnnotation(SqlRefs.class);
             if (null != refs && (null == refs.value() || refs.value().length <= 1)) {
-                Throw.throwRuntimeException(DaoExceptionCodes.BF020014, method);
+                Throw.throwRuntimeException(DaoExceptionCodes.YT020014, method);
             }
 
             this.returnType = method.getReturnType();
@@ -458,16 +458,16 @@ public class MapperMethod {
                 }
             } else {
                 if (null != method.getAnnotation(Executes.class)) {
-                    Throw.throwRuntimeException(DaoExceptionCodes.BF020018, Executes.class.getSimpleName(), method);
+                    Throw.throwRuntimeException(DaoExceptionCodes.YT020018, Executes.class.getSimpleName(), method);
                 } else if (null != method.getAnnotation(SqlRefs.class)) {
-                    Throw.throwRuntimeException(DaoExceptionCodes.BF020018, SqlRefs.class.getSimpleName(), method);
+                    Throw.throwRuntimeException(DaoExceptionCodes.YT020018, SqlRefs.class.getSimpleName(), method);
                 } else {
                     Class<?>[] clss = method.getParameterTypes();
                     if (null != clss) {
                         final Object[][] paramAnnos = method.getParameterAnnotations();
                         for (int i = 0, l = clss.length; i < l; i++) {
                             if (null != getBatchParamAnnoation(paramAnnos[i])) {// 存在批量参数注解
-                                Throw.throwRuntimeException(DaoExceptionCodes.BF020018, BatchParam.class.getSimpleName(), method);
+                                Throw.throwRuntimeException(DaoExceptionCodes.YT020018, BatchParam.class.getSimpleName(), method);
                             }
                         }
                     }
@@ -526,11 +526,11 @@ public class MapperMethod {
                 } else {
                     Object batchArg = this.resolverBatchParam(args[batchItemIndex], batchParam);
                     if (null == batchArg || !isBatchParamType(batchArg.getClass())) {
-                        Throw.throwRuntimeException(DaoExceptionCodes.BF020013, method);
+                        Throw.throwRuntimeException(DaoExceptionCodes.YT020013, method);
                     }
                     List<Object> batchArgs = CoreUtils.convertToList(batchArg, Object.class);
                     if (batchCount != 1 && (null == batchArgs || batchArgs.size() != batchCount)) {
-                        Throw.throwRuntimeException(DaoExceptionCodes.BF020015, batchCount, null == batchArgs ? 0 : batchArgs.size());
+                        Throw.throwRuntimeException(DaoExceptionCodes.YT020015, batchCount, null == batchArgs ? 0 : batchArgs.size());
                     }
 
                     Object commParam = convertArgsToSqlCommandParam(args);
@@ -567,7 +567,7 @@ public class MapperMethod {
                 return;
             } else if (batchParam.value()) {
                 if (!isBatchParamType(batchArg.getClass())) {
-                    Throw.throwRuntimeException(DaoExceptionCodes.BF020013, method);
+                    Throw.throwRuntimeException(DaoExceptionCodes.YT020013, method);
                 }
                 List<Object> batchArgs = CoreUtils.convertToList(batchArg, Object.class);
                 String batchParamName = batchParam.item();

@@ -148,7 +148,7 @@ public class BaseBeanOperateWrapper implements IContextBeanOperateWrapper {
             try {
                 return Ognl.getValue(expression, getDefaultOgnlContext(context), bean);
             } catch (OgnlException e) {
-                throw Throw.createRuntimeException(ExceptionCodes.BF010003, e, expression);
+                throw Throw.createRuntimeException(ExceptionCodes.YT010003, e, expression);
             }
         }
 
@@ -158,7 +158,7 @@ public class BaseBeanOperateWrapper implements IContextBeanOperateWrapper {
             try {
                 return (E) Ognl.getValue(expression, getDefaultOgnlContext(context), bean, resultType);
             } catch (OgnlException e) {
-                throw Throw.createRuntimeException(ExceptionCodes.BF010003, e, expression);
+                throw Throw.createRuntimeException(ExceptionCodes.YT010003, e, expression);
             }
         }
 
@@ -167,7 +167,7 @@ public class BaseBeanOperateWrapper implements IContextBeanOperateWrapper {
             try {
                 Ognl.setValue(expression, getDefaultOgnlContext(context), bean, value);
             } catch (OgnlException e) {
-                Throw.throwRuntimeException(ExceptionCodes.BF010003, e, expression);
+                Throw.throwRuntimeException(ExceptionCodes.YT010003, e, expression);
             }
         }
     }
