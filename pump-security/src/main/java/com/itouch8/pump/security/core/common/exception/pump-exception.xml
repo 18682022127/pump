@@ -3,9 +3,9 @@
 	xmlns="http://www.itouch8.com/schema/pump/exception"
 	xsi:schemaLocation="http://www.itouch8.com/schema/pump/exception pump-exception.xsd">
 	
-	<exception code="BF040000" description="安全层异常" messageKey="pump.core.security">
-		<exception code="BF040001" description="未找到请求的功能" messageKey="pump.core.security.not_found"/>
-		<exception code="BF040002" description="会话超时" messageKey="pump.core.security.timeout"/>
-		<exception code="BF040003" description="没有访问权限" messageKey="pump.core.security.no_authority"/>
+	<exception code="YT040000" description="安全层异常" messageKey="pump.core.security">
+		<exception code="YT040001" description="未找到请求的功能" messageKey="pump.core.security.not_found"/>
+		<exception code="YT040002" description="会话超时" messageKey="pump.core.security.timeout"/>
+		<exception code="YT040003" description="没有访问权限" messageKey="pump.core.security.no_authority"/>
 	</exception>
 </exception-config>

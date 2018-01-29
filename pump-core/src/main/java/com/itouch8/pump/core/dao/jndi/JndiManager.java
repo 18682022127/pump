@@ -103,7 +103,7 @@ public class JndiManager implements ApplicationContextAware, InitializingBean {
         } else {
             IJndi jndi = jndiCache.get(name);
             if (null == jndi) {
-                throw Throw.createRuntimeException(DaoExceptionCodes.BF020007, name);
+                throw Throw.createRuntimeException(DaoExceptionCodes.YT020007, name);
             }
             return jndi;
         }
@@ -149,16 +149,16 @@ public class JndiManager implements ApplicationContextAware, InitializingBean {
     private static IDialect getDialect(String databaseProductName) {
         Map<String, IDialect> databaseProductNameDialectMapping = PumpConfig.getDatabaseProductNameDialectMapping();
         if (CoreUtils.isBlank(databaseProductName)) {
-            Throw.throwRuntimeException(DaoExceptionCodes.BF020002);
+            Throw.throwRuntimeException(DaoExceptionCodes.YT020002);
         } else if (null == databaseProductNameDialectMapping) {
-            Throw.throwRuntimeException(DaoExceptionCodes.BF020003);
+            Throw.throwRuntimeException(DaoExceptionCodes.YT020003);
         } else {
             for (String key : databaseProductNameDialectMapping.keySet()) {
                 if (null != key && -1 != databaseProductName.toLowerCase().indexOf(key.toLowerCase())) {
                     return databaseProductNameDialectMapping.get(key);
                 }
             }
-            Throw.throwRuntimeException(DaoExceptionCodes.BF020004, databaseProductName);
+            Throw.throwRuntimeException(DaoExceptionCodes.YT020004, databaseProductName);
         }
         return null;
     }

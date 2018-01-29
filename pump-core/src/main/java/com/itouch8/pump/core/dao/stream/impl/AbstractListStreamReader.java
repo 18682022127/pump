@@ -42,7 +42,7 @@ public abstract class AbstractListStreamReader<T> implements IListStreamReader<T
         if (fetchSize <= 0) {
             fetchSize = defaultFetchSize;
         } else if (fetchSize > maxFetchSize) {
-            Throw.throwRuntimeException(DaoExceptionCodes.BF020012, fetchSize, "(0, " + maxFetchSize + "]");
+            Throw.throwRuntimeException(DaoExceptionCodes.YT020012, fetchSize, "(0, " + maxFetchSize + "]");
         }
         this.fetchSize = fetchSize;
         BasePage page = new BasePage();

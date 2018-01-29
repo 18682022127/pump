@@ -9,61 +9,51 @@ import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.core.util.env.EnvConsts;
 import com.itouch8.pump.core.util.exception.handler.IExceptionHandler;
 import com.itouch8.pump.core.util.exception.level.ExceptionLevel;
+import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 import com.itouch8.pump.core.util.exception.meta.IExceptionMeta;
 import com.itouch8.pump.core.util.exception.meta.IExceptionMetaLoader;
 import com.itouch8.pump.core.util.track.Tracker;
 
-
 public class Throw {
 
-    
     public static IExceptionMeta lookupExceptionMeta(String code, Throwable cause) {
         IExceptionMetaLoader loader = BaseConfig.getExceptionMetaLoader();
         return null == loader ? null : loader.lookup(code, cause);
     }
 
-    
     public static String getExceptionLocalMessage(String code, Object... args) {
         return getExceptionLocalMessage(code, null, args);
     }
 
-    
     public static String getExceptionLocalMessage(Throwable cause, Object... args) {
         return getExceptionLocalMessage(null, cause, args);
     }
 
-    
     public static String getExceptionLocalMessage(String code, Throwable cause, Object... args) {
         PumpExceptionInnerProxy proxy = createRuntimeException(code, cause, args).getProxy();
         return proxy.getMessage();
     }
 
-    
     public static void throwRuntimeException(String code, Object... args) {
         throw createRuntimeException(code, null, args);
     }
 
-    
     public static void throwRuntimeException(Throwable e) {
         throw createRuntimeException(null, e);
     }
 
-    
     public static void throwRuntimeException(String code, Throwable e, Object... args) {
         throw createRuntimeException(code, e, args);
     }
 
-    
     public static PumpRuntimeException createRuntimeException(String code, Object... args) {
         return createRuntimeException(code, null, args);
     }
 
-    
     public static PumpRuntimeException createRuntimeException(Throwable e) {
         return createRuntimeException(null, e);
     }
 
-    
     public static PumpRuntimeException createRuntimeException(String code, Throwable e, Object... args) {
         if (e instanceof PumpRuntimeException) {
             return (PumpRuntimeException) e;
@@ -77,43 +67,35 @@ public class Throw {
         }
     }
 
-    
     public static String getMessageWithoutTrackId(Throwable e) {
         PumpExceptionInnerProxy proxy = createRuntimeException(e).getProxy();
         return proxy.getMessage();
     }
 
-    
     public static String getShortMessage(Throwable e) {
         return getShortMessage0(e, EnvConsts.LINE_SEPARATOR);
     }
 
-    
     public static String getShortMessage(Throwable e, String lineSeparator) {
         return getShortMessage0(e, lineSeparator);
     }
 
-    
     public static String getMessage(Throwable e) {
         return getExceptionMessage(e, EnvConsts.LINE_SEPARATOR, false);
     }
 
-    
     public static String getMessage(Throwable e, String lineSeparator) {
         return getExceptionMessage(e, lineSeparator, false);
     }
 
-    
     public static String getStackMessage(Throwable e) {
         return getExceptionMessage(e, EnvConsts.LINE_SEPARATOR, true);
     }
 
-    
     public static String getStackMessage(Throwable e, String lineSeparator) {
         return getExceptionMessage(e, lineSeparator, true);
     }
 
-    
     private static String getExceptionMessage(Throwable e, String lineSeparator, boolean forcePrintStack) {
         StringBuffer sb = new StringBuffer(getShortMessage0(e, lineSeparator));
         if (forcePrintStack || ExceptionMonitor.isMonitoring()) {
@@ -132,17 +114,16 @@ public class Throw {
         return sb.toString();
     }
 
-    
     private static String getShortMessage0(Throwable e, String lineSeparator) {
         StringBuffer sb = new StringBuffer();
         PumpExceptionInnerProxy proxy = createRuntimeException(e).getProxy();
         if (null != proxy.getTrackId()) {
-            sb.append("TrackId:" + proxy.getTrackId()).append(lineSeparator);
+            //sb.append("TrackId:" + proxy.getTrackId()).append(lineSeparator);
         }
         String message = proxy.getMessage();
         String code = proxy.getCode();
         if (null != code && !code.equals(message)) {
-            sb.append("Code:" + code).append(lineSeparator);
+            //sb.append("Code:" + code).append(lineSeparator);
         }
         // String pCode = proxy.getParentCode();
         // if(null != pCode && !pCode.startsWith("##")){
@@ -152,19 +133,18 @@ public class Throw {
         // sb.append(proxy.getLevel().getDescription()).append(lineSeparator);
         // }
         if (null != message) {
-            sb.append("Message:" + message).append(lineSeparator);
+            sb.append(message).append(lineSeparator);
         }
         Throwable cause = getRootCause(e);
         if (null != cause && !cause.equals(e)) {
             String c = cause.getMessage();
             if (!CoreUtils.isBlank(c)) {
-                sb.append("Cause:" + c).append(lineSeparator);
+                sb.append(c).append(lineSeparator);
             }
         }
         return sb.toString();
     }
 
-    
     private static Throwable getRootCause(Throwable e) {
         if (null == e) {
             return null;
@@ -182,7 +162,6 @@ public class Throw {
         return rootCause;
     }
 
-    
     private static void setTrace(Throwable ourCause, StringBuffer info, StackTraceElement[] causedTrace, String lineSeparator) {
         StackTraceElement[] trace = ourCause.getStackTrace();
         int m = trace.length - 1, n = causedTrace.length - 1;
@@ -295,6 +274,7 @@ public class Throw {
                                 this.message = CoreUtils.getMessage(this.code, args);
                                 if (CoreUtils.isBlank(this.message)) {
                                     this.message = this.code;
+                                    this.code = ExceptionCodes.YT000000;
                                 }
                             }
                             if (!viewStatus) {

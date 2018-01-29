@@ -200,7 +200,7 @@ public class BaseConfig extends ConfigHelper implements InitializingBean, Applic
             try {
                 Locale.setDefault(LocaleUtils.toLocale(defaultLocale));
             } catch (Exception e) {
-                Throw.throwRuntimeException(ExceptionCodes.BF010010, e, defaultLocale);
+                Throw.throwRuntimeException(ExceptionCodes.YT010010, e, defaultLocale);
             }
         }
     }
@@ -254,7 +254,7 @@ public class BaseConfig extends ConfigHelper implements InitializingBean, Applic
         } catch (Exception e) {
         }
         if (!isSupported) {
-            Throw.createRuntimeException(ExceptionCodes.BF010002, encoding);
+            Throw.createRuntimeException(ExceptionCodes.YT010002, encoding);
         }
 
         // 校验日期、时间、日期时间格式

@@ -48,7 +48,7 @@ public class OgnlDataAccessor extends AbstractDataAccessor {
             T value = (T) Ognl.getValue(tree, ognlContext, ognlContext.getRoot(), cls);
             return value;
         } catch (OgnlException e) {
-            throw Throw.createRuntimeException(ExceptionCodes.BF010003, e, property);
+            throw Throw.createRuntimeException(ExceptionCodes.YT010003, e, property);
         }
     }
 
@@ -59,7 +59,7 @@ public class OgnlDataAccessor extends AbstractDataAccessor {
         try {
             Ognl.setValue(tree, ognlContext, ognlContext.getRoot(), value);
         } catch (OgnlException e) {
-            throw Throw.createRuntimeException(ExceptionCodes.BF010003, e, property);
+            throw Throw.createRuntimeException(ExceptionCodes.YT010003, e, property);
         }
     }
 
@@ -92,7 +92,7 @@ public class OgnlDataAccessor extends AbstractDataAccessor {
                         tree = Ognl.parseExpression(property);
                         expCache.put(property, tree);
                     } catch (OgnlException e) {
-                        Throw.throwRuntimeException(ExceptionCodes.BF010003, e, property);
+                        Throw.throwRuntimeException(ExceptionCodes.YT010003, e, property);
                     }
                 }
             }

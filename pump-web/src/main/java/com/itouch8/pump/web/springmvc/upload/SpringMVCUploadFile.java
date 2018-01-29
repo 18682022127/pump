@@ -10,7 +10,6 @@ import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.web.exception.WebExceptionCodes;
 import com.itouch8.pump.web.upload.IUploadFile;
 
-
 public class SpringMVCUploadFile implements IUploadFile {
 
     private MultipartFile delegete;
@@ -43,7 +42,7 @@ public class SpringMVCUploadFile implements IUploadFile {
         try {
             return delegete.getBytes();
         } catch (IOException e) {
-            throw Throw.createRuntimeException(WebExceptionCodes.BF060001, e, getOriginalFilename());
+            throw Throw.createRuntimeException(WebExceptionCodes.YT060001, e, getOriginalFilename());
         }
     }
 
@@ -51,7 +50,7 @@ public class SpringMVCUploadFile implements IUploadFile {
         try {
             return delegete.getInputStream();
         } catch (IOException e) {
-            throw Throw.createRuntimeException(WebExceptionCodes.BF060001, e, getOriginalFilename());
+            throw Throw.createRuntimeException(WebExceptionCodes.YT060001, e, getOriginalFilename());
         }
     }
 
@@ -59,7 +58,7 @@ public class SpringMVCUploadFile implements IUploadFile {
         try {
             delegete.transferTo(file);
         } catch (IOException e) {
-            throw Throw.createRuntimeException(WebExceptionCodes.BF060001, e, getOriginalFilename());
+            throw Throw.createRuntimeException(WebExceptionCodes.YT060001, e, getOriginalFilename());
         }
     }
 

@@ -20,7 +20,6 @@ import com.itouch8.pump.util.json.serial.wrapper.impl.TreeJsonWrapper;
 import com.itouch8.pump.web.WebPumpConfig;
 import com.itouch8.pump.web.annotation.JsonBody.DefaultJsonWrapper;
 
-
 public class JsonBodySupport {
 
     private static final IJsonWrapper nowrap = new NoWrapJsonWrapper();

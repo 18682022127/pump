@@ -15,13 +15,11 @@ import com.itouch8.pump.web.UserAgent;
 import com.itouch8.pump.web.WebUtils;
 import com.itouch8.pump.web.servlet.ServletHelp;
 
-
 public class WebRequestInfoFactory implements IRequestInfoFactory {
 
     private static final String REMOTE_BROWSER_SESSION_NAME = WebRequestInfoFactory.class.getName() + ".REMOTE_BROWSER";
     private static final String REMOTE_OS_SESSION_NAME = WebRequestInfoFactory.class.getName() + ".REMOTE_OS";
 
-    
     @Override
     public IRequestInfo getRequestInfo() {
         HttpServletRequest request = ServletHelp.getRequest();

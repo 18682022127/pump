@@ -23,7 +23,7 @@ public class OgnlSqlResolver extends AbstractSqlResolver {
         try {
             return Ognl.getValue(exp, parameterObject);
         } catch (OgnlException e) {
-            throw Throw.createRuntimeException(DaoExceptionCodes.BF020008, e, exp);
+            throw Throw.createRuntimeException(DaoExceptionCodes.YT020008, e, exp);
         }
     }
 

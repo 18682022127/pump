@@ -9,7 +9,6 @@ import com.itouch8.pump.core.dao.dialect.IDialect;
 import com.itouch8.pump.core.dao.jndi.IJndi;
 import com.itouch8.pump.core.dao.sql.resolver.ISqlResolver;
 
-
 public class BaseSqlInterceptor extends AbstractSqlInterceptor {
 
     private final Properties properties;
@@ -19,7 +18,7 @@ public class BaseSqlInterceptor extends AbstractSqlInterceptor {
     public BaseSqlInterceptor() {
         properties = new Properties();
         properties.put("tablePrefix", PumpConfig.getPumpTablePrefix());
-        properties.put("BF", PumpConfig.getPumpTablePrefix() + "BF");
+        properties.put("YT", PumpConfig.getPumpTablePrefix() + "YT");
         super.setPrefix("{{");
         super.setSuffix("}}");
     }

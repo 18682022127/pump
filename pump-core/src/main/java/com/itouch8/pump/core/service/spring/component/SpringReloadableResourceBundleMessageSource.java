@@ -40,7 +40,7 @@ public class SpringReloadableResourceBundleMessageSource extends ReloadableResou
                 List<String> bs = new ArrayList<String>(Arrays.asList(BaseConfig.getPumpLocaleBasenames()));
                 for (String basename : basenames) {
                     if (bs.contains(basename)) {
-                        Throw.createRuntimeException(ServiceExceptionCodes.BF030006, basename);
+                        Throw.createRuntimeException(ServiceExceptionCodes.YT030006, basename);
                     } else {
                         bs.add(basename);
                     }

@@ -37,7 +37,7 @@ public abstract class MetaUtilsImpl {
         try {
             return conn.getMetaData();
         } catch (SQLException e) {
-            throw Throw.createRuntimeException(DaoExceptionCodes.BF020010, e);
+            throw Throw.createRuntimeException(DaoExceptionCodes.YT020010, e);
         }
     }
 
@@ -56,7 +56,7 @@ public abstract class MetaUtilsImpl {
         try {
             return conn.getMetaData().getDatabaseProductName();
         } catch (SQLException e) {
-            throw Throw.createRuntimeException(DaoExceptionCodes.BF020010, e);
+            throw Throw.createRuntimeException(DaoExceptionCodes.YT020010, e);
         }
     }
 
@@ -82,7 +82,7 @@ public abstract class MetaUtilsImpl {
             rs = meta.getTables(t[0], t[1], t[2], new String[] {"TABLE"});
             return rs.next();
         } catch (SQLException e) {
-            throw Throw.createRuntimeException(DaoExceptionCodes.BF020011, e);
+            throw Throw.createRuntimeException(DaoExceptionCodes.YT020011, e);
         } finally {
             DBHelp.Closer.close(rs);
         }

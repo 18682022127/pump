@@ -60,7 +60,7 @@ public class ControllerAspect {
                     }
                 }
             }
-            throw Throw.createRuntimeException(WebExceptionCodes.BF060000, e);
+            throw Throw.createRuntimeException(WebExceptionCodes.YT060000, e);
         } finally {
             if (null != aopInterceptors && !aopInterceptors.isEmpty()) {
                 for (IAopInterceptor sai : aopInterceptors) {
