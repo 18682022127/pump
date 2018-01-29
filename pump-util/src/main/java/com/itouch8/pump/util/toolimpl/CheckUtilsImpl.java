@@ -1,5 +1,6 @@
 package com.itouch8.pump.util.toolimpl;
 
+import java.util.HashSet;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -73,5 +74,16 @@ public abstract class CheckUtilsImpl {
 
     public boolean isTime(int hour, int minute, int second, int millisecond) {
         return Tool.DATE.isValidTime(hour, minute, second, millisecond);
+    }
+
+    public boolean isHasDumpObject(String[] arr) {
+        if (null != arr && arr.length > 0) {
+            HashSet<String> hashSet = new HashSet<String>();
+            for (int i = 0; i < arr.length; i++) {
+                hashSet.add(arr[i]);
+            }
+            return hashSet.size() != arr.length;
+        }
+        return false;
     }
 }
