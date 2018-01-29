@@ -9,6 +9,7 @@ import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.core.util.env.EnvConsts;
 import com.itouch8.pump.core.util.exception.handler.IExceptionHandler;
 import com.itouch8.pump.core.util.exception.level.ExceptionLevel;
+import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 import com.itouch8.pump.core.util.exception.meta.IExceptionMeta;
 import com.itouch8.pump.core.util.exception.meta.IExceptionMetaLoader;
 import com.itouch8.pump.core.util.track.Tracker;
@@ -273,6 +274,7 @@ public class Throw {
                                 this.message = CoreUtils.getMessage(this.code, args);
                                 if (CoreUtils.isBlank(this.message)) {
                                     this.message = this.code;
+                                    this.code = ExceptionCodes.YT000000;
                                 }
                             }
                             if (!viewStatus) {
