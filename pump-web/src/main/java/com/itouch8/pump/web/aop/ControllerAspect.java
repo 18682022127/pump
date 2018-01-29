@@ -1,6 +1,7 @@
 package com.itouch8.pump.web.aop;
 
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +17,10 @@ import com.itouch8.pump.core.util.track.Tracker;
 import com.itouch8.pump.web.WebPumpConfig;
 import com.itouch8.pump.web.exception.WebExceptionCodes;
 
+import javassist.Modifier;
 
 public class ControllerAspect {
 
-    
     public Object doAspect(ProceedingJoinPoint point) {
         long start = System.currentTimeMillis();
         boolean hasTracking = Tracker.isTracking();
@@ -50,6 +51,9 @@ public class ControllerAspect {
                 }
             }
             CommonLogger.debug("the Controller method has executed success in " + (System.currentTimeMillis() - start) + " ms, exit form method: " + point.getSignature(), null, logger);
+            if (null == rs) {
+                return getRs(method.getReturnType());
+            }
             return rs;
         } catch (Throwable e) {
             CommonLogger.error("the Controller method has occured exception, execute failure and exit after " + (System.currentTimeMillis() - start) + " ms, method: " + point.getSignature(), e, logger);
@@ -73,5 +77,20 @@ public class ControllerAspect {
                 Tracker.stop();
             }
         }
+    }
+
+    private Object getRs(Class<?> returnType) throws InstantiationException, IllegalAccessException {
+        if (returnType.equals(List.class)) {
+            return Collections.emptyList();
+        } else if (returnType.equals(Collections.class)) {
+            return Collections.emptyList();
+        } else if (returnType.equals(Map.class)) {
+            return new HashMap<>();
+        } else if (!returnType.isInterface() && !Modifier.isAbstract(returnType.getModifiers())) {
+            return returnType.newInstance();
+        } else {
+            return new Object();
+        }
+
     }
 }
