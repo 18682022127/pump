@@ -1,8 +1,5 @@
 package com.itouch8.pump.util.toolimpl;
 
-import java.awt.Image;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileFilter;
@@ -17,6 +14,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.imgscalr.Scalr;
 
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.util.Tool;
@@ -153,18 +151,13 @@ public abstract class FileUtilsImpl {
         String outFilePath = imageBase64ToFile(src);
         String dest = System.getProperty("java.io.tmpdir") + File.separatorChar + Tool.STRING.getUUID() + ".jpg";
         String prefix = "data:image/jpeg;base64,";
-        double wr = 0, hr = 0;
-        int w = 50, h = 50;
+        int w = 100, h = 100;
         File srcFile = new File(outFilePath);
         File destFile = new File(dest);
         try {
             BufferedImage bufImg = ImageIO.read(srcFile); //读取图片
-            Image Itemp = bufImg.getScaledInstance(w, h, BufferedImage.SCALE_DEFAULT);//设置缩放目标图片模板
-            wr = w * 1.0 / bufImg.getWidth(); //获取缩放比例
-            hr = h * 1.0 / bufImg.getHeight();
-            AffineTransformOp ato = new AffineTransformOp(AffineTransform.getScaleInstance(wr, hr), null);
-            Itemp = ato.filter(bufImg, null);
-            ImageIO.write((BufferedImage) Itemp, dest.substring(dest.lastIndexOf(".") + 1), destFile); //写入缩减后的图片
+            BufferedImage rs = Scalr.resize(bufImg, w, h);
+            ImageIO.write(rs, dest.substring(dest.lastIndexOf(".") + 1), destFile); //写入缩减后的图片
             return prefix + Tool.STRING.encodeBase64(new FileInputStream(destFile.getAbsoluteFile()));
         } catch (Exception ex) {
         } finally {
