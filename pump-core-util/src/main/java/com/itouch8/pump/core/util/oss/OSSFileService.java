@@ -28,9 +28,9 @@ import com.itouch8.pump.oss.IOSSConfig;
 @Service("OSSFileService")
 public class OSSFileService implements IFileService {
 
-    private static final String FILE_TYPE_BASE64 = "base64";
+    public static final String FILE_TYPE_BASE64 = "base64";
 
-    private static final String FILE_TYPE_STREAM = "stream";
+    public static final String FILE_TYPE_STREAM = "stream";
 
     @Autowired(required = false)
     private IOSSConfig config;
@@ -95,6 +95,22 @@ public class OSSFileService implements IFileService {
         return out.toString();
     }
 
+    public String get(String id, OSSClient ossClient) {
+        StringBuffer out = new StringBuffer();
+        try {
+            ossClient = getOSSClient();
+            OSSObject object = ossClient.getObject(config.getBuckName(), id);
+            InputStream in = object.getObjectContent();
+            byte[] b = new byte[4096];
+            for (int n = 0; (n = in.read(b)) != -1;) {
+                out.append(new String(b, 0, n));
+            }
+        } catch (IOException ignore) {
+            ignore.printStackTrace();
+        }
+        return out.toString();
+    }
+
     @Override
     public void get(String id, OutputStream os) {
         OSSClient ossClient = null;
@@ -108,6 +124,28 @@ public class OSSFileService implements IFileService {
         } finally {
             ossClient.shutdown();
         }
+    }
+
+    public void get(String id, OutputStream os, OSSClient ossClient) {
+        try {
+            ossClient = getOSSClient();
+            OSSObject object = ossClient.getObject(config.getBuckName(), id);
+            InputStream objectContent = object.getObjectContent();
+            IOUtils.copy(objectContent, os);
+        } catch (Exception ignore) {
+            ignore.printStackTrace();
+        }
+    }
+
+    public Object getUserParam(String id, String key, OSSClient ossClient) {
+        OSSObject object = ossClient.getObject(config.getBuckName(), id);
+        if (null != object) {
+            Map<String, String> userMetadata = object.getObjectMetadata().getUserMetadata();
+            if (null != userMetadata) {
+                return userMetadata.get(key);
+            }
+        }
+        return null;
     }
 
     @Override
