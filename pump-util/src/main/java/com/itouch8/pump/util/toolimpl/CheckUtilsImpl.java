@@ -2,6 +2,8 @@ package com.itouch8.pump.util.toolimpl;
 
 import java.util.HashSet;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -36,6 +38,27 @@ public abstract class CheckUtilsImpl {
 
     public boolean isNumeric(final CharSequence cs) {
         return StringUtils.isNumeric(cs);
+    }
+
+    public boolean isMobileNumber(String mobile) {
+        if (isEmpty(mobile)) {
+            return false;
+        }
+
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        String regExpHk = "^(5|6|8|9)\\d{7}$";
+        Pattern p = Pattern.compile(regExp);
+        Matcher m = p.matcher(mobile);
+        if (m.matches()) {
+            return true;
+        }
+        p = Pattern.compile(regExpHk);
+        m = p.matcher(mobile);
+        if (m.matches()) {
+            return true;
+        }
+        return false;
+
     }
 
     public boolean isTrue(Object bean, String expression) {
