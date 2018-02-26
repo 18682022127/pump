@@ -12,11 +12,25 @@ public class FileData {
 
     private String fileThumbBase64;
 
+    private String contentType;
+
     private long size;
 
     public byte[] bytes;
 
     public InputStream inputStream;
+
+    private String fileAttrDess;
+
+    private String fileAttrId;
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 
     public String getFileName() {
         return fileName;
@@ -72,6 +86,22 @@ public class FileData {
 
     public void setFileThumbBase64(String fileThumbBase64) {
         this.fileThumbBase64 = fileThumbBase64;
+    }
+
+    public String getFileAttrDess() {
+        return fileAttrDess;
+    }
+
+    public void setFileAttrDess(String fileAttrDess) {
+        this.fileAttrDess = fileAttrDess;
+    }
+
+    public String getFileAttrId() {
+        return fileAttrId;
+    }
+
+    public void setFileAttrId(String fileAttrId) {
+        this.fileAttrId = fileAttrId;
     }
 
 }
