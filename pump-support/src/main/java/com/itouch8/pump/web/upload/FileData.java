@@ -24,6 +24,16 @@ public class FileData {
 
     private String fileAttrId;
 
+    private int fileAttrIndex;
+
+    public int getFileIndex() {
+        return fileAttrIndex;
+    }
+
+    public void setFileIndex(int fileIndex) {
+        this.fileAttrIndex = fileIndex;
+    }
+
     public String getContentType() {
         return contentType;
     }
