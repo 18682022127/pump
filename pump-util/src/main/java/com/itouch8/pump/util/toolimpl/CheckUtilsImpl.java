@@ -45,7 +45,7 @@ public abstract class CheckUtilsImpl {
             return false;
         }
 
-        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,1,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
         String regExpHk = "^(5|6|8|9)\\d{7}$";
         Pattern p = Pattern.compile(regExp);
         Matcher m = p.matcher(mobile);
