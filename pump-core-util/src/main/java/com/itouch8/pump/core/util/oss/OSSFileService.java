@@ -3,7 +3,11 @@ package com.itouch8.pump.core.util.oss;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,23 +28,48 @@ import com.itouch8.pump.oss.IOSSConfig;
 @Service("OSSFileService")
 public class OSSFileService implements IFileService {
 
+    public static final String FILE_TYPE_BASE64 = "base64";
+
+    public static final String FILE_TYPE_STREAM = "stream";
+
     @Autowired(required = false)
     private IOSSConfig config;
+
+    public OSSClient getOSSClient() {
+        String endpoint = config.getEndPoint();
+        String accessKeyId = config.getAccessKeyId();
+        String accessKeySecret = config.getAccessSecret();
+        return new OSSClient(endpoint, accessKeyId, accessKeySecret);
+    }
 
     @Override
     public void send(String fileId, String base64) {
 
-        String endpoint = config.getEndPoint();
-        String accessKeyId = config.getAccessKeyId();
-        String accessKeySecret = config.getAccessSecret();
-        String bucketName = config.getBuckName();
         OSSClient ossClient = null;
-
         try {
-            ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+            ossClient = getOSSClient();
             InputStream is = new ByteArrayInputStream(base64.getBytes());
             ObjectMetadata meta = new ObjectMetadata();
-            ossClient.putObject(bucketName, fileId, is, meta);
+            Map<String, String> userMeta = new HashMap<String, String>();
+            userMeta.put("type", FILE_TYPE_BASE64);
+            meta.setUserMetadata(userMeta);
+            ossClient.putObject(config.getBuckName(), fileId, is, meta);
+        } finally {
+            ossClient.shutdown();
+        }
+    }
+
+    @Override
+    public void send(String fileId, InputStream is, String contentType) {
+        OSSClient ossClient = null;
+        try {
+            ossClient = getOSSClient();
+            ObjectMetadata meta = new ObjectMetadata();
+            Map<String, String> userMeta = new HashMap<String, String>();
+            userMeta.put("type", FILE_TYPE_STREAM);
+            meta.setUserMetadata(userMeta);
+            meta.setContentType(contentType);
+            ossClient.putObject(config.getBuckName(), fileId, is, meta);
         } finally {
             ossClient.shutdown();
         }
@@ -51,12 +80,8 @@ public class OSSFileService implements IFileService {
         StringBuffer out = new StringBuffer();
         OSSClient ossClient = null;
         try {
-            String endpoint = config.getEndPoint();
-            String accessKeyId = config.getAccessKeyId();
-            String accessKeySecret = config.getAccessSecret();
-            String bucketName = config.getBuckName();
-            ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
-            OSSObject object = ossClient.getObject(bucketName, id);
+            ossClient = getOSSClient();
+            OSSObject object = ossClient.getObject(config.getBuckName(), id);
             InputStream in = object.getObjectContent();
             byte[] b = new byte[4096];
             for (int n = 0; (n = in.read(b)) != -1;) {
@@ -70,16 +95,70 @@ public class OSSFileService implements IFileService {
         return out.toString();
     }
 
+    public String get(String id, OSSClient ossClient) {
+        StringBuffer out = new StringBuffer();
+        try {
+            ossClient = getOSSClient();
+            OSSObject object = ossClient.getObject(config.getBuckName(), id);
+            InputStream in = object.getObjectContent();
+            byte[] b = new byte[4096];
+            for (int n = 0; (n = in.read(b)) != -1;) {
+                out.append(new String(b, 0, n));
+            }
+        } catch (IOException ignore) {
+            ignore.printStackTrace();
+        }
+        return out.toString();
+    }
+
+    @Override
+    public void get(String id, OutputStream os) {
+        OSSClient ossClient = null;
+        try {
+            ossClient = getOSSClient();
+            OSSObject object = ossClient.getObject(config.getBuckName(), id);
+            InputStream objectContent = object.getObjectContent();
+            IOUtils.copy(objectContent, os);
+        } catch (Exception ignore) {
+            ignore.printStackTrace();
+        } finally {
+            ossClient.shutdown();
+        }
+    }
+
+    public void get(String id, OutputStream os, OSSClient ossClient) {
+        try {
+            ossClient = getOSSClient();
+            OSSObject object = ossClient.getObject(config.getBuckName(), id);
+            InputStream objectContent = object.getObjectContent();
+            IOUtils.copy(objectContent, os);
+        } catch (Exception ignore) {
+            ignore.printStackTrace();
+        }
+    }
+
+    public Object getUserParam(String id, String key, OSSClient ossClient) {
+        OSSObject object = ossClient.getObject(config.getBuckName(), id);
+        if (null != object) {
+            Map<String, String> userMetadata = object.getObjectMetadata().getUserMetadata();
+            if (null != userMetadata) {
+                return userMetadata.get(key);
+            }
+        }
+        return null;
+    }
+
     @Override
     public void del(String id) {
         OSSClient ossClient = null;
-        String endpoint = config.getEndPoint();
-        String accessKeyId = config.getAccessKeyId();
-        String accessKeySecret = config.getAccessSecret();
-        String bucketName = config.getBuckName();
-        ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
-        ossClient.deleteObject(bucketName, id);
+        ossClient = getOSSClient();
+        ossClient.deleteObject(config.getBuckName(), id);
         ossClient.shutdown();
+    }
+
+    @Override
+    public void send(String fileId, InputStream is) {
+        send(fileId, is, "image/jpeg");
     }
 
 }

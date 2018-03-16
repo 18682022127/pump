@@ -12,11 +12,21 @@ public class FileData {
 
     private String fileThumbBase64;
 
+    private String contentType;
+
     private long size;
 
     public byte[] bytes;
 
     public InputStream inputStream;
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 
     public String getFileName() {
         return fileName;
