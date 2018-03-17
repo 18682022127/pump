@@ -169,7 +169,7 @@ public class OSSFileService implements IFileService {
     public List<String> send(IUploadFile[] files) {
         List<String> rs = new ArrayList<String>();
         for (IUploadFile file : files) {
-            String fileId = UUID.randomUUID().toString().replaceAll("-", "") + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+            String fileId = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
             send(fileId, file.getInputStream(), file.getContentType());
             rs.add(fileId);
         }
