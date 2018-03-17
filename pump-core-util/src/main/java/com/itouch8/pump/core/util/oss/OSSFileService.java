@@ -82,4 +82,21 @@ public class OSSFileService implements IFileService {
         ossClient.shutdown();
     }
 
+    @Override
+    public void send(String fileId, InputStream s, String contentType) {
+        String endpoint = config.getEndPoint();
+        String accessKeyId = config.getAccessKeyId();
+        String accessKeySecret = config.getAccessSecret();
+        String bucketName = config.getBuckName();
+        OSSClient ossClient = null;
+
+        try {
+            ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+            ObjectMetadata meta = new ObjectMetadata();
+            ossClient.putObject(bucketName, fileId, s, meta);
+        } finally {
+            ossClient.shutdown();
+        }
+    }
+
 }
