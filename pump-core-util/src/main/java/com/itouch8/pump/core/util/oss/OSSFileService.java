@@ -4,8 +4,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.itouch8.pump.oss.IOSSConfig;
+import com.itouch8.pump.web.upload.IUploadFile;
 
 /**
  * Copy Right Information : 深圳云途信息资讯有限公司 <br>
@@ -159,6 +163,17 @@ public class OSSFileService implements IFileService {
     @Override
     public void send(String fileId, InputStream is) {
         send(fileId, is, "image/jpeg");
+    }
+
+    @Override
+    public List<String> send(IUploadFile[] files) {
+        List<String> rs = new ArrayList<String>();
+        for (IUploadFile file : files) {
+            String fileId = UUID.randomUUID().toString().replaceAll("-", "") + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+            send(fileId, file.getInputStream(), file.getContentType());
+            rs.add(fileId);
+        }
+        return rs;
     }
 
 }
