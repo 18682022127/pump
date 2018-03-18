@@ -132,7 +132,6 @@ public class OSSFileService implements IFileService {
 
     public void get(String id, OutputStream os, OSSClient ossClient) {
         try {
-            ossClient = getOSSClient();
             OSSObject object = ossClient.getObject(config.getBuckName(), id);
             InputStream objectContent = object.getObjectContent();
             IOUtils.copy(objectContent, os);
