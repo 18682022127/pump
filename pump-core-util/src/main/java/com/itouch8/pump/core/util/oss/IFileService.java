@@ -14,15 +14,8 @@ public interface IFileService {
      * @param fileId
      * @param base64
      */
+    @Deprecated
     public void send(String fileId, String base64);
-
-    /**
-     * 上传二进制文件
-     * 
-     * @param fileId
-     * @param is
-     */
-    public void send(String fileId, InputStream is);
 
     /**
      * 上传二进制文件

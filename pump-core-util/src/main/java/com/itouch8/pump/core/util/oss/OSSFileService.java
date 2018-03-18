@@ -161,11 +161,6 @@ public class OSSFileService implements IFileService {
     }
 
     @Override
-    public void send(String fileId, InputStream is) {
-        send(fileId, is, "image/jpeg");
-    }
-
-    @Override
     public List<String> send(IUploadFile[] files) {
         List<String> rs = new ArrayList<String>();
         for (IUploadFile file : files) {
