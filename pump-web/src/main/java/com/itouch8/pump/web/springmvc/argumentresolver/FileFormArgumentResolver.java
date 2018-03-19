@@ -40,6 +40,9 @@ public class FileFormArgumentResolver implements HandlerMethodArgumentResolver {
         String[] fileTypes = request.getParameterValues("fileType");
         String[] fileBase64 = request.getParameterValues("fileBase64");
         String[] fileLen = request.getParameterValues("fileLen");
+        String[] fileAttrDesc = request.getParameterValues("fileAttrDesc");
+        String[] fileAttrId = request.getParameterValues("fileAttrId");
+        String[] fileAttrIndex = request.getParameterValues("fileAttrIndex");
         String addonData = request.getParameter("addonData");
         List<FileData> ls = new ArrayList<FileData>();
         if (fileNames != null && fileTypes != null) {
@@ -50,6 +53,11 @@ public class FileFormArgumentResolver implements HandlerMethodArgumentResolver {
                     data.setFileType(fileTypes[i]);
                     data.setFileBase64(fileBase64[i]);
                     data.setSize(Integer.parseInt(fileLen[i]));
+                    if (!Tool.CHECK.isBlank(fileAttrId[i])) {
+                        data.setFileAttrId(fileAttrId[i]);
+                        data.setFileAttrDess(fileAttrDesc[i]);
+                    }
+                    data.setFileIndex(Integer.parseInt(fileAttrIndex[i]));
                     ls.add(data);
                 }
 

@@ -3,7 +3,9 @@ package com.itouch8.pump.core.util.oss;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,13 @@ public class OSSFileService implements IFileService {
 
     @Autowired(required = false)
     private IOSSConfig config;
+
+    public OSSClient getOSSClient() {
+        String endpoint = config.getEndPoint();
+        String accessKeyId = config.getAccessKeyId();
+        String accessKeySecret = config.getAccessSecret();
+        return new OSSClient(endpoint, accessKeyId, accessKeySecret);
+    }
 
     @Override
     public void send(String fileId, String base64) {
@@ -80,6 +89,39 @@ public class OSSFileService implements IFileService {
         ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
         ossClient.deleteObject(bucketName, id);
         ossClient.shutdown();
+    }
+
+    @Override
+    public void send(String fileId, InputStream s, String contentType) {
+        String endpoint = config.getEndPoint();
+        String accessKeyId = config.getAccessKeyId();
+        String accessKeySecret = config.getAccessSecret();
+        String bucketName = config.getBuckName();
+        OSSClient ossClient = null;
+
+        try {
+            ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+            ObjectMetadata meta = new ObjectMetadata();
+            meta.setContentType(contentType);
+            ossClient.putObject(bucketName, fileId, s, meta);
+        } finally {
+            ossClient.shutdown();
+        }
+    }
+
+    @Override
+    public void get(String fileId, OutputStream os) {
+        OSSClient ossClient = null;
+        try {
+            ossClient = getOSSClient();
+            OSSObject object = ossClient.getObject(config.getBuckName(), fileId);
+            InputStream objectContent = object.getObjectContent();
+            IOUtils.copy(objectContent, os);
+        } catch (Exception ignore) {
+            ignore.printStackTrace();
+        } finally {
+            ossClient.shutdown();
+        }
     }
 
 }
