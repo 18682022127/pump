@@ -119,8 +119,13 @@ public class OSSFileService implements IFileService {
         try {
             ossClient = getOSSClient();
             OSSObject object = ossClient.getObject(config.getBuckName(), id);
-            InputStream objectContent = object.getObjectContent();
-            IOUtils.copy(objectContent, os);
+            if (null != object) {
+                InputStream objectContent = object.getObjectContent();
+                if (null != objectContent) {
+                    IOUtils.copy(objectContent, os);
+                }
+            }
+
         } catch (Exception ignore) {
             ignore.printStackTrace();
         } finally {
@@ -131,8 +136,12 @@ public class OSSFileService implements IFileService {
     public void get(String id, OutputStream os, OSSClient ossClient) {
         try {
             OSSObject object = ossClient.getObject(config.getBuckName(), id);
-            InputStream objectContent = object.getObjectContent();
-            IOUtils.copy(objectContent, os);
+            if (null != object) {
+                InputStream objectContent = object.getObjectContent();
+                if (null != objectContent) {
+                    IOUtils.copy(objectContent, os);
+                }
+            }
         } catch (Exception ignore) {
             ignore.printStackTrace();
         }
