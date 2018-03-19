@@ -4,9 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -160,12 +158,12 @@ public class OSSFileService implements IFileService {
     }
 
     @Override
-    public List<String> send(IUploadFile[] files) {
-        List<String> rs = new ArrayList<String>();
+    public Map<String, String> send(IUploadFile[] files) {
+        Map<String, String> rs = new HashMap<String, String>();
         for (IUploadFile file : files) {
             String fileId = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
             send(fileId, file.getInputStream(), file.getContentType());
-            rs.add(fileId);
+            rs.put(file.getName(), fileId);
         }
         return rs;
     }

@@ -2,7 +2,7 @@ package com.itouch8.pump.core.util.oss;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
+import java.util.Map;
 
 import com.itouch8.pump.web.upload.IUploadFile;
 
@@ -31,7 +31,7 @@ public interface IFileService {
      * @param fileId
      * @param is
      */
-    public List<String> send(IUploadFile[] files);
+    public Map<String, String> send(IUploadFile[] files);
 
     /**
      * 按字符串获取文件内容(主要用户获取文本格式存储的文件，如按base64格式存储的图片文件)
