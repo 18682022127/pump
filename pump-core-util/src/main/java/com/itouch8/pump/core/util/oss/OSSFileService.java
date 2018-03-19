@@ -169,10 +169,12 @@ public class OSSFileService implements IFileService {
     @Override
     public Map<String, String> send(IUploadFile[] files) {
         Map<String, String> rs = new HashMap<String, String>();
-        for (IUploadFile file : files) {
-            String fileId = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
-            send(fileId, file.getInputStream(), file.getContentType());
-            rs.put(file.getName(), fileId);
+        if (null != files) {
+            for (IUploadFile file : files) {
+                String fileId = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+                send(fileId, file.getInputStream(), file.getContentType());
+                rs.put(file.getName(), fileId);
+            }
         }
         return rs;
     }
