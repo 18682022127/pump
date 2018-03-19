@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.ObjectMetadata;
+import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.oss.IOSSConfig;
 import com.itouch8.pump.web.upload.IUploadFile;
 
@@ -47,6 +48,10 @@ public class OSSFileService implements IFileService {
     @Override
     public void send(String fileId, String base64) {
 
+        if (null == fileId) {
+            Throw.throwRuntimeException("文件上传参数错误!");
+        }
+
         OSSClient ossClient = null;
         try {
             ossClient = getOSSClient();
@@ -63,6 +68,9 @@ public class OSSFileService implements IFileService {
 
     @Override
     public void send(String fileId, InputStream is, String contentType) {
+        if (null == fileId || is == null) {
+            Throw.throwRuntimeException("文件上传参数错误!");
+        }
         OSSClient ossClient = null;
         try {
             ossClient = getOSSClient();
@@ -79,6 +87,9 @@ public class OSSFileService implements IFileService {
 
     @Override
     public String get(String id) {
+        if (null == id) {
+            return null;
+        }
         StringBuffer out = new StringBuffer();
         OSSClient ossClient = null;
         try {
@@ -98,6 +109,9 @@ public class OSSFileService implements IFileService {
     }
 
     public String get(String id, OSSClient ossClient) {
+        if (null == id) {
+            return null;
+        }
         StringBuffer out = new StringBuffer();
         try {
             ossClient = getOSSClient();
@@ -115,6 +129,9 @@ public class OSSFileService implements IFileService {
 
     @Override
     public void get(String id, OutputStream os) {
+        if (null == id) {
+            return;
+        }
         OSSClient ossClient = null;
         try {
             ossClient = getOSSClient();
@@ -134,6 +151,9 @@ public class OSSFileService implements IFileService {
     }
 
     public void get(String id, OutputStream os, OSSClient ossClient) {
+        if (null == id) {
+            return;
+        }
         try {
             OSSObject object = ossClient.getObject(config.getBuckName(), id);
             if (null != object) {
@@ -160,6 +180,9 @@ public class OSSFileService implements IFileService {
 
     @Override
     public void del(String id) {
+        if (null == id) {
+            Throw.throwRuntimeException("文件删除参数错误!");
+        }
         OSSClient ossClient = null;
         ossClient = getOSSClient();
         ossClient.deleteObject(config.getBuckName(), id);
@@ -168,13 +191,14 @@ public class OSSFileService implements IFileService {
 
     @Override
     public Map<String, String> send(IUploadFile[] files) {
+        if (null == files) {
+            Throw.throwRuntimeException("文件上传参数错误!");
+        }
         Map<String, String> rs = new HashMap<String, String>();
-        if (null != files) {
-            for (IUploadFile file : files) {
-                String fileId = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
-                send(fileId, file.getInputStream(), file.getContentType());
-                rs.put(file.getName(), fileId);
-            }
+        for (IUploadFile file : files) {
+            String fileId = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+            send(fileId, file.getInputStream(), file.getContentType());
+            rs.put(file.getName(), fileId);
         }
         return rs;
     }
