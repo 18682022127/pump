@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.ObjectMetadata;
+import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.oss.IOSSConfig;
 
 /**
@@ -38,7 +39,9 @@ public class OSSFileService implements IFileService {
 
     @Override
     public void send(String fileId, String base64) {
-
+        if (null == fileId || null == base64) {
+            Throw.throwRuntimeException("文件上传参数错误!");
+        }
         String endpoint = config.getEndPoint();
         String accessKeyId = config.getAccessKeyId();
         String accessKeySecret = config.getAccessSecret();
@@ -57,6 +60,9 @@ public class OSSFileService implements IFileService {
 
     @Override
     public String get(String id) {
+        if (null == id) {
+            return null;
+        }
         StringBuffer out = new StringBuffer();
         OSSClient ossClient = null;
         try {
@@ -81,6 +87,9 @@ public class OSSFileService implements IFileService {
 
     @Override
     public void del(String id) {
+        if (null == id) {
+            Throw.throwRuntimeException("文件删除参数错误!");
+        }
         OSSClient ossClient = null;
         String endpoint = config.getEndPoint();
         String accessKeyId = config.getAccessKeyId();
@@ -93,6 +102,9 @@ public class OSSFileService implements IFileService {
 
     @Override
     public void send(String fileId, InputStream s, String contentType) {
+        if (null == fileId || null == s) {
+            Throw.throwRuntimeException("文件上传参数错误!");
+        }
         String endpoint = config.getEndPoint();
         String accessKeyId = config.getAccessKeyId();
         String accessKeySecret = config.getAccessSecret();
@@ -111,6 +123,9 @@ public class OSSFileService implements IFileService {
 
     @Override
     public void get(String fileId, OutputStream os) {
+        if (null == fileId) {
+            return;
+        }
         OSSClient ossClient = null;
         try {
             ossClient = getOSSClient();
