@@ -26,6 +26,14 @@ public interface IFileService {
     public void send(String fileId, InputStream is, String contentType);
 
     /**
+     * 批量上传二进制文件
+     * 
+     * @param fileId
+     * @param is
+     */
+    public void send(String[] fileids, InputStream[] is, String[] contentType);
+
+    /**
      * 上传文件
      * 
      * @param fileId
