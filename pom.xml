@@ -638,7 +638,7 @@
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid</artifactId>
-				<version>1.0.17</version>
+				<version>1.1.10</version>
 			</dependency>
 			<dependency>
 				<groupId>c3p0</groupId>
@@ -686,12 +686,12 @@
 		<repository>
 			<id>nexus-releases</id>
 			<name>Releases</name>
-			<url>http://192.168.0.108:8081/repository/maven-releases/</url>
+			<url>http://192.168.0.105:8081/repository/maven-releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
 			<name>Snapshots</name>
-			<url>http://192.168.0.108:8081/repository/maven-snapshots/</url>
+			<url>http://192.168.0.105:8081/repository/maven-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<build>

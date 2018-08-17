@@ -203,4 +203,10 @@ public class OSSFileService implements IFileService {
         return rs;
     }
 
+    @Override
+    public void send(String[] fileids, InputStream[] is, String[] contentType) {
+        // TODO Auto-generated method stub
+
+    }
+
 }
