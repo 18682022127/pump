@@ -686,12 +686,12 @@
 		<repository>
 			<id>nexus-releases</id>
 			<name>Releases</name>
-			<url>http://192.168.0.105:8081/repository/maven-releases/</url>
+			<url>http://kingdom:8081/repository/maven-releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
 			<name>Snapshots</name>
-			<url>http://192.168.0.105:8081/repository/maven-snapshots/</url>
+			<url>http://kingdom:8081/repository/maven-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<build>
