@@ -18,7 +18,6 @@ import com.itouch8.pump.core.util.cache.Caches;
 import com.itouch8.pump.core.util.cache.stat.ICacheInfo;
 import com.itouch8.pump.core.util.cache.stat.ICacheStatService;
 import com.itouch8.pump.core.util.cache.stat.concurrent.ConcurrentCacheInfo;
-import com.itouch8.pump.core.util.cache.stat.ehcache.EhcacheCacheInfo;
 import com.itouch8.pump.core.util.cache.stat.redis.RedisCacheInfo;
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.core.util.env.EnvConsts;
@@ -35,14 +34,8 @@ public class CacheStatService implements ICacheStatService {
         defaultCacheInfoMapping.put(ConcurrentHashMap.class.getName(), ConcurrentCacheInfo.class);
         ClassLoader classLoader = CacheStatService.class.getClassLoader();
 
-        // Ehcache
-        String cacheClassName = "net.sf.ehcache.Ehcache";
-        if (ClassUtils.isPresent(cacheClassName, classLoader)) {
-            defaultCacheInfoMapping.put(cacheClassName, EhcacheCacheInfo.class);
-        }
-
         // Redis
-        cacheClassName = "org.springframework.data.redis.core.StringRedisTemplate";
+        String cacheClassName = "org.springframework.data.redis.core.StringRedisTemplate";
         if (ClassUtils.isPresent(cacheClassName, classLoader)) {
             defaultCacheInfoMapping.put(cacheClassName, RedisCacheInfo.class);
         }

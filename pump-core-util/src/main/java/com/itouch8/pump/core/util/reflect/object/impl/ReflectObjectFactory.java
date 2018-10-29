@@ -1,6 +1,6 @@
 package com.itouch8.pump.core.util.reflect.object.impl;
 
-import org.apache.commons.lang3.reflect.ConstructorUtils;
+import org.apache.commons.lang.reflect.ConstructorUtils;
 
 
 public class ReflectObjectFactory extends AbstractObjectFactory {

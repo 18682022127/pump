@@ -12,9 +12,7 @@ import java.util.Set;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.imgscalr.Scalr;
 
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.util.Tool;
@@ -140,35 +138,5 @@ public abstract class FileUtilsImpl {
         return imgFilePath;
     }
 
-    /**
-     * 缩放图像
-     * 
-     * @param src
-     * @param fileName
-     * @return
-     */
-    public String resizeImage(String src) {
-        String outFilePath = imageBase64ToFile(src);
-        String dest = System.getProperty("java.io.tmpdir") + File.separatorChar + Tool.STRING.getUUID() + ".jpg";
-        String prefix = "data:image/jpeg;base64,";
-        int w = 100, h = 100;
-        File srcFile = new File(outFilePath);
-        File destFile = new File(dest);
-        try {
-            BufferedImage bufImg = ImageIO.read(srcFile); //读取图片
-            BufferedImage rs = Scalr.resize(bufImg, w, h);
-            ImageIO.write(rs, dest.substring(dest.lastIndexOf(".") + 1), destFile); //写入缩减后的图片
-            return prefix + Tool.STRING.encodeBase64(new FileInputStream(destFile.getAbsoluteFile()));
-        } catch (Exception ex) {
-        } finally {
-            if (destFile.exists()) {
-                destFile.delete();
-            }
-            if (srcFile.exists()) {
-                srcFile.delete();
-            }
-        }
-        return null;
-    }
 
 }

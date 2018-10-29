@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.commons.lang3.reflect.MethodUtils;
+import org.apache.commons.lang.reflect.MethodUtils;
 
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.core.util.depends.impl.DependGraph;
 import com.itouch8.pump.core.util.depends.impl.DependNode;
-import com.itouch8.pump.core.util.env.PumpVersion;
 import com.itouch8.pump.core.util.env.EnvConsts;
+import com.itouch8.pump.core.util.env.PumpVersion;
 import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 import com.itouch8.pump.core.util.logger.CommonLogger;
@@ -199,7 +199,7 @@ public class InitManage {
         private Method getMethod(Class<?> cls, String methodName) {
             try {
                 if (!CoreUtils.isBlank(methodName)) {
-                    return MethodUtils.getMatchingAccessibleMethod(cls, methodName);
+                    return MethodUtils.getMatchingAccessibleMethod(cls, methodName,null);
                 }
             } catch (Exception ignore) {
             }

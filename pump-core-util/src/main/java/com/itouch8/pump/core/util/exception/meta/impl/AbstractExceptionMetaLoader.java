@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang.RandomStringUtils;
 
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.exception.meta.IExceptionMeta;

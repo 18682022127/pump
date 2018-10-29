@@ -3,7 +3,7 @@ package com.itouch8.pump.core.util.track.impl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang.RandomStringUtils;
 
 
 public class RandomTracker extends AbstractThreadLocalTracker {

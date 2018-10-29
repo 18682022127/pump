@@ -1,4 +1,4 @@
-package com.itouch8.pump.core.util.oss;
+package com.itouch8.pump.core.util.file;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -7,15 +7,6 @@ import java.util.Map;
 import com.itouch8.pump.web.upload.IUploadFile;
 
 public interface IFileService {
-
-    /**
-     * 上传base64格式的文件
-     * 
-     * @param fileId
-     * @param base64
-     */
-    @Deprecated
-    public void send(String fileId, String base64);
 
     /**
      * 上传二进制文件

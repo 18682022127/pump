@@ -27,8 +27,8 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.LocaleUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.LocaleUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -82,7 +82,7 @@ final public class CoreUtils {
 
     
     public static boolean isBlank(CharSequence cs) {
-        return StringUtils.isBlank(cs);
+        return StringUtils.isBlank((String) cs);
     }
 
     

@@ -104,7 +104,7 @@ public class OgnlDataAccessor extends AbstractDataAccessor {
     private OgnlContext initOnglContext(OgnlContext ognlContext, Object root, Map<String, Object> vars) {
         OgnlContext context = ognlContext;
         if (null == context) {
-            context = new OgnlContext();
+            context = new OgnlContext(vars);
             context.setMemberAccess(DEFAULT_MEMBER_ACCESS);
         }
         context.setRoot(root);

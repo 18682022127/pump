@@ -55,5 +55,4 @@ final public class Tool {
 
     public static final XMLUtilsImpl XML = XMLUtilsImpl.getInstance();
 
-    public static final AIUtilsImpl AI = AIUtilsImpl.getInstance();
 }

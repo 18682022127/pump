@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.aopalliance.aop.Advice;
-import org.apache.commons.lang3.LocaleUtils;
+import org.apache.commons.lang.LocaleUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -34,7 +34,6 @@ import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 import com.itouch8.pump.core.util.exception.meta.IExceptionMetaLoader;
 import com.itouch8.pump.core.util.locale.ILocaleMessageResolver;
 import com.itouch8.pump.core.util.locale.ILocaleResolver;
-import com.itouch8.pump.core.util.logger.termination.ILogTermination;
 import com.itouch8.pump.core.util.monitor.IMonitor;
 import com.itouch8.pump.core.util.page.IPageFactory;
 import com.itouch8.pump.core.util.reflect.object.IObjectFactory;
@@ -101,11 +100,6 @@ public class BaseConfig extends ConfigHelper implements InitializingBean, Applic
     
     @Configable
     private static IStackFactory stackFactory;
-
-    
-    @Configable
-    private static List<ILogTermination> logTerminations;
-
     
     @Configable
     private static IMonitor logMonitor;
@@ -406,17 +400,6 @@ public class BaseConfig extends ConfigHelper implements InitializingBean, Applic
     public void setStackFactory(IStackFactory stackFactory) {
         BaseConfig.stackFactory = stackFactory;
     }
-
-    
-    public static List<ILogTermination> getLogTerminations() {
-        return getComponents(logTerminations, ILogTermination.class);
-    }
-
-    
-    public void setLogTerminations(List<ILogTermination> logTerminations) {
-        BaseConfig.logTerminations = logTerminations;
-    }
-
     
     public static IMonitor getLogMonitor() {
         return getComponent(logMonitor, IMonitor.class, "log");

@@ -1,13 +1,12 @@
 package com.itouch8.pump.web.aop;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.slf4j.Logger;
+import java.util.logging.Logger;
 
 import com.itouch8.pump.core.util.aop.AopHelp;
 import com.itouch8.pump.core.util.aop.IAopInterceptor;
@@ -17,14 +16,12 @@ import com.itouch8.pump.core.util.track.Tracker;
 import com.itouch8.pump.web.WebPumpConfig;
 import com.itouch8.pump.web.exception.WebExceptionCodes;
 
-import javassist.Modifier;
-
 public class ControllerAspect {
 
     public Object doAspect(ProceedingJoinPoint point) {
         long start = System.currentTimeMillis();
         boolean hasTracking = Tracker.isTracking();
-        Logger logger = AopHelp.getLogger(point);
+        Logger logger = AopHelp.getLogger(point); 
         Map<String, Object> context = new HashMap<String, Object>();
         Method method = AopHelp.getPointMethod(point);
         Object target = point.getTarget();
