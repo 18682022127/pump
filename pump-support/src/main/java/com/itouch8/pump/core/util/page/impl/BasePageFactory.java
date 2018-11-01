@@ -4,6 +4,15 @@ import com.itouch8.pump.core.util.page.IPage;
 import com.itouch8.pump.core.util.page.IPageFactory;
 
 
+/**
+ * Copy Right Information :  <br>
+ * Project :  <br>
+ * Description : 默认请求工厂<br>
+ * Author : Huangzhong<br>
+ * Version : 1.0.0 <br>
+ * Since : 1.0.0 <br>
+ * Date : 2018-10-30<br>
+ */
 public class BasePageFactory implements IPageFactory {
 
     

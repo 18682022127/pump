@@ -27,7 +27,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.AntPathMatcher;
 
@@ -165,30 +164,6 @@ public abstract class StringUtilsImpl {
             Throw.throwRuntimeException(e);
             return null;
         }
-    }
-
-    public String escapeJava(String input) {
-        return StringEscapeUtils.escapeJava(input);
-    }
-
-    public String unescapeJava(String input) {
-        return StringEscapeUtils.unescapeJava(input);
-    }
-
-    public String escapeHtml4(String input) {
-        return StringEscapeUtils.escapeHtml4(input);
-    }
-
-    public String unescapeHtml4(String input) {
-        return StringEscapeUtils.unescapeHtml4(input);
-    }
-
-    public String escapeXml(String input) {
-        return StringEscapeUtils.escapeXml10(input);
-    }
-
-    public String unescapeXml(String input) {
-        return StringEscapeUtils.unescapeXml(input);
     }
 
     public String getRandomAlphanumeric(int count) {

@@ -3,6 +3,15 @@ package com.itouch8.pump.core.util.page.impl;
 import com.itouch8.pump.core.util.page.IPage;
 
 
+/**
+ * Copy Right Information :  <br>
+ * Project :  <br>
+ * Description : 默认分页对象<br>
+ * Author : Huangzhong<br>
+ * Version : 1.0.0 <br>
+ * Since : 1.0.0 <br>
+ * Date : 2018-10-30<br>
+ */
 public class BasePage implements IPage {
 
     private static final long serialVersionUID = -5436993928357442743L;

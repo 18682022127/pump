@@ -68,7 +68,7 @@ public abstract class AbstractAnnotationMapping<V extends AnnotatedElement> exte
             idMethod = getMethod(annoCls, "id");
         }
         if (null == idMethod) {
-            Throw.createRuntimeException("注解类" + annoCls + "中找不到属性" + idProperty);
+        	Throw.throwRuntimeException("注解类" + annoCls + "中找不到属性" + idProperty);
         } else {
             this.idMethod = idMethod;
         }

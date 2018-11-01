@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+
+import org.aspectj.lang.ProceedingJoinPoint;
 
 import com.itouch8.pump.core.util.aop.AopHelp;
 import com.itouch8.pump.core.util.aop.IAopInterceptor;
@@ -14,14 +15,12 @@ import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.core.util.logger.CommonLogger;
 import com.itouch8.pump.core.util.track.Tracker;
 import com.itouch8.pump.web.WebPumpConfig;
-import com.itouch8.pump.web.exception.WebExceptionCodes;
 
 public class ControllerAspect {
 
     public Object doAspect(ProceedingJoinPoint point) {
         long start = System.currentTimeMillis();
         boolean hasTracking = Tracker.isTracking();
-        Logger logger = AopHelp.getLogger(point); 
         Map<String, Object> context = new HashMap<String, Object>();
         Method method = AopHelp.getPointMethod(point);
         Object target = point.getTarget();
@@ -31,7 +30,7 @@ public class ControllerAspect {
             if (!hasTracking) {
                 Tracker.start();
             }
-            CommonLogger.debug("enter into the class layer: Controller, call the method: " + point.getSignature(), null, logger);
+            CommonLogger.debug("enter into the class layer: Controller, call the method: " + point.getSignature());
             if (null != aopInterceptors && !aopInterceptors.isEmpty()) {
                 for (IAopInterceptor sai : aopInterceptors) {
                     if (!sai.before(context, target, method, args)) {
@@ -47,13 +46,13 @@ public class ControllerAspect {
                     }
                 }
             }
-            CommonLogger.debug("the Controller method has executed success in " + (System.currentTimeMillis() - start) + " ms, exit form method: " + point.getSignature(), null, logger);
+            CommonLogger.debug("the Controller method has executed success in " + (System.currentTimeMillis() - start) + " ms, exit form method: " + point.getSignature());
             if (null == rs) {
                 return getRs(method.getReturnType());
             }
             return rs;
         } catch (Throwable e) {
-            CommonLogger.error("the Controller method has occured exception, execute failure and exit after " + (System.currentTimeMillis() - start) + " ms, method: " + point.getSignature(), e, logger);
+            CommonLogger.error("the Controller method has occured exception, execute failure and exit after " + (System.currentTimeMillis() - start) + " ms, method: " + point.getSignature(), e);
             if (null != aopInterceptors && !aopInterceptors.isEmpty()) {
                 for (IAopInterceptor sai : aopInterceptors) {
                     if (!sai.afterException(context, target, method, args, e)) {
@@ -61,7 +60,7 @@ public class ControllerAspect {
                     }
                 }
             }
-            throw Throw.createRuntimeException(WebExceptionCodes.YT060000, e);
+            throw Throw.createRuntimeException(e);
         } finally {
             if (null != aopInterceptors && !aopInterceptors.isEmpty()) {
                 for (IAopInterceptor sai : aopInterceptors) {

@@ -3,7 +3,6 @@ package com.itouch8.pump.core.dao.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
 
-import com.itouch8.pump.core.dao.exception.DaoExceptionCodes;
 import com.itouch8.pump.core.util.aop.AopHelp;
 import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.core.util.logger.CommonLogger;
@@ -22,7 +21,7 @@ public class DaoAspect {
             return rs;
         } catch (Throwable e) {
             CommonLogger.error("the DAO method has occured exception, execute failure and exit after " + (System.currentTimeMillis() - start) + " ms, method: " + point.getSignature(), e, logger);
-            throw Throw.createRuntimeException(DaoExceptionCodes.YT020000, e);
+            throw Throw.createRuntimeException("pump.core.dao.batch_param_size_not_equal", e);
         }
     }
 }

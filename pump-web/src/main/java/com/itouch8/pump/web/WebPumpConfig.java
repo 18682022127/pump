@@ -8,12 +8,19 @@ import com.itouch8.pump.core.PumpConfig;
 import com.itouch8.pump.core.util.annotation.Configable;
 import com.itouch8.pump.core.util.aop.IAopInterceptor;
 import com.itouch8.pump.util.json.serial.wrapper.IJsonWrapper;
-import com.itouch8.pump.web.path.IPathResolver;
 import com.itouch8.pump.web.request.log.IParamConvert;
 import com.itouch8.pump.web.request.log.IRequestLog;
 import com.itouch8.pump.web.view.IViewMapping;
 
-
+/**
+ * Copy Right Information :  <br>
+ * Project :  <br>
+ * Description : 基于web的配置<br>
+ * Author : Huangzhong<br>
+ * Version : 1.0.0 <br>
+ * Since : 1.0.0 <br>
+ * Date : 2018-10-31<br>
+ */
 public class WebPumpConfig extends PumpConfig {
 
     
@@ -43,10 +50,6 @@ public class WebPumpConfig extends PumpConfig {
     
     @Configable
     private static List<IAopInterceptor> controllerAopInterceptors;
-
-    
-    @Configable
-    private static IPathResolver pathResolver;
 
     
     @Configable
@@ -114,14 +117,6 @@ public class WebPumpConfig extends PumpConfig {
 
     public void setControllerAopInterceptors(List<IAopInterceptor> controllerAopInterceptors) {
         WebPumpConfig.controllerAopInterceptors = controllerAopInterceptors;
-    }
-
-    public static IPathResolver getPathResolver() {
-        return getComponent(pathResolver, IPathResolver.class);
-    }
-
-    public void setPathResolver(IPathResolver pathResolver) {
-        WebPumpConfig.pathResolver = pathResolver;
     }
 
     public static List<HandlerMethodReturnValueHandler> getPriorReturnValueHandlers() {

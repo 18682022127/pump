@@ -63,7 +63,7 @@ public abstract class AbstractMapping<K, V> implements IMapping<K, V>, Initializ
                         continue;
                     }
                 } else {
-                    Throw.createRuntimeException("mapping key [" + key + "] is duplicate,mapping:[" + o2 + "," + s + "]");
+                	Throw.throwRuntimeException("mapping key [" + key + "] is duplicate,mapping:[" + o2 + "," + s + "]");
                 }
             } else {
                 mapping.put(key, s);

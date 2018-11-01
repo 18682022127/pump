@@ -5,7 +5,7 @@ import java.net.Inet4Address;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 
 public abstract class EnvConsts {

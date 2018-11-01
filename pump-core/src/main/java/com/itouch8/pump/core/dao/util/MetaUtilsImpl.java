@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import com.itouch8.pump.core.dao.exception.DaoExceptionCodes;
 import com.itouch8.pump.core.dao.util.DBHelp.IConnectionCallback;
 import com.itouch8.pump.core.util.exception.Throw;
 
@@ -37,7 +36,7 @@ public abstract class MetaUtilsImpl {
         try {
             return conn.getMetaData();
         } catch (SQLException e) {
-            throw Throw.createRuntimeException(DaoExceptionCodes.YT020010, e);
+            throw Throw.createRuntimeException("pump.core.dao.database_meta", e);
         }
     }
 
@@ -56,7 +55,7 @@ public abstract class MetaUtilsImpl {
         try {
             return conn.getMetaData().getDatabaseProductName();
         } catch (SQLException e) {
-            throw Throw.createRuntimeException(DaoExceptionCodes.YT020010, e);
+            throw Throw.createRuntimeException("pump.core.dao.database_meta", e);
         }
     }
 
@@ -82,7 +81,7 @@ public abstract class MetaUtilsImpl {
             rs = meta.getTables(t[0], t[1], t[2], new String[] {"TABLE"});
             return rs.next();
         } catch (SQLException e) {
-            throw Throw.createRuntimeException(DaoExceptionCodes.YT020011, e);
+            throw Throw.createRuntimeException("pump.core.dao.table_meta", e);
         } finally {
             DBHelp.Closer.close(rs);
         }

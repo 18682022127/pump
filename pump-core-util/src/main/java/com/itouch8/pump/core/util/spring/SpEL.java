@@ -26,9 +26,9 @@ import org.springframework.expression.spel.support.StandardTypeConverter;
 import org.springframework.expression.spel.support.StandardTypeLocator;
 import org.springframework.stereotype.Component;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.core.util.exception.Throw;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 
 
 @Component(BeanNameConsts.PUMP + "SpEL")
@@ -178,7 +178,7 @@ public class SpEL implements ApplicationContextAware {
             Map<String, Object> varis = (Map<String, Object>) variablesField.get(evaluationContext);
             return varis;
         } catch (Exception e) {
-            throw Throw.createRuntimeException(ExceptionCodes.YT010011, e);
+            throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, e);
         }
     }
 

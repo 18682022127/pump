@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<exception-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns="http://www.itouch8.com/schema/pump/exception"
-	xsi:schemaLocation="http://www.itouch8.com/schema/pump/exception pump-exception.xsd">
-
-	<exception code="YT050000" description="应用工具层异常" messageKey="pump.util">
-	
-	</exception>
-</exception-config>

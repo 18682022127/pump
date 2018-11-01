@@ -20,7 +20,6 @@ import com.itouch8.pump.core.service.request.IRequestInfoFactory;
 import com.itouch8.pump.core.util.annotation.Configable;
 import com.itouch8.pump.core.util.aop.IAopInterceptor;
 import com.itouch8.pump.core.util.config.BaseConfig;
-import com.itouch8.pump.security.core.session.ISessionManager;
 
 
 public class PumpConfig extends BaseConfig {
@@ -103,11 +102,6 @@ public class PumpConfig extends BaseConfig {
     @Configable
     private static IRequestInfoFactory requestInfoFactory;
 
-    
-    @Configable
-    private static ISessionManager sessionManager;
-
-    
     @Configable
     private static List<IAopInterceptor> serviceAopInterceptors;
 
@@ -115,7 +109,6 @@ public class PumpConfig extends BaseConfig {
     @Override
     public void validate() {
         super.validate();
-
         // 执行当前配置类中的校验
     }
 
@@ -277,17 +270,6 @@ public class PumpConfig extends BaseConfig {
     public void setRequestInfoFactory(IRequestInfoFactory requestInfoFactory) {
         PumpConfig.requestInfoFactory = requestInfoFactory;
     }
-
-    
-    public static ISessionManager getSessionManager() {
-        return getComponent(sessionManager, ISessionManager.class);
-    }
-
-    
-    public void setSessionManager(ISessionManager sessionManager) {
-        PumpConfig.sessionManager = sessionManager;
-    }
-
     
     public static List<IAopInterceptor> getServiceAopInterceptors() {
         return serviceAopInterceptors;

@@ -11,8 +11,8 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.session.Configuration;
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.dao.IDaoTemplate;
-import com.itouch8.pump.core.dao.exception.DaoExceptionCodes;
 import com.itouch8.pump.core.dao.sql.SqlManager;
 import com.itouch8.pump.core.util.exception.Throw;
 
@@ -85,7 +85,7 @@ public class MybatisUtils {
         statement = SqlManager.getExecuteSqlId(statement);
         DaoTemplateMapper jdtm = mapper.get(statement);
         if (null == jdtm) {
-            Throw.throwRuntimeException(DaoExceptionCodes.YT020016, statement);
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, "pump.core.dao.not_found_mybatis_sqlId", statement);
         }
         return jdtm;
     }

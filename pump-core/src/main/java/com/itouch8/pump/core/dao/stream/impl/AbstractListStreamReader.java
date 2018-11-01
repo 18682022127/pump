@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.itouch8.pump.core.dao.exception.DaoExceptionCodes;
 import com.itouch8.pump.core.dao.stream.IListStreamReader;
 import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.core.util.page.IPage;
@@ -42,7 +41,7 @@ public abstract class AbstractListStreamReader<T> implements IListStreamReader<T
         if (fetchSize <= 0) {
             fetchSize = defaultFetchSize;
         } else if (fetchSize > maxFetchSize) {
-            Throw.throwRuntimeException(DaoExceptionCodes.YT020012, fetchSize, "(0, " + maxFetchSize + "]");
+            Throw.throwRuntimeException("pump.core.dao.fetch_size_out_of_range", fetchSize, "(0, " + maxFetchSize + "]");
         }
         this.fetchSize = fetchSize;
         BasePage page = new BasePage();

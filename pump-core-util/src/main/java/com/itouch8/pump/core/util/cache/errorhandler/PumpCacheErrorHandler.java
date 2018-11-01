@@ -3,8 +3,8 @@ package com.itouch8.pump.core.util.cache.errorhandler;
 import org.springframework.cache.Cache;
 import org.springframework.cache.interceptor.CacheErrorHandler;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.exception.Throw;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 
 
 public class PumpCacheErrorHandler implements CacheErrorHandler {
@@ -16,7 +16,7 @@ public class PumpCacheErrorHandler implements CacheErrorHandler {
     @Override
     public void handleCacheGetError(RuntimeException exception, Cache cache, Object key) {
         if (isIgnoreCacheError() && !commonHandler(exception)) {
-            Throw.throwRuntimeException(ExceptionCodes.YT010009, exception, "get", cache.getName());
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, exception, "get", cache.getName());
         }
     }
 
@@ -24,7 +24,7 @@ public class PumpCacheErrorHandler implements CacheErrorHandler {
     @Override
     public void handleCachePutError(RuntimeException exception, Cache cache, Object key, Object value) {
         if (isIgnoreCacheError() && !commonHandler(exception)) {
-            Throw.throwRuntimeException(ExceptionCodes.YT010009, exception, "put", cache.getName());
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, exception, "put", cache.getName());
         }
     }
 
@@ -32,7 +32,7 @@ public class PumpCacheErrorHandler implements CacheErrorHandler {
     @Override
     public void handleCacheEvictError(RuntimeException exception, Cache cache, Object key) {
         if (isIgnoreCacheError() && !commonHandler(exception)) {
-            Throw.throwRuntimeException(ExceptionCodes.YT010009, exception, "evict", cache.getName());
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, exception, "evict", cache.getName());
         }
     }
 
@@ -40,7 +40,7 @@ public class PumpCacheErrorHandler implements CacheErrorHandler {
     @Override
     public void handleCacheClearError(RuntimeException exception, Cache cache) {
         if (isIgnoreCacheError() && !commonHandler(exception)) {
-            Throw.throwRuntimeException(ExceptionCodes.YT010009, exception, "clear", cache.getName());
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, exception, "clear", cache.getName());
         }
     }
 

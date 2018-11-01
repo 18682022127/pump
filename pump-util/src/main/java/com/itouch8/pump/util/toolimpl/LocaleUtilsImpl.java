@@ -5,6 +5,15 @@ import java.util.Locale;
 import com.itouch8.pump.core.util.CoreUtils;
 
 
+/**
+ * Copy Right Information :  <br>
+ * Project :  <br>
+ * Description : 国际化工具类<br>
+ * Author : Huangzhong<br>
+ * Version : 1.0.0 <br>
+ * Since : 1.0.0 <br>
+ * Date : 2018-10-30<br>
+ */
 public abstract class LocaleUtilsImpl {
 
     private static final LocaleUtilsImpl instance = new LocaleUtilsImpl() {};

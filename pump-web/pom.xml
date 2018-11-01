@@ -11,14 +11,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.itouch8</groupId>
-			<artifactId>pump-support</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.itouch8</groupId>
-			<artifactId>pump-core-util</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.itouch8</groupId>
 			<artifactId>pump-core</artifactId>
 		</dependency>
 		<dependency>
@@ -30,74 +22,6 @@
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
 		<!-- Spring框架依赖开始 -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-		</dependency>
-		<!-- Spring框架依赖结束 -->
-		<dependency>
-		    <groupId>net.sf.jasperreports</groupId>
-		    <artifactId>jasperreports</artifactId>
-		</dependency>	
-		<dependency>
-		    <groupId>net.sf.jasperreports</groupId>
-		    <artifactId>jasperreports-fonts</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>org.apache.xmlgraphics</groupId>
-		    <artifactId>batik-bridge</artifactId>
-		</dependency>			
-		<dependency>
-		    <groupId>org.codehaus.groovy</groupId>
-		    <artifactId>groovy-all</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>org.olap4j</groupId>
-		    <artifactId>olap4j</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>org.codehaus.groovy</groupId>
-		    <artifactId>groovy-all</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>com.lowagie</groupId>
-		    <artifactId>itext</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>com.itextpdf</groupId>
-		    <artifactId>itext-asian</artifactId>
-		</dependency>
-		<!-- 容器依赖开始 -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-		</dependency>
-		<!-- 容器依赖结束 -->
-
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
 
 		<!-- 测试依赖开始 -->
 		<dependency>

@@ -7,6 +7,15 @@ import java.util.Map;
 import com.itouch8.pump.core.service.request.IRequestInfo;
 
 
+/**
+ * Copy Right Information :  <br>
+ * Project :  <br>
+ * Description : 请求信息的基础实现<br>
+ * Author : Huangzhong<br>
+ * Version : 1.0.0 <br>
+ * Since : 1.0.0 <br>
+ * Date : 2018-10-30<br>
+ */
 public class BaseRequestInfo implements IRequestInfo {
 
     

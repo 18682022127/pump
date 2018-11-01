@@ -11,10 +11,10 @@ import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.core.util.exception.Throw;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 
 
 public class Caches {
@@ -41,7 +41,7 @@ public class Caches {
     
     public static void assertNotPumpCache(String cacheName) {
         if (isPumpCache(cacheName)) {
-            Throw.throwRuntimeException(ExceptionCodes.YT010006, "", cacheName);
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, "", cacheName);
         }
     }
 
@@ -53,7 +53,7 @@ public class Caches {
     
     public static void checkCacheName(String cacheName, String visitClassName) {
         if (isPumpCache(cacheName) && !isPumpClass(visitClassName)) {
-            Throw.throwRuntimeException(ExceptionCodes.YT010006, visitClassName, cacheName);
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, visitClassName, cacheName);
         }
     }
 
@@ -209,11 +209,11 @@ public class Caches {
     private static Cache getDefaultCache() {
         String cacheName = BaseConfig.getDefaultCacheName();
         if (CoreUtils.isBlank(cacheName)) {
-            Throw.throwRuntimeException(ExceptionCodes.YT010007);
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code);
         }
         Cache cache = getCache0(cacheName, 3);
         if (null == cache) {
-            Throw.throwRuntimeException(ExceptionCodes.YT010008, cacheName);
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, cacheName);
         }
         return cache;
     }

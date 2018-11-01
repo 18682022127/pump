@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.aopalliance.aop.Advice;
-import org.apache.commons.lang.LocaleUtils;
+import org.apache.commons.lang3.LocaleUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -22,6 +22,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.annotation.Configable;
 import com.itouch8.pump.core.util.annotation.Warning;
@@ -29,9 +30,6 @@ import com.itouch8.pump.core.util.bean.IContextBeanOperateWrapper;
 import com.itouch8.pump.core.util.data.accessor.IDataAccessorFactory;
 import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.core.util.exception.handler.IExceptionHandler;
-import com.itouch8.pump.core.util.exception.level.ExceptionLevel;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
-import com.itouch8.pump.core.util.exception.meta.IExceptionMetaLoader;
 import com.itouch8.pump.core.util.locale.ILocaleMessageResolver;
 import com.itouch8.pump.core.util.locale.ILocaleResolver;
 import com.itouch8.pump.core.util.monitor.IMonitor;
@@ -41,7 +39,6 @@ import com.itouch8.pump.core.util.reflect.object.impl.SpringObjectFactory;
 import com.itouch8.pump.core.util.scan.IScan;
 import com.itouch8.pump.core.util.stack.IStackFactory;
 import com.itouch8.pump.core.util.track.ITracker;
-
 
 public class BaseConfig extends ConfigHelper implements InitializingBean, ApplicationContextAware {
 
@@ -83,7 +80,6 @@ public class BaseConfig extends ConfigHelper implements InitializingBean, Applic
     
     @Configable
     private static ILocaleResolver localeResolver;
-
     
     @Configable
     @Warning
@@ -110,22 +106,12 @@ public class BaseConfig extends ConfigHelper implements InitializingBean, Applic
 
     
     @Configable
-    @Warning
-    private static IExceptionMetaLoader exceptionMetaLoader;
-
-    
-    @Configable
     private static List<IExceptionHandler> exceptionHandlers;
 
     
     @Configable
     private static String exceptionCode;
 
-    
-    @Configable
-    private static ExceptionLevel exceptionLevel;
-
-    
     @Configable
     private static String exceptionView;
 
@@ -194,7 +180,7 @@ public class BaseConfig extends ConfigHelper implements InitializingBean, Applic
             try {
                 Locale.setDefault(LocaleUtils.toLocale(defaultLocale));
             } catch (Exception e) {
-                Throw.throwRuntimeException(ExceptionCodes.YT010010, e, defaultLocale);
+                Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, e, defaultLocale);
             }
         }
     }
@@ -248,7 +234,7 @@ public class BaseConfig extends ConfigHelper implements InitializingBean, Applic
         } catch (Exception e) {
         }
         if (!isSupported) {
-            Throw.createRuntimeException(ExceptionCodes.YT010002, encoding);
+            Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, encoding);
         }
 
         // 校验日期、时间、日期时间格式
@@ -409,17 +395,6 @@ public class BaseConfig extends ConfigHelper implements InitializingBean, Applic
     public void setLogMonitor(IMonitor logMonitor) {
         BaseConfig.logMonitor = logMonitor;
     }
-
-    
-    public static IExceptionMetaLoader getExceptionMetaLoader() {
-        return getComponent(exceptionMetaLoader, IExceptionMetaLoader.class);
-    }
-
-    
-    public void setExceptionMetaLoader(IExceptionMetaLoader exceptionMetaLoader) {
-        BaseConfig.exceptionMetaLoader = exceptionMetaLoader;
-    }
-
     
     public static IMonitor getExceptionMonitor() {
         return getComponent(exceptionMonitor, IMonitor.class, "exception");
@@ -449,17 +424,6 @@ public class BaseConfig extends ConfigHelper implements InitializingBean, Applic
     public void setExceptionCode(String exceptionCode) {
         BaseConfig.exceptionCode = exceptionCode;
     }
-
-    
-    public static ExceptionLevel getExceptionLevel() {
-        return getComponent(exceptionLevel, ExceptionLevel.class);
-    }
-
-    
-    public void setExceptionLevel(ExceptionLevel exceptionLevel) {
-        BaseConfig.exceptionLevel = exceptionLevel;
-    }
-
     
     public static String getExceptionView() {
         return getValue(exceptionView, "exception_view");

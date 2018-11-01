@@ -27,8 +27,8 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.LocaleUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.LocaleUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -37,11 +37,11 @@ import org.springframework.objenesis.SpringObjenesis;
 import org.springframework.util.NumberUtils;
 import org.springframework.util.ObjectUtils;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.bean.IContextBeanOperateWrapper;
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.core.util.env.EnvConsts;
 import com.itouch8.pump.core.util.exception.Throw;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 import com.itouch8.pump.core.util.filter.method.IMethodFilter;
 import com.itouch8.pump.core.util.filter.method.impl.AnnoMethodFilter;
 import com.itouch8.pump.core.util.filter.type.ITypeFilter;
@@ -531,7 +531,7 @@ final public class CoreUtils {
             }
             return org.springframework.util.ClassUtils.forName(name, classLoader);
         } catch (Exception ex) {
-            throw Throw.createRuntimeException(ExceptionCodes.YT010005, ex, name);
+            throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code,"pump.exception",ex, name);
         }
     }
 

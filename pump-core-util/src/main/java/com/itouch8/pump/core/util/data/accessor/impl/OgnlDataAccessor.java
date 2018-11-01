@@ -3,9 +3,9 @@ package com.itouch8.pump.core.util.data.accessor.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.data.accessor.IDataAccessor;
 import com.itouch8.pump.core.util.exception.Throw;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 
 import ognl.DefaultMemberAccess;
 import ognl.MemberAccess;
@@ -48,7 +48,7 @@ public class OgnlDataAccessor extends AbstractDataAccessor {
             T value = (T) Ognl.getValue(tree, ognlContext, ognlContext.getRoot(), cls);
             return value;
         } catch (OgnlException e) {
-            throw Throw.createRuntimeException(ExceptionCodes.YT010003, e, property);
+            throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, e.getMessage(), property);
         }
     }
 
@@ -59,7 +59,7 @@ public class OgnlDataAccessor extends AbstractDataAccessor {
         try {
             Ognl.setValue(tree, ognlContext, ognlContext.getRoot(), value);
         } catch (OgnlException e) {
-            throw Throw.createRuntimeException(ExceptionCodes.YT010003, e, property);
+            throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, e.getMessage(), property);
         }
     }
 
@@ -92,7 +92,7 @@ public class OgnlDataAccessor extends AbstractDataAccessor {
                         tree = Ognl.parseExpression(property);
                         expCache.put(property, tree);
                     } catch (OgnlException e) {
-                        Throw.throwRuntimeException(ExceptionCodes.YT010003, e, property);
+                        Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, e, property);
                     }
                 }
             }

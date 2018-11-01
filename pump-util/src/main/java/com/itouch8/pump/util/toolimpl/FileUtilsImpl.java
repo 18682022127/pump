@@ -1,18 +1,15 @@
 package com.itouch8.pump.util.toolimpl;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Base64;
 import java.util.Set;
 
-import javax.imageio.ImageIO;
-
 import org.apache.commons.io.FilenameUtils;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.util.Tool;

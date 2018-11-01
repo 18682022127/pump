@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.ibatis.executor.BatchResult;
 import org.apache.ibatis.session.ExecutorType;
@@ -16,7 +17,6 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +25,9 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.dao.IDaoTemplate;
 import com.itouch8.pump.core.dao.call.ICallResult;
-import com.itouch8.pump.core.dao.exception.DaoExceptionCodes;
 import com.itouch8.pump.core.dao.jndi.JndiManager;
 import com.itouch8.pump.core.dao.mybatis.call.CallAdapter;
 import com.itouch8.pump.core.dao.mybatis.page.PageAdapter;
@@ -217,13 +217,13 @@ public class MybatisDaoTemplate implements IDaoTemplate {
         } else if (sqlIds.isEmpty()) {
             return ArrayUtils.EMPTY_INT_ARRAY;
         } else if (null != parameters && sqlIds.size() != parameters.size()) {
-            throw Throw.createRuntimeException(DaoExceptionCodes.YT020015, sqlIds.size(), null == parameters ? 0 : parameters.size());
+            throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, "pump.core.dao.batch_param_size_not_equal", sqlIds.size(), null == parameters ? 0 : parameters.size());
         } else {
             String sqlId = sqlIds.get(0);
             DataSource ds = MybatisUtils.getDataSource(sqlId);
             for (int i = 1, s = sqlIds.size(); i < s; i++) {// 确认是同一个数据源
                 if (ds != MybatisUtils.getDataSource(sqlIds.get(i))) {// 这里直接比较是否为同一个数据源对象
-                    Throw.throwRuntimeException(DaoExceptionCodes.YT020017, SqlManager.getExecuteSqlId(sqlId), SqlManager.getExecuteSqlId(sqlIds.get(i)));
+                    Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, "pump.core.dao.batch_execute_must_in_some_datasource",SqlManager.getExecuteSqlId(sqlId), SqlManager.getExecuteSqlId(sqlIds.get(i)));
                 }
             }
             return this.doExecuteBatch(ds, sqlIds, parameters);

@@ -28,6 +28,15 @@ import com.itouch8.pump.web.WebPumpConfig;
 import com.itouch8.pump.web.WebUtils;
 
 
+/**
+ * Copy Right Information :  <br>
+ * Project :  <br>
+ * Description : 异常解析器<br>
+ * Author : Huangzhong<br>
+ * Version : 1.0.0 <br>
+ * Since : 1.0.0 <br>
+ * Date : 2018-10-30<br>
+ */
 public class PumpHandlerExceptionResolver extends DefaultHandlerExceptionResolver {
 
     
@@ -44,21 +53,16 @@ public class PumpHandlerExceptionResolver extends DefaultHandlerExceptionResolve
     public PumpHandlerExceptionResolver() {
         setOrder(1);
     }
-
     
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         try {
-            // ModelAndView mv = super.resolveException(request, response, handler, ex);
-            // if(null != mv){
-            // return mv;
-            // }
             if (ex instanceof BindException) {
                 return handleBindException((BindException) ex, request, response, handler);
             }
 
             PumpRuntimeException be = Throw.createRuntimeException(ex);
-            List<IExceptionHandler> handlers = be.getHandlers();
+           /* List<IExceptionHandler> handlers = be.getHandlers();
             String view = be.getView();
             List<Object> results = handlerException(handlers, be);
             if (isAjaxRequest(request, handler)) {
@@ -72,14 +76,14 @@ public class PumpHandlerExceptionResolver extends DefaultHandlerExceptionResolve
                 } else {
                     return handlerException(request, response, handler, be, view, results);
                 }
-            }
+            }*/
         } catch (Exception e) {
             try {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             } catch (IOException e1) {
             }
-            return new ModelAndView();
         }
+        return new ModelAndView();
     }
 
     @Override
@@ -128,7 +132,6 @@ public class PumpHandlerExceptionResolver extends DefaultHandlerExceptionResolve
             e1.printStackTrace();
         }
     }
-
     
     protected ModelAndView handlerException(HttpServletRequest request, HttpServletResponse response, Object handler, PumpRuntimeException be, String view, List<Object> results) {
         ModelAndView mv = new ModelAndView(view);

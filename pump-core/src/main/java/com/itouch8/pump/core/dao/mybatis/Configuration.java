@@ -78,43 +78,37 @@ public class Configuration extends org.apache.ibatis.session.Configuration {
 
     @Override
     public Class<? extends Log> getLogImpl() {
-        // TODO Auto-generated method stub
         return delegate.getLogImpl();
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void setLogImpl(@SuppressWarnings("rawtypes") Class logImpl) {
-        // TODO Auto-generated method stub
         delegate.setLogImpl(logImpl);
     }
 
     @Override
     public boolean isCallSettersOnNulls() {
-        // TODO Auto-generated method stub
         return delegate.isCallSettersOnNulls();
     }
 
     @Override
     public void setCallSettersOnNulls(boolean callSettersOnNulls) {
-        // TODO Auto-generated method stub
         delegate.setCallSettersOnNulls(callSettersOnNulls);
     }
 
     @Override
     public String getDatabaseId() {
-        // TODO Auto-generated method stub
         return delegate.getDatabaseId();
     }
 
     @Override
     public void setDatabaseId(String databaseId) {
-        // TODO Auto-generated method stub
         delegate.setDatabaseId(databaseId);
     }
 
     @Override
     public Class<?> getConfigurationFactory() {
-        // TODO Auto-generated method stub
         return delegate.getConfigurationFactory();
     }
 
@@ -126,31 +120,26 @@ public class Configuration extends org.apache.ibatis.session.Configuration {
 
     @Override
     public boolean isSafeResultHandlerEnabled() {
-        // TODO Auto-generated method stub
         return delegate.isSafeResultHandlerEnabled();
     }
 
     @Override
     public void setSafeResultHandlerEnabled(boolean safeResultHandlerEnabled) {
-        // TODO Auto-generated method stub
         delegate.setSafeResultHandlerEnabled(safeResultHandlerEnabled);
     }
 
     @Override
     public boolean isSafeRowBoundsEnabled() {
-        // TODO Auto-generated method stub
         return delegate.isSafeRowBoundsEnabled();
     }
 
     @Override
     public void setSafeRowBoundsEnabled(boolean safeRowBoundsEnabled) {
-        // TODO Auto-generated method stub
         delegate.setSafeRowBoundsEnabled(safeRowBoundsEnabled);
     }
 
     @Override
     public boolean isMapUnderscoreToCamelCase() {
-        // TODO Auto-generated method stub
         return delegate.isMapUnderscoreToCamelCase();
     }
 

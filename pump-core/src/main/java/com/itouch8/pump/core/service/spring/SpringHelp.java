@@ -28,12 +28,12 @@ import org.springframework.expression.spel.support.StandardTypeConverter;
 import org.springframework.expression.spel.support.StandardTypeLocator;
 import org.springframework.stereotype.Component;
 
-import com.itouch8.pump.core.service.exception.ServiceExceptionCodes;
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.exception.Throw;
 
 
-@Component("PumpSpringHelp")
+@Component
 public class SpringHelp implements ApplicationContextAware {
 
     
@@ -56,7 +56,7 @@ public class SpringHelp implements ApplicationContextAware {
     
     public static ApplicationContext getApplicationContext() {
         if (null == context) {
-            Throw.throwRuntimeException(ServiceExceptionCodes.YT030001);
+            Throw.throwRuntimeException("pump.core.service.spring_not_init");
         }
         return context;
     }
@@ -66,7 +66,7 @@ public class SpringHelp implements ApplicationContextAware {
         try {
             return getApplicationContext().getBean(name);
         } catch (BeansException e) {
-            throw Throw.createRuntimeException(ServiceExceptionCodes.YT030002, name);
+            throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, "pump.core.service.not_found_bean_from_spring", name);
         }
     }
 
@@ -80,7 +80,7 @@ public class SpringHelp implements ApplicationContextAware {
         try {
             return getApplicationContext().getBean(cls);
         } catch (BeansException e) {
-            throw Throw.createRuntimeException(ServiceExceptionCodes.YT030002, cls);
+            throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code,"pump.core.service.not_found_bean_from_spring", cls);
         }
     }
 
@@ -89,7 +89,7 @@ public class SpringHelp implements ApplicationContextAware {
         try {
             return getApplicationContext().getBean(name, cls);
         } catch (BeansException e) {
-            throw Throw.createRuntimeException(ServiceExceptionCodes.YT030002, "name=" + name + ";class=" + cls);
+            throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, "pump.core.service.not_found_bean_from_spring","name=" + name + ";class=" + cls);
         }
     }
 
@@ -98,7 +98,7 @@ public class SpringHelp implements ApplicationContextAware {
         try {
             return getApplicationContext().getBeansOfType(cls);
         } catch (BeansException e) {
-            throw Throw.createRuntimeException(ServiceExceptionCodes.YT030002, cls);
+            throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, "pump.core.service.not_found_bean_from_spring",cls);
         }
     }
 
@@ -114,7 +114,6 @@ public class SpringHelp implements ApplicationContextAware {
         }
         return null;
     }
-
     
     public static Object evaluate(String expression) {
         return evaluate(null, expression, (Map<String, Object>) null);

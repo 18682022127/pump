@@ -2,11 +2,8 @@ package com.itouch8.pump.core.util.exception;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.List;
 
 import com.itouch8.pump.core.util.exception.Throw.PumpExceptionInnerProxy;
-import com.itouch8.pump.core.util.exception.handler.IExceptionHandler;
-import com.itouch8.pump.core.util.exception.level.ExceptionLevel;
 
 
 final public class PumpRuntimeException extends RuntimeException {
@@ -24,67 +21,34 @@ final public class PumpRuntimeException extends RuntimeException {
         this.proxy = proxy;
     }
 
-    
-    public String getTrackId() {
-        return this.proxy.getTrackId();
-    }
-
-    
-    public String getParentCode() {
-        return this.proxy.getParentCode();
-    }
-
-    
     public String getCode() {
         return this.proxy.getCode();
     }
 
-    
-    public String getView() {
-        return this.proxy.getView();
+    @Override
+    public String getMessage() {
+        return this.getShortMessage();
     }
-
-    
-    public ExceptionLevel getLevel() {
-        return this.proxy.getLevel();
-    }
-
     
     public String getShortMessage() {
         return this.proxy.getMessage();
     }
 
     
-    @Override
-    public String getMessage() {
-        return Throw.getMessage(this);
-    }
-
-    
     public String getStackMessage() {
-        return Throw.getStackMessage(this);
+        return this.proxy.getStackMessage();
     }
 
-    
-    public List<IExceptionHandler> getHandlers() {
-        return this.proxy.getHandlers();
-    }
-
-    
     @Override
     public void printStackTrace(PrintStream s) {
-        s.print(Throw.getStackMessage(this));
-        // super.printStackTrace(s);
+        s.print(getStackMessage());
     }
-
     
     @Override
     public void printStackTrace(PrintWriter s) {
-        s.print(Throw.getStackMessage(this));
-        // super.printStackTrace(s);
+        s.print(getStackMessage());
     }
 
-    
      PumpExceptionInnerProxy getProxy() {
         return proxy;
     }

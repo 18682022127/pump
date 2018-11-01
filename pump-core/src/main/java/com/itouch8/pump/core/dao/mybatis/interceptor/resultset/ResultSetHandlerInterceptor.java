@@ -23,7 +23,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandler;
 
 import com.itouch8.pump.core.dao.call.impl.CallResult;
-import com.itouch8.pump.core.dao.exception.DaoExceptionCodes;
 import com.itouch8.pump.core.dao.mybatis.call.CallAdapter;
 import com.itouch8.pump.core.dao.mybatis.interceptor.AbstractInterceptor;
 import com.itouch8.pump.core.util.exception.Throw;
@@ -72,7 +71,7 @@ public class ResultSetHandlerInterceptor extends AbstractInterceptor {
                     } catch (Exception ignore) {
                     }
                 } catch (Exception e) {
-                    Throw.throwRuntimeException(DaoExceptionCodes.YT020006, e);
+                    Throw.throwRuntimeException("pump.core.dao.handler_output_params", e);
                 }
             }
         }

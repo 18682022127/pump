@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
 
 import org.springframework.cache.interceptor.CacheOperation;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.cache.interceptor.ICacheMethod;
 import com.itouch8.pump.core.util.exception.Throw;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 
 
 public class GroupCacheInterceptor extends CacheInterceptorSupport {
@@ -34,7 +34,7 @@ public class GroupCacheInterceptor extends CacheInterceptorSupport {
                 if (name.matcher(cacheName).find()) {
                     Pattern allow = cacheNamePatternMapping.get(name);
                     if (!allow.matcher(targetClassName).find()) {
-                        Throw.throwRuntimeException(ExceptionCodes.YT010006, targetClassName, cacheName);
+                        Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, targetClassName, cacheName);
                     }
                 }
             }

@@ -2,11 +2,11 @@ package com.itouch8.pump.core.util.bean.impl;
 
 import java.util.Map;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.bean.IBeanOperateWrapper;
 import com.itouch8.pump.core.util.bean.IContextBeanOperateWrapper;
 import com.itouch8.pump.core.util.exception.Throw;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 
 import ognl.DefaultMemberAccess;
 import ognl.MemberAccess;
@@ -148,7 +148,7 @@ public class BaseBeanOperateWrapper implements IContextBeanOperateWrapper {
             try {
                 return Ognl.getValue(expression, getDefaultOgnlContext(context), bean);
             } catch (OgnlException e) {
-                throw Throw.createRuntimeException(ExceptionCodes.YT010003, e, expression);
+                throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, e, expression);
             }
         }
 
@@ -158,7 +158,7 @@ public class BaseBeanOperateWrapper implements IContextBeanOperateWrapper {
             try {
                 return (E) Ognl.getValue(expression, getDefaultOgnlContext(context), bean, resultType);
             } catch (OgnlException e) {
-                throw Throw.createRuntimeException(ExceptionCodes.YT010003, e, expression);
+                throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, e, expression);
             }
         }
 
@@ -167,7 +167,7 @@ public class BaseBeanOperateWrapper implements IContextBeanOperateWrapper {
             try {
                 Ognl.setValue(expression, getDefaultOgnlContext(context), bean, value);
             } catch (OgnlException e) {
-                Throw.throwRuntimeException(ExceptionCodes.YT010003, e, expression);
+                Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, e, expression);
             }
         }
     }

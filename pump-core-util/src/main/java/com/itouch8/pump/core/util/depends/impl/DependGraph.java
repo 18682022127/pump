@@ -5,13 +5,22 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.depends.IDependGraph;
 import com.itouch8.pump.core.util.depends.IDependNode;
 import com.itouch8.pump.core.util.exception.Throw;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 import com.itouch8.pump.core.util.logger.CommonLogger;
 
 
+/**
+ * Copy Right Information :  <br>
+ * Project :  <br>
+ * Description : 依赖视图<br>
+ * Author : Huangzhong<br>
+ * Version : 1.0.0 <br>
+ * Since : 1.0.0 <br>
+ * Date : 2018-10-30<br>
+ */
 public class DependGraph<E extends IDependNode> implements IDependGraph<E> {
 
     private List<E> nodeList;
@@ -19,15 +28,12 @@ public class DependGraph<E extends IDependNode> implements IDependGraph<E> {
     private List<E> sortList;
 
     private boolean hasSort = false;
-
     
     public DependGraph() {}
-
     
     public DependGraph(List<E> nodeList) {
         this.setNodeList(nodeList);
     }
-
     
     public List<E> sort() {
         if (!hasSort) {
@@ -36,12 +42,10 @@ public class DependGraph<E extends IDependNode> implements IDependGraph<E> {
         }
         return sortList;
     }
-
     
     public List<E> getNodeList() {
         return nodeList;
     }
-
     
     public void setNodeList(List<E> nodeList) {
         if (null != nodeList && nodeList.size() >= 2) {
@@ -56,7 +60,6 @@ public class DependGraph<E extends IDependNode> implements IDependGraph<E> {
         }
         this.nodeList = nodeList;
     }
-
     
     private List<E> sortNodeList() {
         List<E> nodeList = getNodeList();
@@ -75,7 +78,6 @@ public class DependGraph<E extends IDependNode> implements IDependGraph<E> {
         }
         return sortList;
     }
-
     
     private void sortNodeList(DependGraphNodeAdapter<E> node, Map<String, DependGraphNodeAdapter<E>> nodeMap, List<E> sortList) {
         int status = node.nodeStatus;
@@ -95,7 +97,7 @@ public class DependGraph<E extends IDependNode> implements IDependGraph<E> {
                 srcNodeId = srcNode.getId();
             }
             sb.insert(0, id + "-->");
-            Throw.throwRuntimeException(ExceptionCodes.YT010001, sb);
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, sb.toString());
         } else {
             node.nodeStatus = 2;
             int index = node.dependIndex;
@@ -110,7 +112,7 @@ public class DependGraph<E extends IDependNode> implements IDependGraph<E> {
                 DependGraphNodeAdapter<E> dependNode = nodeMap.get(depend);
                 if (null == dependNode) {
                     depends.remove(depend);
-                    CommonLogger.warn("没有找到" + node.getId() + "的依赖" + depend + "，将忽略该依赖");
+                    CommonLogger.warn("没有找到{}的依赖{}，将忽略该依赖",node.getId(),depend);
                     if (index == depends.size()) {// 移除无效依赖之后，再检查是否分析完毕
                         sortList.add(node.node);
                         node.nodeStatus = 1;

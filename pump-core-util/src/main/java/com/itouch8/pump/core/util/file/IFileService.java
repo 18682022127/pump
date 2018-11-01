@@ -6,6 +6,15 @@ import java.util.Map;
 
 import com.itouch8.pump.web.upload.IUploadFile;
 
+/**
+ * Copy Right Information :  <br>
+ * Project :  <br>
+ * Description : 文件服务接口<br>
+ * Author : Huangzhong<br>
+ * Version : 1.0.0 <br>
+ * Since : 1.0.0 <br>
+ * Date : 2018-10-30<br>
+ */
 public interface IFileService {
 
     /**

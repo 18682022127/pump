@@ -15,12 +15,9 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.ser.BasicSerializerFactory;
 import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.util.json.serial.ISerialConfig;
 import com.itouch8.pump.util.json.serial.SerialConfigContext;
-import com.itouch8.pump.util.json.serial.stdexp.JsonBeanSerializerFactory;
-import com.itouch8.pump.util.json.serial.stdexp.JsonClassIntrospector;
 import com.itouch8.pump.util.json.serial.wrapper.IJsonWrapper;
 
 public abstract class JsonUtilsImpl {
@@ -57,12 +54,6 @@ public abstract class JsonUtilsImpl {
                 .configure(SerializationFeature.INDENT_OUTPUT, true)// 格式化输出
                 .configure(MapperFeature.AUTO_DETECT_FIELDS, false).configure(MapperFeature.AUTO_DETECT_GETTERS, true).configure(MapperFeature.AUTO_DETECT_IS_GETTERS, true).setSerializationInclusion(Include.NON_NULL);// 是否包括null值属性
 
-        // 使用自定义的类侦测器
-        JsonClassIntrospector jci = new JsonClassIntrospector();
-        mapper.setConfig(mapper.getSerializationConfig().with(jci));
-        // 使用自定义的序列化工厂类（目前只替换了Map的序列化）
-        BasicSerializerFactory sf = (BasicSerializerFactory) mapper.getSerializerFactory();
-        mapper.setSerializerFactory(new JsonBeanSerializerFactory(sf.getFactoryConfig()));
         mapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
         return mapper;
     }

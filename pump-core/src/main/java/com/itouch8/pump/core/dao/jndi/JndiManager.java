@@ -16,16 +16,16 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.PumpConfig;
 import com.itouch8.pump.core.dao.dialect.IDialect;
-import com.itouch8.pump.core.dao.exception.DaoExceptionCodes;
 import com.itouch8.pump.core.dao.util.DBHelp;
 import com.itouch8.pump.core.dao.util.DBHelp.IConnectionCallback;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.exception.Throw;
 
 
-@Component("JndiManager")
+@Component
 public class JndiManager implements ApplicationContextAware, InitializingBean {
 
     private static IJndi DEFAULT = null;
@@ -103,7 +103,7 @@ public class JndiManager implements ApplicationContextAware, InitializingBean {
         } else {
             IJndi jndi = jndiCache.get(name);
             if (null == jndi) {
-                throw Throw.createRuntimeException(DaoExceptionCodes.YT020007, name);
+                throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, "pump.core.dao.not_found_datasource", name);
             }
             return jndi;
         }
@@ -149,16 +149,16 @@ public class JndiManager implements ApplicationContextAware, InitializingBean {
     private static IDialect getDialect(String databaseProductName) {
         Map<String, IDialect> databaseProductNameDialectMapping = PumpConfig.getDatabaseProductNameDialectMapping();
         if (CoreUtils.isBlank(databaseProductName)) {
-            Throw.throwRuntimeException(DaoExceptionCodes.YT020002);
+            Throw.throwRuntimeException("pump.core.dao.database_product_name_is_empty");
         } else if (null == databaseProductNameDialectMapping) {
-            Throw.throwRuntimeException(DaoExceptionCodes.YT020003);
+            Throw.throwRuntimeException("pump.core.dao.not_config_dialect_mapping");
         } else {
             for (String key : databaseProductNameDialectMapping.keySet()) {
                 if (null != key && -1 != databaseProductName.toLowerCase().indexOf(key.toLowerCase())) {
                     return databaseProductNameDialectMapping.get(key);
                 }
             }
-            Throw.throwRuntimeException(DaoExceptionCodes.YT020004, databaseProductName);
+            Throw.throwRuntimeException("pump.core.dao.not_found_dialect", databaseProductName);
         }
         return null;
     }

@@ -2,13 +2,19 @@ package com.itouch8.pump.core.util.exception;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.List;
 
 import com.itouch8.pump.core.util.exception.Throw.PumpExceptionInnerProxy;
-import com.itouch8.pump.core.util.exception.handler.IExceptionHandler;
-import com.itouch8.pump.core.util.exception.level.ExceptionLevel;
 
 
+/**
+ * Copy Right Information :  <br>
+ * Project :  <br>
+ * Description : 平台异常类<br>
+ * Author : Huangzhong<br>
+ * Version : 1.0.0 <br>
+ * Since : 1.0.0 <br>
+ * Date : 2018-10-30<br>
+ */
 final public class PumpException extends Exception {
     
     private static final long serialVersionUID = -2159369710297472601L;
@@ -24,67 +30,36 @@ final public class PumpException extends Exception {
         this.proxy = proxy;
     }
 
-    
-    public String getTrackId() {
-        return this.proxy.getTrackId();
-    }
-
-    
-    public String getParentCode() {
-        return this.proxy.getParentCode();
-    }
-
-    
     public String getCode() {
         return this.proxy.getCode();
     }
 
-    
-    public String getView() {
-        return this.proxy.getView();
-    }
-
-    
-    public ExceptionLevel getLevel() {
-        return this.proxy.getLevel();
-    }
-
-    
     public String getShortMessage() {
-        return this.proxy.getMessage();
+        return this.proxy.getShortMessage();
     }
 
     
     @Override
     public String getMessage() {
-        return Throw.getMessage(this);
+        return this.proxy.getMessage();
     }
 
     
     public String getStackMessage() {
-        return Throw.getStackMessage(this);
+        return this.proxy.getStackMessage();
     }
 
-    
-    public List<IExceptionHandler> getHandlers() {
-        return this.proxy.getHandlers();
-    }
-
-    
     @Override
     public void printStackTrace(PrintStream s) {
-        s.print(Throw.getStackMessage(this));
-        // super.printStackTrace(s);
+        s.print(this.proxy.getStackMessage());
     }
 
     
     @Override
     public void printStackTrace(PrintWriter s) {
-        s.print(Throw.getStackMessage(this));
-        // super.printStackTrace(s);
+        s.print(this.proxy.getStackMessage());
     }
 
-    
      PumpExceptionInnerProxy getProxy() {
         return proxy;
     }

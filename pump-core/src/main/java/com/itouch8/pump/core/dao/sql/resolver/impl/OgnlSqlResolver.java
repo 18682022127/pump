@@ -3,7 +3,6 @@ package com.itouch8.pump.core.dao.sql.resolver.impl;
 import org.apache.ibatis.ognl.Ognl;
 import org.apache.ibatis.ognl.OgnlException;
 
-import com.itouch8.pump.core.dao.exception.DaoExceptionCodes;
 import com.itouch8.pump.core.dao.jndi.IJndi;
 import com.itouch8.pump.core.util.exception.Throw;
 
@@ -23,7 +22,7 @@ public class OgnlSqlResolver extends AbstractSqlResolver {
         try {
             return Ognl.getValue(exp, parameterObject);
         } catch (OgnlException e) {
-            throw Throw.createRuntimeException(DaoExceptionCodes.YT020008, e, exp);
+            throw Throw.createRuntimeException("pump.core.dao.ognl_resolver_db_params", e, exp);
         }
     }
 

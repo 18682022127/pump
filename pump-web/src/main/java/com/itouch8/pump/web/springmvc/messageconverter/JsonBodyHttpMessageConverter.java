@@ -14,7 +14,15 @@ import org.springframework.http.converter.HttpMessageNotWritableException;
 
 import com.itouch8.pump.web.annotation.JsonBodySupport;
 
-
+/**
+ * Copy Right Information :  <br>
+ * Project :  <br>
+ * Description : 添加JsonBody支持<br>
+ * Author : Huangzhong<br>
+ * Version : 1.0.0 <br>
+ * Since : 1.0.0 <br>
+ * Date : 2018-11-01<br>
+ */
 public class JsonBodyHttpMessageConverter extends AbstractGenericHttpMessageConverter<Object> implements GenericHttpMessageConverter<Object> {
 
     private MediaType jsonContentType = MediaType.APPLICATION_JSON_UTF8;

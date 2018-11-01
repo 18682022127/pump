@@ -9,16 +9,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.commons.lang.reflect.MethodUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.core.util.depends.impl.DependGraph;
 import com.itouch8.pump.core.util.depends.impl.DependNode;
 import com.itouch8.pump.core.util.env.EnvConsts;
-import com.itouch8.pump.core.util.env.PumpVersion;
 import com.itouch8.pump.core.util.exception.Throw;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 import com.itouch8.pump.core.util.logger.CommonLogger;
 
 
@@ -40,12 +39,11 @@ public class InitManage {
             synchronized (initMonitor) {
                 if (!initMonitor.get()) {
                     try {
-                        PumpVersion.checkJdkVersion();
                         long start = System.currentTimeMillis();
-                        CommonLogger.info(PumpVersion.Version + " init start...");
+                        CommonLogger.info(" init start...");
                         // 初始化
                         init();
-                        CommonLogger.info(PumpVersion.Version + " init success in " + (System.currentTimeMillis() - start) + " ms ...");
+                        CommonLogger.info(" init success in " + (System.currentTimeMillis() - start) + " ms ...");
                     } finally {
                         initMonitor.set(true);
                     }
@@ -152,7 +150,7 @@ public class InitManage {
                 this.destoryMethod = getMethod(cls, init.destory());
                 this.ignoreException = init.ignoreRuntimeException();
             } catch (Exception e) {
-                Throw.throwRuntimeException(ExceptionCodes.YT010101, e, cls.getName());
+                Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, e, cls.getName());
             }
         }
 
@@ -171,7 +169,7 @@ public class InitManage {
             } catch (Exception e) {
                 CommonLogger.error(order + " (error). the initialize method has occured exception: " + initMethod, e);
                 if (!this.ignoreException) {
-                    Throw.throwRuntimeException(ExceptionCodes.YT010201, e, id, initMethod);
+                    Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, e, id, initMethod);
                 }
             }
         }
@@ -187,7 +185,7 @@ public class InitManage {
             } catch (Exception e) {
                 CommonLogger.error(order + " (error). the destroy method has occured exception : " + destoryMethod, e);
                 if (!this.ignoreException) {
-                    Throw.throwRuntimeException(ExceptionCodes.YT010202, e, id, destoryMethod);
+                    Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, e, id, destoryMethod);
                 }
             }
         }

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.util.ObjectUtils;
 
-import com.itouch8.pump.core.service.exception.ServiceExceptionCodes;
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.core.util.exception.Throw;
@@ -40,7 +40,7 @@ public class SpringReloadableResourceBundleMessageSource extends ReloadableResou
                 List<String> bs = new ArrayList<String>(Arrays.asList(BaseConfig.getPumpLocaleBasenames()));
                 for (String basename : basenames) {
                     if (bs.contains(basename)) {
-                        Throw.createRuntimeException(ServiceExceptionCodes.YT030006, basename);
+                        Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code,"pump.core.service.locale_file_is_duplicate", basename);
                     } else {
                         bs.add(basename);
                     }

@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.dao.call.ICallResult;
-import com.itouch8.pump.core.dao.exception.DaoExceptionCodes;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.exception.Throw;
 
@@ -28,7 +28,7 @@ public class CallResult implements ICallResult {
     @Override
     public <T> T getOutputParam(String name) {
         if (!resultMaps.containsKey(name)) {
-            Throw.createRuntimeException(DaoExceptionCodes.YT020001, name);
+            Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, "pump.core.dao.not_found_ouput_params", name);
         }
         return CoreUtils.cast(resultMaps.get(name));
     }

@@ -16,10 +16,10 @@ import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 
+import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.core.util.exception.Throw;
-import com.itouch8.pump.core.util.exception.meta.ExceptionCodes;
 import com.itouch8.pump.core.util.filter.IFilter;
 import com.itouch8.pump.core.util.filter.field.IFieldFilter;
 import com.itouch8.pump.core.util.filter.method.IMethodFilter;
@@ -119,7 +119,7 @@ public class SimpleScan implements IScan {
                 }
             }
         } catch (IOException ex) {
-            Throw.throwRuntimeException(ExceptionCodes.YT010103, ex, basePackage);
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, ex, basePackage);
         }
         return candidates;
     }
@@ -162,7 +162,7 @@ public class SimpleScan implements IScan {
                 }
             }
         } catch (IOException ex) {
-            Throw.throwRuntimeException(ExceptionCodes.YT010103, ex, basePackage);
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, ex, basePackage);
         }
         return candidates;
     }

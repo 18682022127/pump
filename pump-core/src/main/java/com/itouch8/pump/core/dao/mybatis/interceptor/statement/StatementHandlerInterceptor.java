@@ -20,7 +20,6 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.itouch8.pump.core.dao.dialect.IDialect;
 import com.itouch8.pump.core.dao.dialect.impl.SybaseASE;
-import com.itouch8.pump.core.dao.exception.DaoExceptionCodes;
 import com.itouch8.pump.core.dao.jndi.IJndi;
 import com.itouch8.pump.core.dao.jndi.JndiManager;
 import com.itouch8.pump.core.dao.mybatis.MybatisUtils;
@@ -113,7 +112,7 @@ public class StatementHandlerInterceptor extends AbstractInterceptor {
             }
             page.setPageProperty(total);
         } catch (SQLException e) {
-            Throw.throwRuntimeException(DaoExceptionCodes.YT020005, e);
+            Throw.throwRuntimeException("pump.core.dao.calculate_totals", e);
         } finally {
             try {
                 if (null != rs) {
