@@ -1,6 +1,7 @@
 package com.itouch8.pump.core.util.exception.handler.impl;
 
 import com.itouch8.pump.core.util.exception.PumpRuntimeException;
+import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.core.util.logger.CommonLogger;
 
 
@@ -11,7 +12,7 @@ public class DetailExceptionHandler extends AbstractExceptionHandler {
     
     @Override
     protected Object handlerPumpRuntimeException(PumpRuntimeException exception) {
-        String msg = exception.getMessage();
+        String msg = Throw.getMessage(exception);
         if (isWriteErrorLogger()) {
             CommonLogger.error(exception);
         }

@@ -21,34 +21,43 @@ final public class PumpRuntimeException extends RuntimeException {
         this.proxy = proxy;
     }
 
+    
+    public String getTrackId() {
+        return this.proxy.getTrackId();
+    }
+
+   
     public String getCode() {
         return this.proxy.getCode();
     }
 
-    @Override
-    public String getMessage() {
-        return this.getShortMessage();
-    }
-    
     public String getShortMessage() {
         return this.proxy.getMessage();
     }
 
     
-    public String getStackMessage() {
-        return this.proxy.getStackMessage();
+    @Override
+    public String getMessage() {
+        return Throw.getMessage(this);
     }
 
-    @Override
-    public void printStackTrace(PrintStream s) {
-        s.print(getStackMessage());
+    
+    public String getStackMessage() {
+        return Throw.getStackMessage(this);
     }
     
     @Override
-    public void printStackTrace(PrintWriter s) {
-        s.print(getStackMessage());
+    public void printStackTrace(PrintStream s) {
+        s.print(Throw.getStackMessage(this));
     }
 
+    
+    @Override
+    public void printStackTrace(PrintWriter s) {
+        s.print(Throw.getStackMessage(this));
+    }
+
+    
      PumpExceptionInnerProxy getProxy() {
         return proxy;
     }
