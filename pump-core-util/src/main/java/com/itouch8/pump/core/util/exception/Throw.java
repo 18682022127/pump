@@ -25,6 +25,11 @@ public class Throw {
     public static void throwRuntimeException(String code, Object... args) {
         throw createRuntimeException(code, ReturnCodes.SYSTEM_ERROR.msg,null, args);
     }
+    
+    public static void throwRuntimeException(String code,String message, Object... args) {
+        throw createRuntimeException(code, message,null, args);
+    }
+
 
     public static void throwRuntimeException(Throwable e) {
         throw createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, ReturnCodes.SYSTEM_ERROR.msg,e);
@@ -112,14 +117,7 @@ public class Throw {
     private static String getShortMessage0(Throwable e, String lineSeparator) {
         StringBuffer sb = new StringBuffer();
         PumpExceptionInnerProxy proxy = createRuntimeException(e).getProxy();
-        if (null != proxy.getTrackId()) {
-            //sb.append("TrackId:" + proxy.getTrackId()).append(lineSeparator);
-        }
         String message = proxy.getMessage();
-        String code = proxy.getCode();
-        if (null != code && !code.equals(message)) {
-            sb.append("Code:" + code).append(lineSeparator);
-        }
         if (null != message) {
             sb.append(message).append(lineSeparator);
         }

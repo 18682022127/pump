@@ -15,6 +15,15 @@ import com.itouch8.pump.web.servlet.ServletHelp;
 import com.itouch8.pump.web.upload.IUploadFile;
 
 
+/**
+ * Copy Right Information :  <br>
+ * Project :  <br>
+ * Description : IUploadFile参数解析器<br>
+ * Author : Huangzhong<br>
+ * Version : 1.0.0 <br>
+ * Since : 1.0.0 <br>
+ * Date : 2018-11-01<br>
+ */
 public class UploadFileArgumentResolver implements HandlerMethodArgumentResolver {
 
     
@@ -25,6 +34,7 @@ public class UploadFileArgumentResolver implements HandlerMethodArgumentResolver
     }
 
     
+    @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest request = null;
         if (webRequest instanceof ServletRequestAttributes) {

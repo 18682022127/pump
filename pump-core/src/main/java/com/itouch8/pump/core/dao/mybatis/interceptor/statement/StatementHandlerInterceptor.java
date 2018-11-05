@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
@@ -17,22 +18,19 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.data.domain.Page;
 
 import com.itouch8.pump.core.dao.dialect.IDialect;
-import com.itouch8.pump.core.dao.dialect.impl.SybaseASE;
-import com.itouch8.pump.core.dao.jndi.IJndi;
 import com.itouch8.pump.core.dao.jndi.JndiManager;
-import com.itouch8.pump.core.dao.mybatis.MybatisUtils;
 import com.itouch8.pump.core.dao.mybatis.interceptor.AbstractInterceptor;
 import com.itouch8.pump.core.dao.mybatis.page.PageAdapter;
 import com.itouch8.pump.core.dao.mybatis.parameter.ExpressionParameterHandler;
-import com.itouch8.pump.core.dao.sql.SqlManager;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.exception.Throw;
 import com.itouch8.pump.core.util.page.IPage;
 
 
-@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class})
+@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class,Integer.class})
         // @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class,
         // Integer.class })
 })
@@ -59,36 +57,36 @@ public class StatementHandlerInterceptor extends AbstractInterceptor {
         } else {
             mappedStatement = ((ExpressionParameterHandler) ph).getMappedStatement();
         }
-
-        String sqlId = mappedStatement.getId();
-        IJndi jndi = JndiManager.getJndi(MybatisUtils.getDataSource(sqlId));
+        
         String sql = boundSql.getSql();
         sql = CoreUtils.formatWhitespace(sql);// 格式化SQL字符串
-        sql = SqlManager.doIntercept(jndi, sql, parameterObject);
         meta.setValue("boundSql.sql", sql);
+        
+        IPage page = findPageObject(parameterObject);
 
-        // 分页
-        RowBounds bounds = (RowBounds) meta.getValue("rowBounds");
-        if (bounds instanceof PageAdapter) {
-            PageAdapter pa = (PageAdapter) bounds;
-            IPage page = null;
-            if (null != pa.getPage()) {
-                page = pa.getPage();
-                Connection conn = (Connection) invocation.getArgs()[0];
-                IDialect dialect = JndiManager.getDialect(conn);// 数据库方言
-                setPageProperties(page, mappedStatement.getStatementLog(), conn, ph, dialect, sql);
-                // 分页SQL
-                String pageSql = dialect.getScopeSql(sql, page.getStart(), page.getPageSize());
-                meta.setValue("rowBounds", RowBounds.DEFAULT);// 替换之前的指标
-                meta.setValue("boundSql.sql", pageSql);
-                // 特殊处理
-                if (dialect instanceof SybaseASE) {
-                    // 一般地，分页查询不处于一个事务中，但由于Spring的注解事务，会处于事务中，这里先结束事务，以便可以执行分页查询SQL
-                    sybaseAse(conn);
+        if (null != page) {
+            Connection conn = (Connection) invocation.getArgs()[0];
+            IDialect dialect = JndiManager.getDialect(conn);// 数据库方言
+            setPageProperties(page, mappedStatement.getStatementLog(), conn, ph, dialect, sql);
+            // 分页SQL
+            String pageSql = dialect.getScopeSql(sql, page.getStart(), page.getPageSize());
+            meta.setValue("boundSql.sql", pageSql);
+        }
+        return invocation.proceed();
+    }
+    
+    
+    public IPage findPageObject(Object parameterObj) {
+        if (parameterObj instanceof Page<?>) {
+            return (IPage) parameterObj;
+        } else if (parameterObj instanceof Map) {
+            for (Object val : ((Map<?, ?>) parameterObj).values()) {
+                if (val instanceof IPage) {
+                    return (IPage) val;
                 }
             }
         }
-        return invocation.proceed();
+        return null;
     }
 
     
@@ -112,7 +110,7 @@ public class StatementHandlerInterceptor extends AbstractInterceptor {
             }
             page.setPageProperty(total);
         } catch (SQLException e) {
-            Throw.throwRuntimeException("pump.core.dao.calculate_totals", e);
+            Throw.throwRuntimeException(e);
         } finally {
             try {
                 if (null != rs) {
@@ -126,15 +124,6 @@ public class StatementHandlerInterceptor extends AbstractInterceptor {
                 }
             } catch (Exception e) {
             }
-        }
-    }
-
-    private void sybaseAse(Connection conn) {
-        try {
-            conn.commit();
-            conn.setAutoCommit(false);
-        } catch (SQLException e) {
-            // ignore
         }
     }
 }

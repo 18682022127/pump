@@ -7,7 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.itouch8.pump.core.dao.mybatis.mapper.impl.DataStreamMapperMethodExecutor;
 import com.itouch8.pump.core.service.request.IRequestInfo;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.track.Tracker;
@@ -35,7 +34,6 @@ public class RequestFilter extends AbstractSkipPathMatcherFilter {
         } finally {
             CoreUtils.clearThreadCache();
             JsonBodySupport.removeJsonBodyInfoFormContext();
-            DataStreamMapperMethodExecutor.clearDataStreamReader();
             ServletHelp.remove();
             Tracker.stop();
         }

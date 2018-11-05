@@ -12,9 +12,7 @@ import com.itouch8.pump.core.dao.dialect.impl.MySQL;
 import com.itouch8.pump.core.dao.dialect.impl.Oracle;
 import com.itouch8.pump.core.dao.dialect.impl.SybaseASE;
 import com.itouch8.pump.core.dao.dialect.impl.SybaseIQ;
-import com.itouch8.pump.core.dao.mybatis.mapper.IMapperMethodExecutor;
 import com.itouch8.pump.core.dao.sql.interceptor.ISqlInterceptor;
-import com.itouch8.pump.core.dao.sql.mapper.ISqlMapperStrategy;
 import com.itouch8.pump.core.dao.sql.resolver.ISqlResolver;
 import com.itouch8.pump.core.service.request.IRequestInfoFactory;
 import com.itouch8.pump.core.util.annotation.Configable;
@@ -82,11 +80,6 @@ public class PumpConfig extends BaseConfig {
     @Configable
     private static List<ISqlResolver> sqlResolvers;
 
-    
-    @Configable
-    private static List<IMapperMethodExecutor> mapperMethodExecutors;
-
-    
     @Configable
     private static LinkedHashMap<String, IDialect> databaseProductNameDialectMapping = defaultDatabaseProductNameDialectMapping;
 
@@ -94,9 +87,6 @@ public class PumpConfig extends BaseConfig {
     @Configable
     private static Map<Pattern, String> mybatisLogTypeMapping;
 
-    
-    @Configable
-    private static ISqlMapperStrategy sqlMapperStrategy;
 
     
     @Configable
@@ -215,17 +205,6 @@ public class PumpConfig extends BaseConfig {
     public void setSqlResolvers(List<ISqlResolver> sqlResolvers) {
         PumpConfig.sqlResolvers = sqlResolvers;
     }
-
-    
-    public static List<IMapperMethodExecutor> getMapperMethodExecutors() {
-        return mapperMethodExecutors;
-    }
-
-    
-    public void setMapperMethodExecutors(List<IMapperMethodExecutor> mapperMethodExecutors) {
-        PumpConfig.mapperMethodExecutors = mapperMethodExecutors;
-    }
-
     
     public static Map<String, IDialect> getDatabaseProductNameDialectMapping() {
         return databaseProductNameDialectMapping;
@@ -250,17 +229,6 @@ public class PumpConfig extends BaseConfig {
     public void setMybatisLogTypeMapping(Map<Pattern, String> mybatisLogTypeMapping) {
         PumpConfig.mybatisLogTypeMapping = mybatisLogTypeMapping;
     }
-
-    
-    public static ISqlMapperStrategy getSqlMapperStrategy() {
-        return getComponent(sqlMapperStrategy, ISqlMapperStrategy.class);
-    }
-
-    
-    public void setSqlMapperStrategy(ISqlMapperStrategy sqlMapperStrategy) {
-        PumpConfig.sqlMapperStrategy = sqlMapperStrategy;
-    }
-
     
     public static IRequestInfoFactory getRequestInfoFactory() {
         return getComponent(requestInfoFactory, IRequestInfoFactory.class);

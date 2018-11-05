@@ -66,26 +66,11 @@ public class MybatisUtils {
         return getJndiSqlSessionTemplateMapper(statement).dao;
     }
 
-    
-    public static void openBatchType() {
-        for (DaoTemplateMapper mapper : mappers) {
-            mapper.dao.openBatchType();
-        }
-    }
-
-    
-    public static void resetExecutorType() {
-        for (DaoTemplateMapper mapper : mappers) {
-            mapper.dao.resetExecutorType();
-        }
-    }
-
-    
     private static DaoTemplateMapper getJndiSqlSessionTemplateMapper(String statement) {
         statement = SqlManager.getExecuteSqlId(statement);
         DaoTemplateMapper jdtm = mapper.get(statement);
         if (null == jdtm) {
-            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code, "pump.core.dao.not_found_mybatis_sqlId", statement);
+            throw Throw.createRuntimeException(ReturnCodes.SYSTEM_ERROR.code, "pump.core.dao.not_found_mybatis_sqlId", statement);
         }
         return jdtm;
     }

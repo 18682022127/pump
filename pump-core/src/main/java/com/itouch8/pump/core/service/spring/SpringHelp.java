@@ -56,7 +56,7 @@ public class SpringHelp implements ApplicationContextAware {
     
     public static ApplicationContext getApplicationContext() {
         if (null == context) {
-            Throw.throwRuntimeException("pump.core.service.spring_not_init");
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code,"pump.core.service.spring_not_init");
         }
         return context;
     }

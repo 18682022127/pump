@@ -17,10 +17,6 @@
 			<groupId>com.itouch8</groupId>
 			<artifactId>pump-util</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-		</dependency>
 		<!-- Spring框架依赖开始 -->
 
 		<!-- 测试依赖开始 -->
