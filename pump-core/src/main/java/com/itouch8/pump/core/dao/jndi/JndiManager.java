@@ -13,7 +13,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.itouch8.pump.ReturnCodes;
@@ -24,8 +23,6 @@ import com.itouch8.pump.core.dao.util.DBHelp.IConnectionCallback;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.exception.Throw;
 
-
-@Component
 public class JndiManager implements ApplicationContextAware, InitializingBean {
 
     private static IJndi DEFAULT = null;
@@ -149,16 +146,16 @@ public class JndiManager implements ApplicationContextAware, InitializingBean {
     private static IDialect getDialect(String databaseProductName) {
         Map<String, IDialect> databaseProductNameDialectMapping = PumpConfig.getDatabaseProductNameDialectMapping();
         if (CoreUtils.isBlank(databaseProductName)) {
-            Throw.throwRuntimeException("pump.core.dao.database_product_name_is_empty");
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code,"pump.core.dao.database_product_name_is_empty");
         } else if (null == databaseProductNameDialectMapping) {
-            Throw.throwRuntimeException("pump.core.dao.not_config_dialect_mapping");
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code,"pump.core.dao.not_config_dialect_mapping");
         } else {
             for (String key : databaseProductNameDialectMapping.keySet()) {
                 if (null != key && -1 != databaseProductName.toLowerCase().indexOf(key.toLowerCase())) {
                     return databaseProductNameDialectMapping.get(key);
                 }
             }
-            Throw.throwRuntimeException("pump.core.dao.not_found_dialect", databaseProductName);
+            Throw.throwRuntimeException(ReturnCodes.SYSTEM_ERROR.code,"pump.core.dao.not_found_dialect", databaseProductName);
         }
         return null;
     }

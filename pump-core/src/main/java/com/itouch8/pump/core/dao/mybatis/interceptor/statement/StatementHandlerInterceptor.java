@@ -17,13 +17,11 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.data.domain.Page;
 
 import com.itouch8.pump.core.dao.dialect.IDialect;
 import com.itouch8.pump.core.dao.jndi.JndiManager;
 import com.itouch8.pump.core.dao.mybatis.interceptor.AbstractInterceptor;
-import com.itouch8.pump.core.dao.mybatis.page.PageAdapter;
 import com.itouch8.pump.core.dao.mybatis.parameter.ExpressionParameterHandler;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.exception.Throw;

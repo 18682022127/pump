@@ -26,14 +26,11 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.expression.spel.support.StandardTypeConverter;
 import org.springframework.expression.spel.support.StandardTypeLocator;
-import org.springframework.stereotype.Component;
 
 import com.itouch8.pump.ReturnCodes;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.exception.Throw;
 
-
-@Component
 public class SpringHelp implements ApplicationContextAware {
 
     
@@ -42,7 +39,6 @@ public class SpringHelp implements ApplicationContextAware {
     
     private static Properties placeholderPropertis;
 
-    
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
         context = applicationContext;
