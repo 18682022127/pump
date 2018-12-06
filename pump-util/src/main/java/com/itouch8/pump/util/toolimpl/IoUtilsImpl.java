@@ -25,6 +25,7 @@ import org.springframework.util.ResourceUtils;
 import com.itouch8.pump.core.util.CoreUtils;
 import com.itouch8.pump.core.util.config.BaseConfig;
 import com.itouch8.pump.core.util.exception.Throw;
+import com.itouch8.pump.util.Tool;
 
 
 public abstract class IoUtilsImpl {
@@ -204,5 +205,20 @@ public abstract class IoUtilsImpl {
 
     private ResourcePatternResolver getResourcePatternResolver() {
         return BaseConfig.getResourcePatternResolver();
+    }
+    
+    public void merge(OutputStream os,InputStream ...inputStreams) {
+    	if(Tool.CHECK.isEmpty(inputStreams)) {
+    		return;
+    	}
+    	if(inputStreams.length == 1) {
+    		copy(inputStreams[0], os);
+    		return;
+    	}
+    	
+    	for (InputStream inputStream : inputStreams) {
+    		copy(inputStream, os);
+		}
+    	
     }
 }
