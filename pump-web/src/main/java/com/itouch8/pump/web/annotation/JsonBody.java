@@ -29,7 +29,7 @@ public @interface JsonBody {
     
     Class<? extends IJsonWrapper> wrapperClass() default DefaultJsonWrapper.class;
 
-    public class DefaultJsonWrapper implements IJsonWrapper {
+    class DefaultJsonWrapper implements IJsonWrapper {
         @Override
         public Object wrap(Object original) {
             throw new UnsupportedOperationException("DefaultJsonWrapper only used to marked the default value");
