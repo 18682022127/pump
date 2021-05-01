@@ -40,7 +40,7 @@
 		<freemarker.version>2.3.23</freemarker.version>
 		<xmlbeans.version>2.6.0</xmlbeans.version>
 		<quartz.version>2.2.3</quartz.version>
-		<jackson.version>2.7.0</jackson.version>
+		<jackson.version>2.12.3</jackson.version>
 		<guava.version>19.0</guava.version>
 		<ehcache.version>2.6.11</ehcache.version>
 		
