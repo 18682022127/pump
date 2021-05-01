@@ -65,7 +65,7 @@
 		<httpcomponents-client.version>4.5.3</httpcomponents-client.version>
 		
 		<converter-simplexml.version>2.3.0</converter-simplexml.version>
-		<xstream.version>1.4.10</xstream.version>
+		<xstream.version>1.4.16</xstream.version>
 		<retrofit.version>2.3.0</retrofit.version>
 		
 		<baiduai.version>4.0.0</baiduai.version>
