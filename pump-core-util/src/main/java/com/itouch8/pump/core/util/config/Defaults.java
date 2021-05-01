@@ -140,7 +140,7 @@ public class Defaults {
                         rs = cls.cast(CoreUtils.convertStringToTargetClass(vp, (Class<? extends Number>) cls));
                     } else if (Enum.class.isAssignableFrom(cls)) {
                         Class enumClass = (Class) cls;
-                        rs = (T)cls.cast(Enum.valueOf((Class) enumClass, vp));
+                        //rs = cls.cast(Enum.valueOf((Class) enumClass, vp));
                     } else {
                         try {
                             rs = cls.cast(ReflectUtils.newInstance(Class.forName(vp)));

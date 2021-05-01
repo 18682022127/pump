@@ -71,6 +71,7 @@
 		<baiduai.version>4.0.0</baiduai.version>
 		
 		<bouncycastle.version>1.45</bouncycastle.version>
+		<minio.version>8.2.1</minio.version>
 
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.22</slf4j.version>
@@ -562,6 +563,12 @@
 				<scope>test</scope>
 			</dependency>
 			<!-- 测试依赖结束 -->
+			<!-- https://mvnrepository.com/artifact/io.minio/minio -->
+			<dependency>
+				<groupId>io.minio</groupId>
+				<artifactId>minio</artifactId>
+				<version>${minio.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
