@@ -53,7 +53,7 @@
 		<olap4j.version>1.2.0</olap4j.version>
 		<groovy.version>2.4.12</groovy.version>
 
-		<poi.version>3.15</poi.version>
+		<poi.version>4.1.1</poi.version>
 		<jett-core.version>0.10.0</jett-core.version>
 		<jxls-core.version>2.3.0</jxls-core.version>
 		<jxls-poi.version>1.0.11</jxls-poi.version>
